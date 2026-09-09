@@ -8,47 +8,51 @@ services:
       dockerfile: deployments/Dockerfile.backend
     ports:
       - "8000:8000"
+    env_file: .env
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://sih_admin:password@postgres:5432/sih26184_app
+      - POSTGRES_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
-      - POSTGRES_USER=sih_admin
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=sih26184_app
-      - PG_ENCRYPTION_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - PG_ENCRYPTION_KEY=${PG_ENCRYPTION_KEY}
       - NEO4J_URI=bolt://neo4j:7687
       - NEO4J_HTTP_URI=http://neo4j:7474
       - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=password
-      - REDIS_URL=redis://redis:6379/0
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - JWT_SECRET_KEY=your-super-secret-key-change-in-production-min-64-chars-long!
-      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
       - JWT_REFRESH_TOKEN_EXPIRE_DAYS=7
-      - CORS_ORIGINS=["*"]
+      - CORS_ORIGINS=${CORS_ORIGINS}
       - RATE_LIMIT_PER_USER=100
       - RATE_LIMIT_PER_IP=1000
-      - PINATA_API_KEY=mock_key
-      - PINATA_API_SECRET=mock_secret
-      - WHATSAPP_API_TOKEN=mock_token
-      - WHATSAPP_PHONE_NUMBER_ID=mock_number_id
-      - WHATSAPP_WEBHOOK_VERIFY_TOKEN=verify_token_here
-      - SENDGRID_API_KEY=mock_key
-      - TWILIO_ACCOUNT_SID=mock_sid
-      - TWILIO_AUTH_TOKEN=mock_token
-      - TWILIO_PHONE_NUMBER=+1234567890
+      - PINATA_API_KEY=${PINATA_API_KEY:-mock_key}
+      - PINATA_API_SECRET=${PINATA_API_SECRET:-mock_secret}
+      - WHATSAPP_API_TOKEN=${WHATSAPP_API_TOKEN:-mock_token}
+      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID:-mock_number_id}
+      - WHATSAPP_WEBHOOK_VERIFY_TOKEN=${WHATSAPP_WEBHOOK_VERIFY_TOKEN:-verify_token_here}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY:-mock_key}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-mock_sid}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-mock_token}
+      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER:-+1234567890}
+      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
+      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET}
       - APP_NAME=SIH26184
       - APP_VERSION=1.0.0
-      - DEBUG=true
+      - DEBUG=false
       - LOG_LEVEL=INFO
-      - CELERY_BROKER_URL=redis://redis:6379/1
-      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@redis:6379/2
       - QDRANT_HOST=qdrant
       - QDRANT_PORT=6333
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
-      - SUPABASE_URL=
-      - SUPABASE_KEY=
+      - SUPABASE_URL=${SUPABASE_URL:-}
+      - SUPABASE_KEY=${SUPABASE_KEY:-}
     depends_on:
       postgres:
         condition: service_healthy
@@ -66,16 +70,17 @@ services:
 
   postgres:
     image: postgres:16-alpine
+    env_file: .env
     environment:
-      - POSTGRES_USER=sih_admin
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=sih26184_app
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U sih_admin -d sih26184_app"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -83,8 +88,9 @@ services:
 
   neo4j:
     image: neo4j:5-community
+    env_file: .env
     environment:
-      - NEO4J_AUTH=neo4j/password
+      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
       - NEO4J_PLUGINS=["apoc"]
       - NEO4J_dbms_memory_heap_initial__size=512m
       - NEO4J_dbms_memory_heap_max__size=512m
@@ -110,7 +116,7 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
-    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --appendonly yes
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru --appendonly yes
     volumes:
       - redis_data:/data
     healthcheck:
@@ -156,14 +162,14 @@ services:
       dockerfile: deployments/Dockerfile.backend
     command: celery -A api.tasks.celery_app worker --loglevel=info
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://sih_admin:password@postgres:5432/sih26184_app
+      - POSTGRES_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - POSTGRES_HOST=postgres
       - NEO4J_URI=bolt://neo4j:7687
       - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=password
-      - REDIS_URL=redis://redis:6379/0
-      - CELERY_BROKER_URL=redis://redis:6379/1
-      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@redis:6379/2
     depends_on:
       - postgres
       - neo4j

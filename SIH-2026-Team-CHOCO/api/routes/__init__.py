@@ -55,6 +55,12 @@ def include_routers():
         logger.warning(f"Could not load auth router: {e}")
 
     try:
+        from api.routes.auth_google import router as auth_google_router
+        api_router.include_router(auth_google_router, tags=["Google OAuth"])
+    except Exception as e:
+        logger.warning(f"Could not load auth_google router: {e}")
+
+    try:
         from api.routes.admin import router as admin_router
         api_router.include_router(admin_router, prefix="/admin", tags=["Administration"])
     except Exception as e:

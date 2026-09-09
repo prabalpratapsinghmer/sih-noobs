@@ -20,6 +20,7 @@ pnpm-debug.log*
 *.log
 
 # Editor and AI tool scratch dirs
+.agents/
 .claude/
 .vscode/
 .idea/

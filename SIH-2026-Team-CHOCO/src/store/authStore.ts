@@ -42,10 +42,11 @@ interface AuthState {
     phone?: string
   }) => Promise<{ success: boolean; error?: string }>
   loginWithGoogle: (customPayload?: {
-    email: string
-    name: string
+    email?: string
+    name?: string
     avatar_url?: string
     google_id?: string
+    credential?: string
   }) => Promise<{ success: boolean; error?: string }>
   logout: () => Promise<void>
   checkSession: () => Promise<void>

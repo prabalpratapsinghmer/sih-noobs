@@ -97,7 +97,7 @@ export const UniversalChatbot: React.FC = () => {
     {
       id: 'welcome-msg',
       sender: 'bot',
-      text: `👋 Greetings! I am **CyberCell Sovereign AI Assistant & Knowledge Engine**.\n\nI am equipped with a comprehensive knowledge base covering:\n• **Day-to-day life, general science, math, productivity, cooking & everyday assistance**\n• **Cybersecurity, scam mitigation, 1930 National Portal recovery & digital safety**\n• **Indian Legal framework (CrPC § 91, BNS 2023, IT Act 2000, RBI KYC directives)**\n• **Banking forensics, GNN mule graph analysis & ATM prediction heuristics**\n• **Software engineering, coding, physics & general question answering**\n\nHow can I help you today? Feel free to ask anything!`,
+      text: `👋 Greetings! I am **GAURDIAN Sovereign AI Assistant & Knowledge Engine**.\n\nI am equipped with a comprehensive knowledge base covering:\n• **Day-to-day life, general science, math, productivity, cooking & everyday assistance**\n• **Cybersecurity, scam mitigation, 1930 National Portal recovery & digital safety**\n• **Indian Legal framework (CrPC § 91, BNS 2023, IT Act 2000, RBI KYC directives)**\n• **Banking forensics, GNN mule graph analysis & ATM prediction heuristics**\n• **Software engineering, coding, physics & general question answering**\n\nHow can I help you today? Feel free to ask anything!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       latencyMs: 18,
     },
@@ -252,7 +252,7 @@ export const UniversalChatbot: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="font-sans text-sm font-bold text-white tracking-tight">
-                        CyberCell Universal AI Copilot
+                        GAURDIAN Universal AI Copilot
                       </h3>
                       <Badge variant="live">EXPANDED DATASET</Badge>
                     </div>

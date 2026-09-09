@@ -61,7 +61,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
       },
     ],
     admissibility:
-      'Electronic notices transmitted via CyberCell automated dispatch carry cryptographic hash anchors compliant with Section 65B of the Indian Evidence Act 1872 and Section 63 of the Bharatiya Sakshya Adhiniyam 2023.',
+      'Electronic notices transmitted via GAURDIAN automated dispatch carry cryptographic hash anchors compliant with Section 65B of the Indian Evidence Act 1872 and Section 63 of the Bharatiya Sakshya Adhiniyam 2023.',
     actionItems: [
       'Automated dispatch to 42 Scheduled Commercial Banks via National Nodal Registry',
       'Instant generation of tamper-evident PDF notice with QR verification code',
@@ -129,7 +129,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
       },
     ],
     admissibility:
-      'NPCI UTR transaction traces and clearing switch audit logs provided directly into CyberCell ledger.',
+      'NPCI UTR transaction traces and clearing switch audit logs provided directly into GAURDIAN ledger.',
     actionItems: [
       'Universal 1-click broadcast to all scheduled banks',
       'Real-time SMS & WhatsApp victim notification with reference token',
@@ -221,7 +221,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
       },
       {
         title: 'Police Radio & Secure Mesh Communications',
-        text: 'Encrypted tactical mesh network operates on 154.250 MHz digital voice with GPS burst telemetry every 15 seconds. Direct integration with CyberCell Command HQ dashboard.',
+        text: 'Encrypted tactical mesh network operates on 154.250 MHz digital voice with GPS burst telemetry every 15 seconds. Direct integration with GAURDIAN Command HQ dashboard.',
         codeRef: 'Police Wireless Grid Directive',
       },
       {
@@ -311,7 +311,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
     title: 'Platform Cryptographic Security & AES-256-GCM Architecture',
     category: 'SECURITY',
     statute: 'Government of India National Cyber Security Policy & ISO/IEC 27001 Standard',
-    authority: 'CyberCell Information Security Directorate',
+    authority: 'GAURDIAN Information Security Directorate',
     effectiveDate: 'Cryptographic Policy v4.2',
     summary:
       'Comprehensive security specification governing data-in-transit, data-at-rest encryption, zero-knowledge role access, and tamper-proof SHA-256 Merkle tree evidence anchoring.',
@@ -329,7 +329,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
       {
         title: 'Strict Role-Based Access Control (RBAC)',
         text: 'Clearance hierarchy: Level 0 (Citizen Intake), Level 1 (Field Constable), Level 2 (Inspector / Tactical HQ), Level 3 (Supervisory Admin / Director Moksh) with biometric/hardware MFA enforcement.',
-        codeRef: 'CyberCell Security Matrix',
+        codeRef: 'GAURDIAN Security Matrix',
       },
     ],
     admissibility:
@@ -345,7 +345,7 @@ export const STATUTORY_DOCUMENTS: Record<string, PolicyDocument> = {
     title: 'Sovereign Privacy Policy & Citizen Data Protection',
     category: 'GOVERNANCE',
     statute: 'Digital Personal Data Protection Act, 2023 (DPDP Act) & IT Rules 2011',
-    authority: 'Data Protection Board of India & CyberCell Governance Directorate',
+    authority: 'Data Protection Board of India & GAURDIAN Governance Directorate',
     effectiveDate: 'Compliant with DPDP Act 2023',
     summary:
       'Citizen privacy charter detailing lawful basis of data processing for cybercrime prevention, data minimization principles, retention limits, and grievance redressal channels.',
@@ -398,7 +398,7 @@ export const StatutoryModal: React.FC<StatutoryModalProps> = ({ documentId, onCl
   const currentDoc = STATUTORY_DOCUMENTS[activeDocId] || STATUTORY_DOCUMENTS['crpc-91']
 
   const handleCopyCitation = () => {
-    const citation = `[CYBERCELL STATUTORY DIRECTIVE]\nDocument: ${currentDoc.title}\nStatute: ${currentDoc.statute}\nAuthority: ${currentDoc.authority}\nEffective Date: ${currentDoc.effectiveDate}\nVerification Hash: 0x${Math.random().toString(16).substring(2, 10)}${Math.random().toString(16).substring(2, 10)}`
+    const citation = `[GAURDIAN STATUTORY DIRECTIVE]\nDocument: ${currentDoc.title}\nStatute: ${currentDoc.statute}\nAuthority: ${currentDoc.authority}\nEffective Date: ${currentDoc.effectiveDate}\nVerification Hash: 0x${Math.random().toString(16).substring(2, 10)}${Math.random().toString(16).substring(2, 10)}`
     navigator.clipboard.writeText(citation)
     setCopied(true)
     setTimeout(() => setCopied(false), 2500)

@@ -1,5 +1,5 @@
 /**
- * API client module for CyberCell platform.
+ * API client module for GAURDIAN platform.
  * Supports dual-mode: Live FastAPI backend (D:\MokshSIH) and offline high-fidelity telemetry simulation.
  */
 
@@ -393,7 +393,7 @@ class ApiService {
       }
     }
     return {
-      response: `[CYBERCELL_CORE] Multi-hop graph analysis complete. 3 layer mule ring detected originating from victim account ending in *4829. 8 downstream accounts flagged with risk coefficient > 0.85. Layer 2 funds dispersed across Axis, HDFC, and Canara Bank VPAs.`,
+      response: `[GAURDIAN_CORE] Multi-hop graph analysis complete. 3 layer mule ring detected originating from victim account ending in *4829. 8 downstream accounts flagged with risk coefficient > 0.85. Layer 2 funds dispersed across Axis, HDFC, and Canara Bank VPAs.`,
       latency_ms: 145,
     }
   }
@@ -449,7 +449,7 @@ class ApiService {
           user: {
             user_id: 'usr_moksh_admin_001',
             username: 'Moksh',
-            email: 'moksh@cybercell.gov.in',
+            email: 'moksh@gaurdian.gov.in',
             role: 'ADMIN',
             station: 'Central Cyber Defense Directorate',
             badge_number: 'DIR-MOKSH-01',
@@ -462,7 +462,7 @@ class ApiService {
           user: {
             user_id: 'usr_moksh_admin_001',
             username: 'Moksh',
-            email: 'admin@cybercell.gov.in',
+            email: 'admin@gaurdian.gov.in',
             role: 'ADMIN',
             station: 'Central Cyber Defense Directorate',
             badge_number: 'DIR-MOKSH-01',
@@ -475,7 +475,7 @@ class ApiService {
           user: {
             user_id: 'usr_vikram_insp_002',
             username: 'inspector_vikram',
-            email: 'vikram@cybercell.gov.in',
+            email: 'vikram@gaurdian.gov.in',
             role: 'INSPECTOR',
             station: 'Indiranagar Tactical Cyber Cell',
             badge_number: 'IN-KA-BLR-0847',
@@ -487,7 +487,7 @@ class ApiService {
           user: {
             user_id: 'usr_vikram_insp_002',
             username: 'inspector_vikram',
-            email: 'vikram@cybercell.gov.in',
+            email: 'vikram@gaurdian.gov.in',
             role: 'INSPECTOR',
             station: 'Indiranagar Tactical Cyber Cell',
             badge_number: 'IN-KA-BLR-0847',
@@ -499,7 +499,7 @@ class ApiService {
           user: {
             user_id: 'usr_chetan_const_003',
             username: 'patrol_chetan',
-            email: 'chetan@cybercell.gov.in',
+            email: 'chetan@gaurdian.gov.in',
             role: 'CONSTABLE',
             station: 'Quick Response Intercept Unit',
             badge_number: 'PATROL-DELTA-4',
@@ -511,7 +511,7 @@ class ApiService {
           user: {
             user_id: 'usr_chetan_const_003',
             username: 'patrol_chetan',
-            email: 'chetan@cybercell.gov.in',
+            email: 'chetan@gaurdian.gov.in',
             role: 'CONSTABLE',
             station: 'Quick Response Intercept Unit',
             badge_number: 'PATROL-DELTA-4',
@@ -591,7 +591,7 @@ class ApiService {
       const dynamicUser = {
         user_id: `usr_session_${Date.now()}`,
         username: rawName,
-        email: rawName.includes('@') ? rawName : `${rawName.toLowerCase()}@cybercell.gov.in`,
+        email: rawName.includes('@') ? rawName : `${rawName.toLowerCase()}@gaurdian.gov.in`,
         role: isAdmin ? 'ADMIN' : 'INSPECTOR',
         station: 'Tactical Cyber Command Center',
         badge_number: `CYBER-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -660,7 +660,7 @@ class ApiService {
     },
 
     googleAuth: async (payload: {
-      email: string
+      email?: string
       name?: string
       avatar_url?: string
       google_id?: string
@@ -681,7 +681,7 @@ class ApiService {
       }
 
       // Sovereign Google SSO Session Fallback
-      const email = payload.email || 'officer.google@cybercell.gov.in'
+      const email = payload.email || 'officer.google@gaurdian.gov.in'
       const username = payload.name || email.split('@')[0] || 'Google Officer'
       return {
         access_token: `mock_jwt_google_${Date.now()}`,

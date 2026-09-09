@@ -47,11 +47,15 @@ export const App: React.FC = () => {
   }, [theme])
 
   return (
-    <div className="min-h-[100dvh] bg-[#1e2124] text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200">
-      <GlobalShortcuts />
-      <Topbar />
+    <div className="min-h-[100dvh] bg-[#1e2124] bg-cover bg-center bg-no-repeat text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200 relative" style={{ backgroundImage: "url('https://reactbits.dev/backgrounds/color-bends.svg')" }}>
+      {/* Subtle overlay for better text readability */}
+      <div className="absolute inset-0 bg-[#000000]/60 z-0 pointer-events-none mix-blend-multiply" />
+      
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <GlobalShortcuts />
+        <Topbar />
 
-      <main className="flex-1 pb-16 lg:pb-6">
+        <main className="flex-1 pb-16 lg:pb-6">
         <Routes>
           <Route path="/" element={<Gateway />} />
 
@@ -113,6 +117,7 @@ export const App: React.FC = () => {
 
       <MobileBottomDock />
       <UniversalChatbot />
+      </div>
     </div>
   )
 }

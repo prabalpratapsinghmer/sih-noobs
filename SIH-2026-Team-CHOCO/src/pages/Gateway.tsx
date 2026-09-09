@@ -166,7 +166,7 @@ export function Gateway() {
               SOVEREIGN DEFENSE GRID 2026
             </span>
             <span className="text-[#636363]">/</span>
-            <span>BUILT ON: → CYBERCELL ONTOLOGY → MULE GRAPH → REAL-TIME NPCI INTERCEPT</span>
+            <span>BUILT ON: → GAURDIAN ONTOLOGY → MULE GRAPH → REAL-TIME NPCI INTERCEPT</span>
           </div>
           <div className="flex items-center gap-6">
             <span className="hidden sm:inline">STATE OF OPERATIONAL READINESS: 100%</span>
@@ -208,7 +208,7 @@ export function Gateway() {
             {/* Subtitle */}
             <p className="text-body-lg md:text-xl text-[#c0c9c2] font-normal leading-relaxed max-w-2xl mb-10">
               When financial cybercrime strikes, the first six minutes determine asset recovery.
-              CyberCell integrates citizen intake, mule graph decomposition, and physical ATM intercept into a single, unified operational loop.
+              GAURDIAN integrates citizen intake, mule graph decomposition, and physical ATM intercept into a single, unified operational loop.
             </p>
 
             {/* Action Buttons - Palantir High Contrast Invert Style with Clearance Gateways */}
@@ -422,7 +422,7 @@ export function Gateway() {
             <div className="p-6 md:p-8 text-white">
               <p className="text-xs font-mono text-[#a0d1b8] mb-4">/ CASE STUDY — INDIRANAGAR PS</p>
               <p className="text-sm text-[#c0c9c2] leading-relaxed italic mb-6">
-                "CyberCell eliminated our 45-minute jurisdictional delay. The automated Section 91 CrPC notice was generated instantly, enabling NPCI to freeze ₹4.8 Lakhs before the mule could reach the ATM."
+                "GAURDIAN eliminated our 45-minute jurisdictional delay. The automated Section 91 CrPC notice was generated instantly, enabling NPCI to freeze ₹4.8 Lakhs before the mule could reach the ATM."
               </p>
               <div className="pt-4 border-t border-[#636363]/40">
                 <p className="text-xs font-semibold text-white">Insp. K. Ramanathan</p>
@@ -525,10 +525,10 @@ export function Gateway() {
                 <div className="w-7 h-7 rounded-sm bg-white flex items-center justify-center text-black font-bold text-xs">
                   CC
                 </div>
-                <span className="font-sans font-bold text-sm tracking-wider">CYBERCELL DEFENSE</span>
+                <span className="font-sans font-bold text-sm tracking-wider">GAURDIAN DEFENSE</span>
               </div>
               <p className="text-xs text-[#9b9b9b] max-w-sm leading-relaxed mb-6">
-                Sovereign financial cybercrime defense architecture. Built for law enforcement, citizen preservation, and financial intelligence interdiction.
+                GAURDIAN sovereign financial cybercrime defense architecture. Built for law enforcement, citizen preservation, and financial intelligence interdiction.
               </p>
               <div className="flex items-center gap-2 text-xs font-mono text-[#c0c9c2]">
                 <span className="w-2 h-2 rounded-full bg-[#a0d1b8]" />
@@ -638,7 +638,7 @@ export function Gateway() {
           {/* Bottom Bar with Social Pills and Copyright */}
           <div className="pt-8 border-t border-[#636363]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="font-mono text-xs text-[#9b9b9b]">
-              © 2026 CYBERCELL PLATFORM. ALL RIGHTS RESERVED. PALANTIR DESIGN FIDELITY.
+              © 2026 GAURDIAN PLATFORM. ALL RIGHTS RESERVED. PALANTIR DESIGN FIDELITY.
             </div>
 
             <div className="flex flex-wrap items-center gap-2">

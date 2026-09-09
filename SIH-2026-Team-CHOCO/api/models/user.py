@@ -17,6 +17,7 @@ class UserRole(StrEnum):
     INSPECTOR = "INSPECTOR"
     CONSTABLE = "CONSTABLE"
     CITIZEN = "CITIZEN"
+    SUPER_ADMIN = "SUPER_ADMIN"
 
 
 

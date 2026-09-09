@@ -22,7 +22,7 @@ export const AICopilot: React.FC = () => {
     {
       id: 'msg-1',
       sender: 'copilot',
-      text: `[CYBERCELL COPILOT v4.2 ACTIVE]\nConnected to GNN & STM inference cluster. How can I assist your forensic investigation on Case CC-2026-F819?`,
+      text: `[GAURDIAN COPILOT v4.2 ACTIVE]\nConnected to GNN & STM inference cluster. How can I assist your forensic investigation on Case CC-2026-F819?`,
       timestamp: '02:24:12',
       latencyMs: 42,
     },
@@ -147,7 +147,7 @@ export const AICopilot: React.FC = () => {
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-mono text-xs text-[#9b9b9b]">
-                        {isCopilot ? 'CYBERCELL AI' : 'OFFICER'} · {m.timestamp}
+                        {isCopilot ? 'GAURDIAN AI' : 'OFFICER'} · {m.timestamp}
                       </span>
                       {m.latencyMs && (
                         <span className="text-xs font-mono text-[#a0d1b8] px-1.5 py-0.5 rounded-pill bg-[#2b5945]/20 border border-[#2b5945]">

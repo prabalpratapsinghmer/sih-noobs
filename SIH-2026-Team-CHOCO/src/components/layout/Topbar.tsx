@@ -92,13 +92,13 @@ export function Topbar() {
         <div className="mx-auto max-w-[1440px] px-4 md:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Brand Logo - Palantir Style */}
-            <Link to="/" className="flex items-center gap-3 group" aria-label="CyberCell Home">
+            <Link to="/" className="flex items-center gap-3 group" aria-label="GAURDIAN Home">
               <div className="w-8 h-8 rounded-sm bg-white flex items-center justify-center text-black font-bold text-xs tracking-tighter group-hover:bg-[#2b5945] group-hover:text-white transition-colors duration-200">
-                CC
+                GD
               </div>
               <div className="flex flex-col">
                 <span className="font-sans font-bold text-sm text-white tracking-widest leading-snug">
-                  CYBERCELL
+                  GAURDIAN
                 </span>
                 <span className="text-[11px] font-mono text-[#9b9b9b] tracking-wider leading-snug">
                   SOVEREIGN DEFENSE
@@ -277,7 +277,7 @@ export function Topbar() {
                       to="/"
                       className="text-2xl font-bold font-sans text-white hover:text-[#2b5945] transition-colors flex items-center justify-between"
                     >
-                      CyberCell Gateway
+                      GAURDIAN Gateway
                       <ArrowUpRight className="w-5 h-5 text-[#9b9b9b]" />
                     </Link>
                     <p className="text-xs text-[#9b9b9b] mt-1">National financial cyber defense grid</p>
@@ -413,7 +413,7 @@ export function Topbar() {
 
                 <div className="pt-8 border-t border-[#636363]/30 flex items-center justify-between">
                   <div className="text-[11px] font-mono text-[#9b9b9b] space-y-1">
-                    <p>© 2026 CYBERCELL / CHOCO DEFENSE</p>
+                    <p>© 2026 GAURDIAN / CHOCO DEFENSE</p>
                     <p>Designed on Palantir Architectural Principles</p>
                   </div>
                   <ThemeToggle showLabel />

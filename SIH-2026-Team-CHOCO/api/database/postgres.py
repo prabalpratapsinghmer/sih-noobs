@@ -291,3 +291,52 @@ async def seed_hierarchical_accounts(session: AsyncSession) -> None:
     await session.commit()
 
 
+async def get_or_create_user(session: AsyncSession, *, email: str, name: str, role: str = "CITIZEN"):
+    """Find an existing user by email or create a new one with the given role.
+
+    Used by the Google OAuth login flow — new users default to CITIZEN role.
+    """
+    import uuid
+    from datetime import datetime
+    from api.auth.password import hash_password
+    from api.models.user import User, UserRole
+
+    result = await session.execute(select(User).where(User.email == email))
+    user = result.scalar_one_or_none()
+
+    if user is not None:
+        user.last_login = datetime.utcnow()
+        await session.commit()
+        return user
+
+    # Map role string to UserRole enum
+    role_map = {r.value: r for r in UserRole}
+    user_role = role_map.get(role.upper(), UserRole.CITIZEN)
+
+    # Derive a unique username from the name / email
+    sanitized = "".join(c for c in name if c.isalnum() or c == "_").lower()
+    candidate_username = sanitized[:40] or email.split("@")[0]
+
+    existing_name = (
+        await session.execute(select(User).where(User.username == candidate_username))
+    ).scalar_one_or_none()
+    if existing_name:
+        candidate_username = f"{candidate_username[:34]}_{uuid.uuid4().hex[:5]}"
+
+    new_user = User(
+        user_id=str(uuid.uuid4()),
+        username=candidate_username,
+        email=email.strip().lower(),
+        password_hash=hash_password(uuid.uuid4().hex),
+        role=user_role,
+        station="Google Sovereign ID Hub",
+        badge_number=f"GOOG-{candidate_username[:4].upper()}",
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow(),
+        last_login=datetime.utcnow(),
+        is_active=True,
+    )
+    session.add(new_user)
+    await session.commit()
+    await session.refresh(new_user)
+    return new_user

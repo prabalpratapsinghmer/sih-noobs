@@ -13,18 +13,22 @@ from api.auth.jwt import decode_token, is_token_blacklisted
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token", auto_error=False)
 
 
-# Role hierarchy
+# Role hierarchy (canonical names + aliases for GAURDIAN terminology)
 ROLE_HIERARCHY = {
     "ADMIN": 3,
+    "COMMAND_HQ": 3,       # alias for ADMIN in GAURDIAN terminology
     "INSPECTOR": 2,
+    "POLICE": 2,           # alias for INSPECTOR in GAURDIAN terminology
     "CONSTABLE": 1,
     "CITIZEN": 0,
 }
 
-# Permissions per role
+# Permissions per role (includes GAURDIAN aliases)
 ROLE_PERMISSIONS = {
     "ADMIN": {"admin", "police_write", "police_read", "predict", "audit", "victim", "notification", "blockchain"},
+    "COMMAND_HQ": {"admin", "police_write", "police_read", "predict", "audit", "victim", "notification", "blockchain"},
     "INSPECTOR": {"police_write", "police_read", "predict", "victim", "notification", "blockchain"},
+    "POLICE": {"police_write", "police_read", "predict", "victim", "notification", "blockchain"},
     "CONSTABLE": {"police_read", "victim", "notification", "blockchain"},
     "CITIZEN": {"victim", "notification"},
 }

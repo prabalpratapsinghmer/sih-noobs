@@ -21,7 +21,7 @@ class SignUpRequest(BaseModel):
 
 class GoogleAuthRequest(BaseModel):
     credential: str | None = None
-    email: EmailStr
+    email: EmailStr | None = None
     name: str | None = None
     avatar_url: str | None = None
     google_id: str | None = None
