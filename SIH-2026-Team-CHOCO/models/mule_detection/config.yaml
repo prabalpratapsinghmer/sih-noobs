@@ -1,0 +1,51 @@
+# Mule Detection GNN Model Configuration
+model:
+  model_name: "mule_detection_gnn"
+  input_dim: 9
+  hidden_dim: 128
+  output_dim: 32
+  dropout: 0.2
+  num_layers: 3
+
+  sage:
+    layer_dims: [128, 64, 32]
+    dropout: 0.2
+
+  classifier:
+    hidden_dim: 64
+    output_dim: 1
+    dropout: 0.3
+
+training:
+  epochs: 40
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  optimizer: "Adam"
+  loss: "BCEWithLogitsLoss"
+
+  class_weight: "balanced"
+  pos_weight: 5.0
+
+  early_stopping:
+    patience: 12
+    min_delta: 0.001
+    monitor: "val_f1"
+
+  lr_scheduler:
+    type: "ReduceLROnPlateau"
+    patience: 5
+    factor: 0.5
+    min_lr: 1e-7
+
+  checkpoint:
+    save_dir: "models/mule_detection/checkpoints"
+    save_best_only: true
+    monitor: "val_f1"
+
+  data_split:
+    train: 0.8
+    val: 0.1
+    test: 0.1
+    random_seed: 42

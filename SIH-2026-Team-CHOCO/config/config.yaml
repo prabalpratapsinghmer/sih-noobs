@@ -1,0 +1,343 @@
+# Project Configuration
+project:
+  name: "SIH26184"
+  version: "1.0.0"
+  description: "Predictive Analytics Framework for Cybercrime Complaints"
+  author: "SIH Team"
+  environment: "development"  # development, staging, production
+
+# Data Configuration
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  external_dir: "data/external"
+  validation_dir: "data/validation"
+
+  # Data Synthesis Parameters
+  synthesis:
+    num_atms: 500
+    num_mule_networks: 50
+    num_complaints: 5000
+    num_transactions: 20000
+    random_seed: 42
+
+    # Geographic bounds (Bangalore)
+    bangalore:
+      lat_min: 12.8
+      lat_max: 13.2
+      lon_min: 77.4
+      lon_max: 77.8
+
+    # Fraud injection parameters
+    fraud:
+      hotspot_atms: 100
+      metro_proximity_ratio: 0.6
+      weekend_night_ratio: 0.4
+
+# Model Configurations
+models:
+  # Spatio-Temporal Transformer
+  spatio_temporal:
+    model_name: "spatio_temporal_transformer"
+    input_dim: 256
+    hidden_dim: 256
+    num_heads: 8
+    num_layers: 6
+    dropout: 0.1
+    num_atms: 500
+
+    # Architecture details
+    spatial_encoder:
+      input_dim: 4
+      hidden_dim: 64
+      output_dim: 128
+
+    temporal_encoder:
+      input_dim: 6
+      hidden_dim: 64
+      output_dim: 128
+
+    transformer:
+      hidden_dim: 256
+      num_heads: 8
+      num_layers: 6
+      dropout: 0.1
+
+    classifier:
+      hidden_dim: 128
+      output_dim: 500
+      dropout: 0.3
+
+  # Graph Neural Network
+  mule_detection:
+    model_name: "mule_detection_gnn"
+    input_dim: 9
+    hidden_dim: 128
+    output_dim: 32
+    dropout: 0.2
+    num_layers: 3
+
+    # GraphSAGE layers
+    sage:
+      layer_dims: [128, 64, 32]
+      dropout: 0.2
+
+    # Classifier
+    classifier:
+      hidden_dim: 64
+      output_dim: 1
+      dropout: 0.3
+
+# Training Configuration
+training:
+  # Spatio-Temporal Transformer Training
+  spatio_temporal:
+    epochs: 200
+    batch_size: 32
+    learning_rate: 0.0001
+    optimizer: "Adam"
+    loss: "CrossEntropyLoss"
+
+    # Regularization
+    weight_decay: 0.0001
+    label_smoothing: 0.1
+    gradient_clip: 1.0
+
+    # Early Stopping
+    early_stopping:
+      patience: 20
+      min_delta: 0.001
+      monitor: "val_loss"
+
+    # Learning Rate Scheduler
+    lr_scheduler:
+      type: "ReduceLROnPlateau"
+      patience: 5
+      factor: 0.5
+      min_lr: 1e-7
+
+    # Checkpointing
+    checkpoint:
+      save_dir: "models/spatio_temporal/checkpoints"
+      save_best_only: true
+      monitor: "val_accuracy"
+
+    # Data splits
+    data_split:
+      train: 0.8
+      val: 0.1
+      test: 0.1
+      random_seed: 42
+
+  # GNN Training
+  mule_detection:
+    epochs: 100
+    batch_size: 64
+    learning_rate: 0.001
+    optimizer: "Adam"
+    loss: "BCEWithLogitsLoss"
+
+    # Regularization
+    weight_decay: 0.0001
+    gradient_clip: 1.0
+
+    # Class imbalance handling
+    class_weight: "balanced"
+    pos_weight: 5.0
+
+    # Early Stopping
+    early_stopping:
+      patience: 15
+      min_delta: 0.001
+      monitor: "val_f1"
+
+    # Learning Rate Scheduler
+    lr_scheduler:
+      type: "ReduceLROnPlateau"
+      patience: 5
+      factor: 0.5
+      min_lr: 1e-7
+
+    # Checkpointing
+    checkpoint:
+      save_dir: "models/mule_detection/checkpoints"
+      save_best_only: true
+      monitor: "val_f1"
+
+    # Data splits
+    data_split:
+      train: 0.8
+      val: 0.1
+      test: 0.1
+      random_seed: 42
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "cybercrime_prediction"
+  artifact_location: "mlflow/artifacts"
+
+  # Experiments
+  experiments:
+    spatio_temporal: "spatio_temporal_transformer"
+    mule_detection: "mule_detection_gnn"
+    optimization: "hyperparameter_optimization"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  timeout: 60
+  reload: false
+
+  # CORS
+  cors:
+    allow_origins: ["*"]
+    allow_methods: ["*"]
+    allow_headers: ["*"]
+
+  # Rate Limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 100
+    burst: 20
+
+  # Authentication
+  auth:
+    enabled: true
+    algorithm: "HS256"
+    access_token_expire_minutes: 30
+
+  # Documentation
+  docs:
+    enabled: true
+    url: "/docs"
+    redoc_url: "/redoc"
+
+# Scoring Algorithm Configuration
+scoring:
+  # Weights for hybrid scoring
+  gnn_weight: 0.7
+  rule_weight: 0.3
+
+  # Rule-based scoring weights
+  rule_weights:
+    velocity: 25           # Transaction velocity
+    rapid_outflow: 20      # Rapid outflow pattern
+    connected_complaints: 20  # Connected complaints
+    suspicious_timing: 15  # Suspicious timing (2-5 AM)
+    amount_patterns: 10    # Round amount patterns
+    outflow_ratio: 10      # Outflow/inflow ratio
+
+  # Risk thresholds
+  risk_thresholds:
+    high: 80
+    medium: 50
+    low: 0
+
+  # Actions by risk level
+  actions:
+    high: "Immediate Freeze + Step-Up Verification"
+    medium: "Enhanced Monitoring + Alert"
+    low: "No Action"
+
+# Database Configuration
+database:
+  postgres:
+    host: "${POSTGRES_HOST:localhost}"
+    port: "${POSTGRES_PORT:5432}"
+    database: "${POSTGRES_DB:sih26184}"
+    user: "${POSTGRES_USER:postgres}"
+    password: "${POSTGRES_PASSWORD:password}"
+    pool_size: 10
+    max_overflow: 20
+
+  neo4j:
+    uri: "${NEO4J_URI:bolt://localhost:7687}"
+    user: "${NEO4J_USER:neo4j}"
+    password: "${NEO4J_PASSWORD:password}"
+    database: "${NEO4J_DATABASE:neo4j}"
+    max_connection_lifetime: 3600
+    max_connection_pool_size: 50
+
+  redis:
+    host: "${REDIS_HOST:localhost}"
+    port: "${REDIS_PORT:6379}"
+    db: "${REDIS_DB:0}"
+    password: "${REDIS_PASSWORD:}"
+    max_connections: 50
+
+# LLM Configuration
+llm:
+  provider: "openai"
+  model: "gpt-4"
+  temperature: 0.7
+  max_tokens: 1000
+
+  # Intent detection
+  intents:
+    - COMPLAINT
+    - STATUS
+    - TIP
+    - HELP
+    - EMERGENCY
+
+  # Language support
+  languages:
+    - english
+    - hindi
+    - hinglish
+
+# Blockchain Configuration
+blockchain:
+  enabled: true
+  network: "polygon-mumbai"  # Testnet
+  rpc_url: "${BLOCKCHAIN_RPC_URL}"
+  contract_address: "${CONTRACT_ADDRESS}"
+  private_key: "${PRIVATE_KEY}"
+
+# Monitoring Configuration
+monitoring:
+  enabled: true
+  prometheus:
+    port: 9090
+
+  metrics:
+    - request_count
+    - request_latency
+    - error_rate
+    - model_inference_time
+    - model_accuracy
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name} | {message}"
+  rotation: "100 MB"
+  retention: "30 days"
+  compression: "zip"
+
+  # Log files
+  files:
+    - "logs/app.log"
+    - "logs/model.log"
+    - "logs/api.log"
+
+# Retraining Pipeline Configuration
+retraining:
+  enabled: true
+  schedule: "0 2 * * 0"  # Every Sunday at 2 AM
+
+  # Deployment criteria
+  criteria:
+    min_accuracy_improvement: 0.01
+    max_accuracy_degradation: 0.005
+    min_f1_improvement: 0.01
+
+  # Notification
+  notification:
+    enabled: true
+    channels:
+      - email
+      - slack

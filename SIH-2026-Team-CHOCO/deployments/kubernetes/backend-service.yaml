@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sih-backend
+  labels:
+    app: sih-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: sih-backend
+  ports:
+    - port: 8000
+      targetPort: 8000

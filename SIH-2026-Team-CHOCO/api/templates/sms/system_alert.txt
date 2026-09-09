@@ -1,0 +1,3 @@
+# SMS template: system_alert (admin recipients)
+# Variables: {message}
+SYSTEM ALERT: {message}. Check /health and Grafana. — CyberCell

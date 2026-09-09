@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<meta name="theme-color" content="#0284c7" />
+<title>Police Field &mdash; ATM Fraud Response</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+
+<!-- ============ SIDEBAR OVERLAY ============ -->
+<div class="overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar" id="sidebar" aria-hidden="true">
+  <div class="sidebar-header">
+    <div class="officer-mini">
+      <div class="avatar avatar-lg">CK</div>
+      <div class="officer-mini-info">
+        <p class="officer-mini-name">Chetan Kumar</p>
+        <p class="officer-mini-role">Field Investigation Officer</p>
+      </div>
+    </div>
+    <button class="icon-btn" id="sidebarCloseBtn" onclick="closeSidebar()" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="officer-status">
+    <span class="status-dot status-dot-on"></span>
+    <span>On duty &middot; MG Road Sector</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-tab="home" onclick="switchTab('home')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V21h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" data-tab="alerts" onclick="switchTab('alerts')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Alerts</span>
+      <span class="nav-badge" id="navAlertBadge">5</span>
+    </button>
+    <button class="nav-item" data-tab="map" onclick="switchTab('map')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13M15 7v13" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>Map View</span>
+    </button>
+    <button class="nav-item" data-tab="chat" onclick="switchTab('chat')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Team Chat</span>
+    </button>
+    <button class="nav-item" data-tab="profile" onclick="switchTab('profile')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>Profile</span>
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <button class="nav-item" onclick="viewReports()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 17V9M15 17v-4M12 17v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>Reports</span>
+    </button>
+    <button class="nav-item nav-item-danger" onclick="emergencyCall()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 2.9a2 2 0 01-.5 2.1L7.9 10a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.5c.9.3 1.9.5 2.9.6a2 2 0 011.8 2.1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Emergency</span>
+    </button>
+  </nav>
+
+  <button class="btn btn-ghost btn-logout" onclick="handleLogout()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Log out
+  </button>
+</aside>
+
+<!-- ============ APP SHELL ============ -->
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="icon-btn" onclick="toggleSidebar()" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3.5v6c0 5-3.4 8.7-8 10.5-4.6-1.8-8-5.5-8-10.5v-6L12 2z" fill="currentColor"/></svg>
+      </div>
+      <div class="brand-text">
+        <p class="brand-title">Police Field</p>
+        <p class="brand-sub">ATM Fraud Response</p>
+      </div>
+    </div>
+
+    <button class="icon-btn icon-btn-badge" onclick="toggleNotifications()" aria-label="Notifications">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 01-3.4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="badge-dot" id="notifDot"></span>
+    </button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ===================== HOME TAB ===================== -->
+    <section class="tab-panel active" id="tab-home">
+
+      <div class="status-strip">
+        <div class="status-strip-item">
+          <p class="status-strip-value" id="statActive">5</p>
+          <p class="status-strip-label">Active Alerts</p>
+        </div>
+        <div class="status-strip-sep"></div>
+        <div class="status-strip-item">
+          <p class="status-strip-value status-strip-value--danger" id="statCritical">2</p>
+          <p class="status-strip-label">Critical</p>
+        </div>
+        <div class="status-strip-sep"></div>
+        <div class="status-strip-item">
+          <p class="status-strip-value status-strip-value--success">47</p>
+          <p class="status-strip-label">Resolved</p>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2 class="section-title">Active Alerts</h2>
+        <button class="link-btn" onclick="switchTab('alerts')">View all</button>
+      </div>
+
+      <div class="alert-list" id="homeAlertList"><!-- injected --></div>
+
+      <div class="section-head">
+        <h2 class="section-title">Quick Actions</h2>
+      </div>
+
+      <div class="quick-grid">
+        <button class="quick-card" onclick="viewReports()">
+          <div class="quick-icon quick-icon--blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 17V9M15 17v-4M12 17v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Reports</span>
+        </button>
+        <button class="quick-card" onclick="emergencyCall()">
+          <div class="quick-icon quick-icon--red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 2.9a2 2 0 01-.5 2.1L7.9 10a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.5c.9.3 1.9.5 2.9.6a2 2 0 011.8 2.1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <span>Emergency</span>
+        </button>
+        <button class="quick-card" onclick="switchTab('map')">
+          <div class="quick-icon quick-icon--green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13M15 7v13" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Map View</span>
+        </button>
+        <button class="quick-card" onclick="switchTab('profile')">
+          <div class="quick-icon quick-icon--amber">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <span>Profile</span>
+        </button>
+      </div>
+
+      <div class="section-head">
+        <h2 class="section-title">Recent Activity</h2>
+      </div>
+
+      <div class="activity-list" id="activityList"><!-- injected --></div>
+
+    </section>
+
+    <!-- ===================== ALERTS TAB ===================== -->
+    <section class="tab-panel" id="tab-alerts">
+      <div class="section-head">
+        <h2 class="section-title">All Alerts</h2>
+        <button class="link-btn" onclick="markAllAlertsRead()">Mark all read</button>
+      </div>
+      <div class="alert-list" id="fullAlertList"><!-- injected --></div>
+    </section>
+
+    <!-- ===================== MAP TAB ===================== -->
+    <section class="tab-panel" id="tab-map">
+      <div class="map-toolbar">
+        <div>
+          <h2 class="section-title" style="margin:0;">Live ATM Map</h2>
+          <p class="map-toolbar-sub" id="mapSubtext">Bengaluru sector &middot; 5 monitored ATMs</p>
+        </div>
+        <button class="icon-btn icon-btn-outline" onclick="refreshMap()" aria-label="Refresh map">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M21 12a9 9 0 11-3-6.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M21 3v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="map-wrap">
+        <div id="leafletMap"></div>
+      </div>
+
+      <div class="map-legend">
+        <p class="map-legend-title">Risk legend</p>
+        <div class="map-legend-row">
+          <span class="legend-dot" style="background:var(--danger)"></span><span>Critical</span>
+          <span class="legend-dot" style="background:#f97316"></span><span>High</span>
+          <span class="legend-dot" style="background:var(--warning)"></span><span>Medium</span>
+          <span class="legend-dot" style="background:var(--success)"></span><span>Low</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CHAT TAB ===================== -->
+    <section class="tab-panel" id="tab-chat">
+      <div class="chat-toolbar">
+        <div class="chat-toolbar-info">
+          <div class="avatar avatar-sm avatar--team">TC</div>
+          <div>
+            <p class="chat-toolbar-title">Sector Team Chat</p>
+            <p class="chat-toolbar-sub"><span class="status-dot status-dot-on"></span> 6 officers online</p>
+          </div>
+        </div>
+        <button class="icon-btn icon-btn-outline" onclick="clearChat()" aria-label="Clear chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6h16z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="chat-messages" id="chatMessages"><!-- injected --></div>
+
+      <form class="chat-input-bar" id="chatForm" onsubmit="return sendMessage(event)">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Message the sector team&hellip;" autocomplete="off" maxlength="300" />
+        <button type="submit" class="chat-send-btn" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <!-- ===================== PROFILE TAB ===================== -->
+    <section class="tab-panel" id="tab-profile">
+      <div class="profile-card">
+        <div class="avatar avatar-xl">CK</div>
+        <h2 class="profile-name">Chetan Kumar</h2>
+        <p class="profile-role">Field Investigation Officer</p>
+        <span class="verified-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+          Verified Officer
+        </span>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-row">
+          <span class="detail-label">Badge Number</span>
+          <span class="detail-value">PF-2024-0847</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value">+91 98765 43210</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Email</span>
+          <span class="detail-value">chetan.kumar@police.gov.in</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Station</span>
+          <span class="detail-value">MG Road Police Station</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Cases Resolved</span>
+          <span class="detail-value">47</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Joined</span>
+          <span class="detail-value">14 Jan 2022</span>
+        </div>
+      </div>
+
+      <button class="btn btn-danger-outline btn-block" onclick="handleLogout()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Log out
+      </button>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM TAB BAR -->
+  <nav class="tabbar">
+    <button class="tabbar-item active" data-tab="home" onclick="switchTab('home')">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3l9 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V21h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="tabbar-item" data-tab="alerts" onclick="switchTab('alerts')">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3L12 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Alerts</span>
+    </button>
+    <button class="tabbar-item" data-tab="map" onclick="switchTab('map')">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v13M15 7v13" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>Map</span>
+    </button>
+    <button class="tabbar-item" data-tab="chat" onclick="switchTab('chat')">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Chat</span>
+    </button>
+    <button class="tabbar-item" data-tab="profile" onclick="switchTab('profile')">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ============ NOTIFICATIONS PANEL ============ -->
+<div class="overlay" id="notifOverlay" onclick="toggleNotifications()"></div>
+<aside class="notif-panel" id="notifPanel" aria-hidden="true">
+  <div class="notif-header">
+    <h3>Notifications</h3>
+    <button class="icon-btn" onclick="toggleNotifications()" aria-label="Close notifications">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <button class="link-btn notif-markall" onclick="markAllNotificationsRead()">Mark all read</button>
+  <div class="notif-list" id="notifList"><!-- injected --></div>
+</aside>
+
+<!-- ============ MODAL ============ -->
+<div class="overlay" id="modalOverlay" onclick="closeModal()"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-header">
+    <h3 id="modalTitle">Title</h3>
+    <button class="icon-btn" onclick="closeModal()" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <p class="modal-message" id="modalMessage"></p>
+  <div class="modal-extra" id="modalExtra"></div>
+  <div class="modal-actions" id="modalActions">
+    <button class="btn btn-ghost" id="modalCancelBtn" onclick="closeModal()">Cancel</button>
+    <button class="btn btn-primary" id="modalConfirmBtn" onclick="confirmModalAction()">Confirm</button>
+  </div>
+</div>
+
+<!-- ============ TOAST CONTAINER ============ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="js/main.js"></script>
+</body>
+</html>

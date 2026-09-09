@@ -1,0 +1,17 @@
+# WhatsApp template: complaint_submitted (category: UTILITY)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: victim
+# Quick replies: CHECK_STATUS | CALL_HELP
+
+👮 *Complaint Received*
+
+Hi {{1}},
+
+Your cybercrime complaint *{{2}}* has been registered with CyberCell.
+
+*Amount:* ₹{{3}}
+*Type:* {{4}}
+
+You will receive updates here. Reply *status* anytime to track.
+
+_Help: call 1930 (national cybercrime helpline)_

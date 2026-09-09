@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* Palantir Official Alliance Fonts */
+@font-face {
+  font-family: "Alliance No.1";
+  src: url("https://www.palantir.com/fonts/Alliance/AllianceNo1-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alliance No.1";
+  src: url("https://www.palantir.com/fonts/Alliance/AllianceNo1-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alliance No.2";
+  src: url("https://www.palantir.com/fonts/Alliance/AllianceNo2-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alliance No.2";
+  src: url("https://www.palantir.com/fonts/Alliance/AllianceNo2-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #1e2124;
+  --surface: #000000;
+  --surface-card: #121417;
+  --surface-hover: #2f3234;
+  --text-primary: #ffffff;
+  --text-secondary: #c0c9c2;
+  --text-muted: #9b9b9b;
+  --border-color: #636363;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --accent-color: #2b5945;
+  --accent-hover: #356e56;
+  --accent-gold: #8c7847;
+  --danger-color: #994500;
+}
+
+html.light {
+  --background: #f4f6f9;
+  --surface: #ffffff;
+  --surface-card: #ffffff;
+  --surface-hover: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --accent-color: #166534;
+  --accent-hover: #14532d;
+  --accent-gold: #b45309;
+  --danger-color: #b91c1c;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--border-color);
+  }
+
+  html {
+    font-family: "Alliance No.2", "Hanken Grotesk", system-ui, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--background);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100dvh;
+    background-color: var(--background);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, blockquote {
+    line-height: 1.4 !important;
+  }
+
+  /* Monospace figures for numbers, latencies, currencies */
+  .font-mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Focus visible - Palantir crisp outline */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--accent-color);
+    border-color: var(--accent-color);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--accent-color);
+    color: #ffffff;
+  }
+
+  /* Sharp technical scrollbars */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a0c10;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #494a4b;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #636363;
+  }
+}
+
+@layer components {
+  /* Palantir Button Archetypes: Sharp, high-contrast, zero-slop */
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-white text-[#121417] font-sans font-semibold text-body-sm px-5 py-2.5 rounded-btn
+           border border-white hover:bg-black hover:text-white hover:border-white transition-colors duration-150 active:translate-y-[1px]
+           focus:outline-none focus:ring-1 focus:ring-accent;
+  }
+
+  .btn-palantir-green {
+    @apply inline-flex items-center justify-center bg-[#2b5945] text-white font-sans font-semibold text-body-sm px-5 py-2.5 rounded-btn
+           border border-[#2b5945] hover:bg-[#356e56] hover:border-[#356e56] transition-colors duration-150 active:translate-y-[1px]
+           focus:outline-none focus:ring-1 focus:ring-[#2b5945];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-[#000000] text-white border border-[#636363] font-sans font-medium text-body-sm px-5 py-2.5 rounded-btn
+           hover:bg-white hover:text-[#000000] hover:border-white transition-colors duration-150 active:translate-y-[1px]
+           focus:outline-none focus:ring-1 focus:ring-accent;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center bg-transparent text-text-secondary border border-transparent font-sans font-medium text-body-sm px-3.5 py-2 rounded-btn
+           hover:text-white hover:bg-surface-hover hover:border-[#636363] transition-colors duration-150
+           focus:outline-none focus:ring-1 focus:ring-accent;
+  }
+
+  .btn-destructive {
+    @apply inline-flex items-center justify-center bg-transparent text-[#ff4136] border border-[#994500] font-sans font-medium text-body-sm px-5 py-2.5 rounded-btn
+           hover:bg-[#994500] hover:text-white transition-colors duration-150
+           focus:outline-none focus:ring-1 focus:ring-[#ff4136];
+  }
+
+  /* Palantir Card Archetype: 17px radius, black surface, 1px #636363 border */
+  .card {
+    @apply bg-surface border border-[#636363] rounded-card p-6 text-text-primary transition-colors duration-150;
+  }
+
+  .card-interactive {
+    @apply bg-surface border border-[#636363] rounded-card p-6 text-text-primary transition-colors duration-150 hover:border-white;
+  }
+
+  /* 45-degree chamfer cut corner */
+  .chamfer-surface {
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  }
+
+  /* Form Inputs: Sharp 2px corners, integrated dark background */
+  .input {
+    @apply w-full bg-background border border-[#636363] text-text-primary placeholder-text-muted
+           rounded-input px-3.5 py-2.5 text-body-md min-h-[42px]
+           hover:border-text-secondary focus:border-accent focus:ring-1 focus:ring-accent
+           transition-colors duration-150;
+  }
+
+  .input-error {
+    @apply border-telemetry-red focus:border-telemetry-red focus:ring-[#ff4136];
+  }
+
+  .label {
+    @apply block text-xs font-mono tracking-wider uppercase text-text-muted mb-1;
+  }
+
+  /* Badges: Sharp technical rectangular indicators, no bouncy pings */
+  .badge-nominal {
+    @apply inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-mono
+           bg-accent/25 text-[#a0d1b8] border border-accent;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-mono
+           bg-accent-gold/25 text-[#fae0a6] border border-accent-gold;
+  }
+
+  .badge-critical {
+    @apply inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-mono
+           bg-danger/25 text-[#ff7066] border border-danger;
+  }
+
+  .badge-live {
+    @apply inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-mono
+           bg-white text-black font-semibold;
+  }
+
+  .badge-neutral {
+    @apply inline-flex items-center px-2 py-0.5 rounded-badge text-xs font-mono
+           bg-[#121417] text-[#c0c9c2] border border-[#636363];
+  }
+}
+
+/* Palantir Dark Mode: ReactFlow Controls & MiniMap (outside layer for max cascade precedence) */
+.react-flow {
+  --xy-controls-button-background-color: #000000;
+  --xy-controls-button-background-color-hover: #1e2124;
+  --xy-controls-button-color: #ffffff;
+  --xy-controls-button-color-hover: #a0d1b8;
+  --xy-controls-button-border-color: #2f3234;
+  --xy-controls-box-shadow: none;
+  --xy-minimap-background-color: #000000;
+  --xy-minimap-mask-background-color: rgba(30, 33, 36, 0.75);
+}
+
+.react-flow .react-flow__controls {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  border: 1px solid #636363 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+.react-flow .react-flow__controls-button {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  border-bottom: 1px solid #2f3234 !important;
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.react-flow .react-flow__controls-button:hover {
+  background-color: #1e2124 !important;
+  background: #1e2124 !important;
+  fill: #a0d1b8 !important;
+  color: #a0d1b8 !important;
+}
+
+.react-flow .react-flow__controls-button svg {
+  fill: currentColor !important;
+  color: inherit !important;
+}
+
+.react-flow .react-flow__minimap {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  border: 1px solid #636363 !important;
+  border-radius: 4px !important;
+}
+
+/* =========================================================================
+   PALANTIR LIGHT MODE ADAPTATION SUITE
+   ========================================================================= */
+
+html.light,
+html.light body {
+  background-color: #f4f6f9 !important;
+  color: #0f172a !important;
+}
+
+/* Core background conversions */
+html.light .bg-\[\#1e2124\],
+html.light .bg-\[\#1e2124\]\/80,
+html.light .bg-\[\#1e2124\]\/90 {
+  background-color: #f4f6f9 !important;
+}
+
+html.light .bg-\[\#000000\],
+html.light .bg-black,
+html.light .bg-black\/80 {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-\[\#121417\],
+html.light .bg-\[\#121417\]\/80,
+html.light .bg-\[\#121417\]\/50 {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-\[\#14171b\],
+html.light .bg-\[\#16181c\],
+html.light .bg-\[\#171a1e\],
+html.light .bg-\[\#1a1e22\],
+html.light .bg-\[\#1a1e23\],
+html.light .bg-\[\#13161b\],
+html.light .bg-\[\#0e1013\],
+html.light .bg-\[\#0e1014\],
+html.light .bg-\[\#0c0e12\],
+html.light .bg-\[\#14171d\],
+html.light .bg-\[\#171a20\],
+html.light .bg-\[\#1a1d22\] {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-\[\#2f3234\],
+html.light .hover\:bg-\[\#2f3234\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Typography & Content */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-\[\#c0c9c2\] {
+  color: #334155 !important;
+}
+
+html.light .text-\[\#9b9b9b\] {
+  color: #64748b !important;
+}
+
+html.light .text-\[\#a0a0a0\] {
+  color: #475569 !important;
+}
+
+html.light .text-\[\#494a4b\] {
+  color: #334155 !important;
+}
+
+/* Green accents & Sovereign telemetry */
+html.light .text-\[\#38d39f\],
+html.light .text-\[\#a0d1b8\] {
+  color: #15803d !important;
+}
+
+html.light .bg-\[\#2b5945\] {
+  background-color: #166534 !important;
+  color: #ffffff !important;
+}
+
+html.light .bg-\[\#2b5945\]\/20,
+html.light .bg-\[\#2b5945\]\/25 {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+html.light .border-\[\#2b5945\],
+html.light .border-\[\#38d39f\],
+html.light .border-\[\#38d39f\]\/50,
+html.light .border-\[\#38d39f\]\/60 {
+  border-color: #86efac !important;
+}
+
+/* Borders & Dividers */
+html.light .border-\[\#636363\],
+html.light .border-\[\#636363\]\/60,
+html.light .border-\[\#636363\]\/50,
+html.light .border-\[\#636363\]\/40,
+html.light .border-\[\#636363\]\/30 {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .border-white {
+  border-color: #0f172a !important;
+}
+
+/* Header & Navigation Bar */
+html.light header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light header .bg-\[\#121417\] {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light nav[aria-label="Mobile Navigation Dock"] {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-top-color: #e2e8f0 !important;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Palantir Buttons */
+html.light .btn-primary {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #0f172a !important;
+}
+
+html.light .btn-primary:hover {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+html.light .btn-secondary {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .btn-secondary:hover {
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+/* Inputs & Selects in Light Mode */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #166534 !important;
+  outline: none !important;
+}
+
+/* Cards & Modals */
+html.light .rounded-card {
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06), 0 1px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+html.light .shadow-2xl,
+html.light .shadow-floating {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Selection & Scrollbars */
+html.light ::selection {
+  background-color: #bbf7d0 !important;
+  color: #14532d !important;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8 !important;
+}
+
+/* ReactFlow Light Mode */
+html.light .react-flow {
+  background-color: #f8fafc !important;
+  --xy-controls-button-background-color: #ffffff;
+  --xy-controls-button-background-color-hover: #f1f5f9;
+  --xy-controls-button-color: #0f172a;
+  --xy-controls-button-color-hover: #166534;
+  --xy-controls-button-border-color: #e2e8f0;
+  --xy-minimap-background-color: #ffffff;
+  --xy-minimap-mask-background-color: rgba(244, 246, 249, 0.75);
+}
+
+html.light .react-flow .react-flow__controls {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html.light .react-flow .react-flow__controls-button {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  fill: #0f172a !important;
+  color: #0f172a !important;
+}
+
+html.light .react-flow .react-flow__controls-button:hover {
+  background-color: #f1f5f9 !important;
+  fill: #166534 !important;
+  color: #166534 !important;
+}
+
+html.light .react-flow .react-flow__minimap {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}

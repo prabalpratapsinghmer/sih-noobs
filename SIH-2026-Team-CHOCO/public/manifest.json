@@ -1,0 +1,19 @@
+{
+  "short_name": "CyberCell",
+  "name": "CyberCell — Sovereign Cyber Defense & Tactical Intelligence",
+  "description": "National Cyber Crime Reporting & Tactical Intelligence Platform",
+  "icons": [
+    {
+      "src": "/shield.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000000",
+  "theme_color": "#1e2124",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "categories": ["security", "utilities", "government"]
+}

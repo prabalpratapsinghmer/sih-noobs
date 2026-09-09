@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Cyber Complaint Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Google Fonts for professional look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>CyberCell</span>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-btn">
+                        <i class="fas fa-globe"></i>
+                        EN
+                    </button>
+                    <a href="#" class="helpline-link" onclick="window.location.href='tel:1930'; return false;">
+                        <i class="fas fa-phone"></i>
+                        1930
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="badge"> Report Fraud</span>
+                    <h1>Lost Money to Cybercrime?</h1>
+                    <p class="hero-desc">
+                        File a complaint instantly. We'll trace the funds and notify authorities.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">47</span>
+                            <span class="stat-label">Complaints Today</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">₹8.2Cr</span>
+                            <span class="stat-label">Recovered This Month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaint Form -->
+        <section class="form-section" id="complaint-form">
+            <div class="container">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span class="step-label">Personal</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span class="step-label">Fraud Details</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span class="step-label">Fraudster</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span class="step-label">Submit</span>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="form-card">
+                    <form id="complaintForm" novalidate>
+                        <!-- Step 1: Personal Details -->
+                        <div class="form-step active" id="step1">
+                            <div class="step-header">
+                                <h2> Your Details</h2>
+                                <p>We need this to update you about your complaint.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fullName">
+                                    <i class="fas fa-user"></i>
+                                    Full Name <span class="required">*</span>
+                                </label>
+                                <input type="text" id="fullName" placeholder="Enter your full name" required />
+                                <div class="error-message" id="nameError">Please enter your full name</div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="phone">
+                                        <i class="fas fa-phone"></i>
+                                        Phone Number <span class="required">*</span>
+                                    </label>
+                                    <input type="tel" id="phone" placeholder="10-digit mobile number" required maxlength="10" />
+                                    <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">
+                                        <i class="fas fa-envelope"></i>
+                                        Email (Optional)
+                                    </label>
+                                    <input type="email" id="email" placeholder="your@email.com" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">
+                                    <i class="fas fa-location-dot"></i>
+                                    Address <span class="required">*</span>
+                                </label>
+                                <textarea id="address" rows="2" placeholder="Enter your full address" required></textarea>
+                                <div class="error-message" id="addressError">Please enter your address</div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-next" onclick="goToStep(2)">
+                                    Next <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Fraud Details -->
+                        <div class="form-step" id="step2">
+                            <div class="step-header">
+                                <h2> Fraud Details</h2>
+                                <p>Tell us what happened and how much you lost.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraudAmount">
+                                    <i class="fas fa-indian-rupee-sign"></i>
+                                    Amount Lost <span class="required">*</span>
+                                </label>
+                                <div class="input-prefix">
+                                    <span class="prefix">₹</span>
+                                    <input type="number" id="fraudAmount" placeholder="0" required min="1" />
+                                </div>
+                                <div class="error-message" id="amountError">Please enter the amount you lost</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraudDate">
+                                    <i class="fas fa-calendar"></i>
+                                    Date of Fraud <span class="required">*</span>
+                                </label>
+                                <input type="date" id="fraudDate" required />
+                                <div class="error-message" id="dateError">Please select the date of fraud</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraudTime">
+                                    <i class="fas fa-clock"></i>
+                                    Approximate Time <span class="required">*</span>
+                                </label>
+                                <input type="time" id="fraudTime" required />
+                                <div class="error-message" id="timeError">Please select the approximate time</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraudType">
+                                    <i class="fas fa-tag"></i>
+                                    Type of Fraud <span class="required">*</span>
+                                </label>
+                                <select id="fraudType" required>
+                                    <option value="">Select fraud type</option>
+                                    <option value="investment">Investment Scam</option>
+                                    <option value="kfc">KYC Fraud</option>
+                                    <option value="upi">UPI Fraud</option>
+                                    <option value="job">Fake Job Offer</option>
+                                    <option value="phishing">Phishing</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="error-message" id="typeError">Please select the type of fraud</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">
+                                    <i class="fas fa-comment"></i>
+                                    Brief Description <span class="required">*</span>
+                                </label>
+                                <textarea id="description" rows="3" placeholder="Briefly describe how you were defrauded" required></textarea>
+                                <div class="error-message" id="descError">Please describe what happened</div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-prev" onclick="goToStep(1)">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn-next" onclick="goToStep(3)">
+                                    Next <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Fraudster Details -->
+                        <div class="form-step" id="step3">
+                            <div class="step-header">
+                                <h2> Fraudster Details</h2>
+                                <p>Any information about the fraudster helps us trace them.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="upiId">
+                                    <i class="fas fa-id-card"></i>
+                                    UPI ID (if known)
+                                </label>
+                                <input type="text" id="upiId" placeholder="e.g., pay@upi" />
+                                <small class="helper-text">The UPI ID they asked you to pay to</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bankAccount">
+                                    <i class="fas fa-building-columns"></i>
+                                    Bank Account Number (if known)
+                                </label>
+                                <input type="text" id="bankAccount" placeholder="e.g., XXXX1234" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fraudPhone">
+                                    <i class="fas fa-phone"></i>
+                                    Fraudster's Phone Number
+                                </label>
+                                <input type="tel" id="fraudPhone" placeholder="Phone number they called from" maxlength="10" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="screenshots">
+                                    <i class="fas fa-image"></i>
+                                    Upload Screenshots / Evidence
+                                </label>
+                                <div class="upload-zone" id="uploadZone">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drop your screenshots here or click to browse</p>
+                                    <span class="upload-hint">Supports: JPG, PNG, PDF (Max 10MB)</span>
+                                    <input type="file" id="screenshots" accept=".jpg,.jpeg,.png,.pdf" multiple hidden />
+                                </div>
+                                <div class="file-list" id="fileList"></div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-prev" onclick="goToStep(2)">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="button" class="btn-next" onclick="goToStep(4)">
+                                    Review & Submit <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Review & Submit -->
+                        <div class="form-step" id="step4">
+                            <div class="step-header">
+                                <h2> Review & Submit</h2>
+                                <p>Please verify all details before submitting.</p>
+                            </div>
+
+                            <div class="review-card">
+                                <div class="review-section">
+                                    <h4> Personal Details</h4>
+                                    <div class="review-item">
+                                        <span class="review-label">Name</span>
+                                        <span class="review-value" id="reviewName">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Phone</span>
+                                        <span class="review-value" id="reviewPhone">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Email</span>
+                                        <span class="review-value" id="reviewEmail">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Address</span>
+                                        <span class="review-value" id="reviewAddress">-</span>
+                                    </div>
+                                </div>
+
+                                <div class="review-section">
+                                    <h4> Fraud Details</h4>
+                                    <div class="review-item">
+                                        <span class="review-label">Amount</span>
+                                        <span class="review-value" id="reviewAmount">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Date</span>
+                                        <span class="review-value" id="reviewDate">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Time</span>
+                                        <span class="review-value" id="reviewTime">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Type</span>
+                                        <span class="review-value" id="reviewType">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Description</span>
+                                        <span class="review-value" id="reviewDesc">-</span>
+                                    </div>
+                                </div>
+
+                                <div class="review-section">
+                                    <h4> Fraudster Details</h4>
+                                    <div class="review-item">
+                                        <span class="review-label">UPI ID</span>
+                                        <span class="review-value" id="reviewUpi">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Bank Account</span>
+                                        <span class="review-value" id="reviewBank">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Phone</span>
+                                        <span class="review-value" id="reviewFraudPhone">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Files</span>
+                                        <span class="review-value" id="reviewFiles">0 files</span>
+                                    </div>
+                                </div>
+
+                                <div class="review-consent">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="consentCheck" required />
+                                        <span class="checkmark"></span>
+                                        I confirm that the information provided is true and accurate to the best of my knowledge.
+                                    </label>
+                                    <div class="error-message" id="consentError">Please confirm the information is accurate</div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-prev" onclick="goToStep(3)">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                                <button type="submit" class="btn-submit" id="submitBtn">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Submit Complaint
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Section (Hidden initially) -->
+        <section class="status-section" id="statusSection" style="display: none;">
+            <div class="container">
+                <div class="status-card">
+                    <div class="status-header">
+                        <div class="status-icon" id="statusIcon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 id="statusTitle">Complaint Registered!</h2>
+                        <p class="status-subtitle" id="statusSubtitle">Your complaint is being processed.</p>
+                    </div>
+
+                    <div class="complaint-id">
+                        <span>Complaint ID</span>
+                        <strong id="complaintId">-</strong>
+                    </div>
+
+                    <!-- Progress Tracker -->
+                    <div class="status-tracker">
+                        <div class="tracker-steps">
+                            <div class="tracker-step completed" data-status="submitted">
+                                <div class="tracker-circle">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <span class="tracker-label">Submitted</span>
+                                <span class="tracker-time" id="submittedTime">-</span>
+                            </div>
+                            <div class="tracker-step" data-status="analyzing">
+                                <div class="tracker-circle">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <span class="tracker-label">AI Analyzing</span>
+                                <span class="tracker-time" id="analyzingTime">-</span>
+                            </div>
+                            <div class="tracker-step" data-status="action">
+                                <div class="tracker-circle">
+                                    <i class="fas fa-shield"></i>
+                                </div>
+                                <span class="tracker-label">Action Taken</span>
+                                <span class="tracker-time" id="actionTime">-</span>
+                            </div>
+                            <div class="tracker-step" data-status="resolved">
+                                <div class="tracker-circle">
+                                    <i class="fas fa-flag"></i>
+                                </div>
+                                <span class="tracker-label">Resolved</span>
+                                <span class="tracker-time" id="resolvedTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Updates Feed -->
+                    <div class="updates-feed">
+                        <h4>Live Updates</h4>
+                        <div class="feed-container" id="feedContainer">
+                            <div class="feed-item">
+                                <span class="feed-time">Just now</span>
+                                <span class="feed-message">Complaint submitted successfully.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-view-details" onclick="alert('View full details')">
+                        <i class="fas fa-eye"></i>
+                        View Full Details
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>CyberCell</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a>
+                    <a href="#" onclick="openModal('termsModal'); return false;">Terms</a>
+                    <a href="#" onclick="openModal('contactModal'); return false;">Contact</a>
+                    <a href="#" class="footer-helpline" onclick="window.location.href='tel:1930'; return false;">
+                        <i class="fas fa-phone"></i> 1930
+                    </a>
+                </div>
+                <p class="footer-copy">&copy; 2026 Cyber Crime Reporting Portal</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-shield-halved"></i> Privacy Policy</h2>
+                <button class="modal-close" onclick="closeModal('privacyModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>1. Information We Collect</h3>
+                    <p>We collect the following information to process your complaint:</p>
+                    <ul>
+                        <li><strong>Personal Information:</strong> Name, phone number, email address, and physical address.</li>
+                        <li><strong>Fraud Details:</strong> Amount lost, date/time of fraud, type of fraud, and description.</li>
+                        <li><strong>Fraudster Information:</strong> UPI IDs, bank account numbers, and phone numbers provided by you.</li>
+                        <li><strong>Evidence:</strong> Screenshots, documents, and other files you upload.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>2. How We Use Your Information</h3>
+                    <ul>
+                        <li><strong>Complaint Processing:</strong> To register and track your cybercrime complaint.</li>
+                        <li><strong>Investigation:</strong> To share with law enforcement agencies for investigation.</li>
+                        <li><strong>Communication:</strong> To send you updates about your complaint status.</li>
+                        <li><strong>AI Analysis:</strong> To analyze patterns and predict fraud hotspots (anonymized data).</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>3. Data Security</h3>
+                    <p>We implement industry-standard security measures including:</p>
+                    <ul>
+                        <li><strong>Encryption:</strong> All data is encrypted in transit (TLS) and at rest (AES-256).</li>
+                        <li><strong>Access Control:</strong> Only authorized law enforcement personnel can access complaint data.</li>
+                        <li><strong>Audit Trail:</strong> All access to your data is logged and auditable.</li>
+                        <li><strong>Blockchain:</strong> Evidence hashes are stored on blockchain for tamper-proof verification.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>4. Data Sharing</h3>
+                    <p>Your information may be shared with:</p>
+                    <ul>
+                        <li><strong>Law Enforcement:</strong> Police departments and cybercrime cells investigating your complaint.</li>
+                        <li><strong>Banks:</strong> Financial institutions to freeze accounts and recover funds.</li>
+                        <li><strong>Regulatory Bodies:</strong> RBI, SEBI, and other regulatory authorities as required by law.</li>
+                        <li><strong>We never sell your data</strong> to third parties for marketing purposes.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>5. Your Rights</h3>
+                    <p>You have the right to:</p>
+                    <ul>
+                        <li><strong>Access:</strong> Request a copy of your personal data.</li>
+                        <li><strong>Rectify:</strong> Correct inaccurate information.</li>
+                        <li><strong>Delete:</strong> Request deletion of your data (subject to legal requirements).</li>
+                        <li><strong>Withdraw Consent:</strong> Withdraw consent for data processing at any time.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>6. Contact Us</h3>
+                    <p>For privacy-related queries, contact our Data Protection Officer:</p>
+                    <p><i class="fas fa-envelope"></i> privacy@cybercell.gov.in</p>
+                    <p><i class="fas fa-phone"></i> 1800-123-4567</p>
+                </div>
+
+                <div class="modal-footer-actions">
+                    <button class="btn-primary" onclick="closeModal('privacyModal')">
+                        <i class="fas fa-check"></i> I Understand
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-contract"></i> Terms of Service</h2>
+                <button class="modal-close" onclick="closeModal('termsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By using the Cyber Crime Reporting Portal, you agree to these terms. If you do not agree, please do not use the service.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>2. User Responsibilities</h3>
+                    <ul>
+                        <li><strong>Accuracy:</strong> You must provide truthful and accurate information.</li>
+                        <li><strong>Legality:</strong> You must not submit false complaints or misuse the system.</li>
+                        <li><strong>Evidence:</strong> You are responsible for the authenticity of uploaded evidence.</li>
+                        <li><strong>Privacy:</strong> Do not share your complaint ID or OTP with anyone.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>3. Service Availability</h3>
+                    <p>We strive to keep the portal available 24/7, but we do not guarantee uninterrupted access. Maintenance and technical issues may cause downtime.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>4. Disclaimer of Liability</h3>
+                    <ul>
+                        <li>The portal is a <strong>reporting tool</strong>, not a guarantee of resolution.</li>
+                        <li>Law enforcement outcomes depend on investigation and legal processes.</li>
+                        <li>We are not liable for delays in complaint processing caused by third parties.</li>
+                        <li>We are not liable for any financial losses you may incur.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>5. Termination</h3>
+                    <p>We reserve the right to suspend or terminate access to users who violate these terms, submit false complaints, or misuse the system.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>6. Changes to Terms</h3>
+                    <p>These terms may be updated periodically. Continued use constitutes acceptance of the updated terms.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>7. Governing Law</h3>
+                    <p>These terms are governed by the laws of India. Any disputes shall be resolved in courts of Delhi, India.</p>
+                </div>
+
+                <div class="modal-footer-actions">
+                    <button class="btn-primary" onclick="closeModal('termsModal')">
+                        <i class="fas fa-check"></i> I Agree
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-address-book"></i> Contact Us</h2>
+                <button class="modal-close" onclick="closeModal('contactModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3> Emergency Helpline</h3>
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>National Cyber Crime Helpline</strong>
+                                <p><a href="tel:1930">1930</a> (24/7)</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Emergency Police</strong>
+                                <p><a href="tel:112">112</a> (24/7)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3> Office Address</h3>
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <strong>Cyber Crime Investigation Cell</strong>
+                                <p>Ministry of Home Affairs</p>
+                                <p>North Block, New Delhi - 110001</p>
+                                <p>India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3> Email Support</h3>
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>General Inquiries</strong>
+                                <p><a href="mailto:support@cybercell.gov.in">support@cybercell.gov.in</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Technical Support</strong>
+                                <p><a href="mailto:tech@cybercell.gov.in">tech@cybercell.gov.in</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Privacy Concerns</strong>
+                                <p><a href="mailto:privacy@cybercell.gov.in">privacy@cybercell.gov.in</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3> Working Hours</h3>
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <p><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
+                                <p><strong>Saturday:</strong> 10:00 AM - 2:00 PM</p>
+                                <p><strong>Sunday:</strong> Closed</p>
+                                <p style="margin-top: 8px; color: var(--gray-500); font-size: 0.8rem;">
+                                    <i class="fas fa-info-circle"></i>
+                                    Emergency helpline <strong>1930</strong> is available 24/7
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>📱 Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i> Facebook</a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+                    </div>
+                </div>
+
+                <div class="modal-footer-actions">
+                    <button class="btn-primary" onclick="closeModal('contactModal')">
+                        <i class="fas fa-check"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

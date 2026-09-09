@@ -1,0 +1,3 @@
+# SMS template: complaint_submitted
+# Variables: {complaint_id}, {amount}, {fraud_type}
+Your cybercrime complaint {complaint_id} (Rs. {amount:,.0f}, {fraud_type}) is registered with CyberCell. Track status anytime. Call 1930 for help.

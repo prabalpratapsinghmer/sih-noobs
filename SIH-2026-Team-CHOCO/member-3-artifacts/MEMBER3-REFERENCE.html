@@ -1,0 +1,1047 @@
+<!doctype html>
+<title>Member 3 Reference — Frontend & DevOps</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef2f7; --surface:#ffffff; --surface-2:#f6f8fc;
+    --ink:#1d2740; --body:#3d4a63; --muted:#64728c;
+    --line:#d8e0ec; --line-2:#c3cfdf;
+    --accent:#2a6cd8; --accent-2:#1e4fa8; --accent-soft:#e4ecfa;
+    --onaccent:#ffffff;
+    --good:#16815f; --warn:#a8640a; --crit:#c02f45;
+    --good-soft:#e3f4ed; --warn-soft:#faf0dc; --crit-soft:#fbe7ea;
+    --code-bg:#0d1730; --code-ink:#dbe6f7; --code-mut:#6f84ad; --code-a:#5ee0c0; --code-k:#7e9bff; --code-s:#ffd28a;
+    --shadow:0 1px 2px rgba(23,38,64,.06),0 12px 32px -18px rgba(23,38,64,.22);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0a101d; --surface:#121a2c; --surface-2:#0e1626;
+      --ink:#e8eef8; --body:#b4bfd3; --muted:#7c8bab;
+      --line:#24304a; --line-2:#31405f;
+      --accent:#5b97f2; --accent-2:#8ab4f7; --accent-soft:#16233f;
+      --onaccent:#081326;
+      --good:#3ecf9c; --warn:#e3a34b; --crit:#f0697c;
+      --good-soft:#102920; --warn-soft:#2b2213; --crit-soft:#2b151b;
+      --code-bg:#080e1c; --code-ink:#cfdbf0; --code-mut:#5c6f96; --code-a:#4cd8b4; --code-k:#7493f7; --code-s:#f4c173;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0a101d; --surface:#121a2c; --surface-2:#0e1626;
+    --ink:#e8eef8; --body:#b4bfd3; --muted:#7c8bab;
+    --line:#24304a; --line-2:#31405f;
+    --accent:#5b97f2; --accent-2:#8ab4f7; --accent-soft:#16233f;
+    --onaccent:#081326;
+    --good:#3ecf9c; --warn:#e3a34b; --crit:#f0697c;
+    --good-soft:#102920; --warn-soft:#2b2213; --crit-soft:#2b151b;
+    --code-bg:#080e1c; --code-ink:#cfdbf0; --code-mut:#5c6f96; --code-a:#4cd8b4; --code-k:#7493f7; --code-s:#f4c173;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -20px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:84px}
+  body{margin:0; background:var(--bg); color:var(--body);
+       font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+       line-height:1.68; font-size:16px;
+       -webkit-font-smoothing:antialiased}
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+  code,kbd,.mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  #topbar{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--surface) 86%, transparent);
+          backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+  .bar-inner{max-width:1080px; margin:0 auto; padding:10px 28px; display:flex; align-items:center; gap:20px}
+  .brand{display:flex; flex-direction:column; line-height:1.1; white-space:nowrap}
+  .brand .t{font-weight:700; color:var(--ink); font-size:14px; letter-spacing:.01em}
+  .brand .s{font-size:10.5px; color:var(--muted); letter-spacing:.14em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace}
+  .navlinks{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{font-size:12.5px; color:var(--muted); padding:6px 9px; border-radius:6px; white-space:nowrap}
+  .navlinks a:hover{background:var(--surface-2); color:var(--ink); text-decoration:none}
+  .edition{margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted);
+           border:1px solid var(--line); padding:4px 9px; border-radius:999px; white-space:nowrap}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+
+  /* hero */
+  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
+  .kicker{display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:12px;
+          letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 18px}
+  .kicker .rule{width:38px; height:2px; background:var(--accent); display:inline-block}
+  h1{font-size:clamp(2rem, 4vw, 3.4rem); line-height:1.08; margin:0 0 14px; color:var(--ink);
+     font-weight:700; letter-spacing:-.02em; text-wrap:balance}
+  h1 .accent-grad{background:linear-gradient(90deg,var(--accent),var(--good)); -webkit-background-clip:text;
+                  background-clip:text; color:transparent}
+  .lede{font-size:1.12rem; color:var(--body); max-width:66ch; margin:0 0 24px; line-height:1.7}
+  .hero-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-top:8px}
+  .hm{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow)}
+  .hm .lbl{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin:0 0 4px}
+  .hm .val{color:var(--ink); font-weight:600; font-size:14px}
+
+  section.block{margin:64px 0}
+  .eyebrow{display:flex; align-items:baseline; gap:12px; font-family:'IBM Plex Mono',monospace;
+           font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);
+           margin:0 0 16px; padding-left:18px; position:relative}
+  .eyebrow::before{content:""; position:absolute; left:0; top:.05em; bottom:.05em; width:4px; border-radius:3px;
+                   background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+  .eyebrow .num{color:var(--muted); font-weight:600}
+  h2{color:var(--ink); font-size:clamp(1.4rem,2.6vw,1.9rem); margin:0 0 10px; font-weight:700;
+     line-height:1.2; text-wrap:balance; letter-spacing:-.01em}
+  .sub{color:var(--muted); max-width:70ch; margin:0 0 22px; font-size:.98rem}
+  h3{color:var(--ink); font-size:1.16rem; margin:34px 0 10px; font-weight:600; text-wrap:balance}
+  h4{color:var(--ink); font-size:.95rem; margin:24px 0 8px; font-weight:600}
+  p{max-width:70ch}
+  ul,ol{padding-left:22px; margin:10px 0; max-width:72ch}
+  li{margin:5px 0}
+  li strong, p strong, td strong{color:var(--ink); font-weight:600}
+  .note{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent);
+        border-radius:8px; padding:14px 18px; margin:20px 0; font-size:.95rem; max-width:78ch}
+  .note.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+  .note.crit{border-left-color:var(--crit); background:var(--crit-soft)}
+
+  /* pills / chips */
+  .pill{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em;
+        padding:3px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted); white-space:nowrap}
+  .pill.good{color:var(--good); border-color:currentColor; background:var(--good-soft)}
+  .pill.warn{color:var(--warn); border-color:currentColor; background:var(--warn-soft)}
+  .pill.crit{color:var(--crit); border-color:currentColor; background:var(--crit-soft)}
+  .pill.acc{color:var(--accent); border-color:var(--accent); background:var(--accent-soft)}
+
+  /* tables */
+  .tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface);
+             box-shadow:var(--shadow); margin:16px 0}
+  table{border-collapse:collapse; width:100%; min-width:640px; font-size:.9rem}
+  thead th{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em;
+           color:var(--muted); text-align:left; padding:11px 14px; border-bottom:1px solid var(--line-2);
+           background:var(--surface-2); white-space:nowrap}
+  tbody td{padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--body)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:var(--surface-2)}
+  td.mono, td code{font-family:'IBM Plex Mono',monospace; font-size:.82em}
+  td code{font-size:.82em}
+
+  /* code panels */
+  .panel{margin:16px 0; border:1px solid var(--line-2); border-radius:10px; overflow:hidden;
+         background:var(--code-bg); box-shadow:var(--shadow)}
+  .panel .fhead{display:flex; align-items:center; gap:8px; padding:8px 14px; background:color-mix(in srgb,var(--code-bg) 82%, #fff 4%);
+                border-bottom:1px solid color-mix(in srgb,var(--code-ink) 14%, transparent)}
+  .panel .fhead .dots{display:flex; gap:5px}
+  .panel .fhead .dots i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .panel .fhead .dots i:nth-child(1){background:#ff5f57}.panel .fhead .dots i:nth-child(2){background:#febc2e}.panel .fhead .dots i:nth-child(3){background:#28c840}
+  .panel .fname{margin-left:6px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--code-mut)}
+  .panel pre{margin:0; padding:16px 18px; overflow-x:auto; font-family:'IBM Plex Mono',monospace;
+             font-size:12.5px; line-height:1.62; color:var(--code-ink); tab-size:4}
+  .panel pre .c{color:var(--code-mut); font-style:italic}
+  .panel pre .k{color:var(--code-k)}
+  .panel pre .s{color:var(--code-s)}
+  .panel pre .a{color:var(--code-a)}
+  .panel pre .b{color:#ffffff; font-weight:600}
+
+  .inline-code{font-family:'IBM Plex Mono',monospace; font-size:.84em; background:var(--surface-2);
+               border:1px solid var(--line); padding:1px 6px; border-radius:5px; color:var(--ink)}
+
+  /* grids */
+  .grid{display:grid; gap:16px}
+  .grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px 20px; box-shadow:var(--shadow)}
+  .card h4{margin:0 0 6px}
+  .card p{margin:0; font-size:.92rem}
+  .card .meta{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:8px; display:block}
+
+  /* flow arrows */
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0}
+  .flow .step{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:7px 12px;
+              font-size:13px; color:var(--ink); font-weight:600; box-shadow:var(--shadow)}
+  .flow .step small{display:block; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); font-weight:400}
+  .flow .arrow{color:var(--muted)}
+
+  .toc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px}
+  .toc-grid a.t{display:flex; flex-direction:column; gap:3px; background:var(--surface); border:1px solid var(--line);
+                border-radius:10px; padding:14px 16px; color:var(--ink); box-shadow:var(--shadow)}
+  .toc-grid a.t:hover{text-decoration:none; border-color:var(--accent)}
+  .toc-grid a.t .n{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:.08em}
+  .toc-grid a.t .d{font-size:13px; color:var(--muted)}
+
+  .backtotop{display:inline-block; margin-top:30px; font-family:'IBM Plex Mono',monospace; font-size:12px}
+
+  footer.block{border-top:1px solid var(--line); padding:28px 0 60px; margin-top:40px; color:var(--muted); font-size:.9rem}
+  .legend-bar{display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin:16px 0}
+  .legend-bar span{display:flex; align-items:center; gap:6px; font-size:12px}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+  @media (max-width:720px){.edition{display:none}.brand .s{display:none}.bar-inner{padding:9px 16px}.wrap{padding:0 18px}}
+</style>
+
+<nav id="topbar">
+  <div class="bar-inner">
+    <div class="brand">
+      <span class="t">Member 3 — Reference</span>
+      <span class="s">SIH 2026 · SIH26184 · Predictive Fraud Platform</span>
+    </div>
+    <div class="navlinks">
+      <a href="#s1">1·Role</a>
+      <a href="#s2">2·Context</a>
+      <a href="#s3">3·Portfolio</a>
+      <a href="#s4">4·Code structure</a>
+      <a href="#s5">5·Design system</a>
+      <a href="#s6">6·Command Center</a>
+      <a href="#s7">7·Field Dashboard</a>
+      <a href="#s8">8·Admin Panel</a>
+      <a href="#s9">9·API contracts</a>
+      <a href="#s10">10·Auth &amp; RBAC</a>
+      <a href="#s11">11·DevOps</a>
+      <a href="#s12">12·Perf &amp; a11y</a>
+      <a href="#s13">13·Testing</a>
+      <a href="#s14">14·Team sync</a>
+      <a href="#s15">15·10-day plan</a>
+      <a href="#s16">16·Demo</a>
+    </div>
+    <span class="edition">v1.0 · reference</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker"><span class="rule"></span>SIH 2026 · Project SIH26184</p>
+    <h1>Member 3<br><span class="accent-grad">Frontend &amp; DevOps Lead</span></h1>
+    <p class="lede">The single source of truth for everything <strong>I own</strong> on the <em>Predictive Analytics Framework for Cybercrime Complaints</em> platform: the three police &amp; system web applications, the shared design system, and the full production DevOps pipeline. Web-only for this build — no WhatsApp bot and no native apps.</p>
+    <div class="hero-meta">
+      <div class="hm"><p class="lbl">My portfolio</p><p class="val">3 web apps + shared UI kit</p></div>
+      <div class="hm"><p class="lbl">Stack</p><p class="val">React · TS · Tailwind · Docker · K8s</p></div>
+      <div class="hm"><p class="lbl">Core promise</p><p class="val">Complaint → police action &lt; 10 min</p></div>
+      <div class="hm"><p class="lbl">Priority</p><p class="val">Demo-stable, production-ready</p></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 1 ROLE ============ -->
+  <section class="block" id="s1">
+    <p class="eyebrow"><span class="num">01</span> Role &amp; scope</p>
+    <h2>What I own, and what “done” means</h2>
+    <p class="sub">My job is to make the platform observable, fast, and usable by three very different police personas — and to prove it can be shipped to production.</p>
+
+    <h3>Deliverables (frontend)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>#</th><th>Deliverable</th><th>Audience</th><th>Form factor</th><th>Theme</th><th>Path</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Police Command Center</strong></td><td>Inspectors</td><td>Desktop web</td><td>Dark</td><td><code>/command</code></td></tr>
+        <tr><td>2</td><td><strong>Police Field Dashboard</strong></td><td>Constables</td><td>Mobile-first responsive</td><td>Light + colored alerts</td><td><code>/field</code></td></tr>
+        <tr><td>3</td><td><strong>System Admin Panel</strong></td><td>IT / System admins</td><td>Desktop web</td><td>Light</td><td><code>/admin</code></td></tr>
+        <tr><td>4</td><td><strong>Design system + UI kit</strong></td><td>All frontends (incl. Member 4)</td><td>Shared package</td><td>Token-driven</td><td><code>packages/ui-kit</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Deliverables (DevOps)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Area</th><th>Deliverable</th><th>Tooling</th><th>Status target</th></tr></thead>
+      <tbody>
+        <tr><td>Containers</td><td>Dockerfile per service + full stack compose</td><td>Docker + Compose</td><td>Full stack up in &lt; 2 min</td></tr>
+        <tr><td>Orchestration</td><td>K8s manifests + local cluster demo</td><td>Minikube</td><td>Auto-scale, self-heal</td></tr>
+        <tr><td>CI/CD</td><td>Build → test → image → deploy → notify</td><td>Jenkins (primary) + GitHub Actions</td><td>&lt; 10 min pipeline</td></tr>
+        <tr><td>Monitoring</td><td>Metrics + alert rules + dashboards</td><td>Prometheus + Grafana</td><td>30 s scrape cadence</td></tr>
+        <tr><td>Logging</td><td>Centralized, searchable, 30-day retention</td><td>ELK + Filebeat</td><td>Correlated w/ requests</td></tr>
+        <tr><td>Security scan</td><td>Code quality + web-app vuln gate</td><td>SonarQube + OWASP ZAP (optional)</td><td>Wired into CI stage</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Out of scope <span style="font-weight:400;color:var(--muted);font-size:.9em">(for this build)</span></h3>
+    <p>WhatsApp chatbot integration, native mobile apps, and browser push notifications are <strong>deferred</strong>. The portal is web-only (PWA). We land a stable web + pipeline first, then add channels. Anyone opens the system through a URL, not an app store.</p>
+
+    <div class="note"><strong>Operating rule:</strong> every screen exists to shorten one of two clocks — <em>how fast a victim gets help</em> and <em>how fast police act</em>. If a control doesn't serve one of those, it ships later.</div>
+  </section>
+
+  <!-- ============ 2 CONTEXT ============ -->
+  <section class="block" id="s2">
+    <p class="eyebrow"><span class="num">02</span> System context</p>
+    <h2>Where my frontends sit in the platform</h2>
+    <p class="sub">Just enough of the whole system to stay in sync — not to rebuild it. I consume backend &amp; ML APIs; I never implement them.</p>
+
+    <div class="flow">
+      <div class="step">Victim Portal<small>M4 · port 3000</small></div><span class="arrow">→</span>
+      <div class="step">Backend API<small>M2 · FastAPI 8000</small></div><span class="arrow">⇄</span>
+      <div class="step"><strong>My 3 frontends</strong><small>Command · Field · Admin</small></div>
+      <div class="step">ML engine<small>M1 · GPU 8080</small></div>
+      <div class="step">Databases<small>Postgres · Neo4j · Redis</small></div>
+      <div class="step">Blockchain audit<small>hash trail</small></div>
+    </div>
+
+    <p>The six layers (what each does, at a glance):</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Layer</th><th>Purpose</th><th>My involvement</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 · UIs</strong></td><td>Web interfaces for victim, police, admin</td><td>3 of the 4 web apps + shared kit</td></tr>
+        <tr><td><strong>2 · Gateway &amp; backend</strong></td><td>Rest APIs, WebSocket, auth, banking-switch mock</td><td>Consume via Axios + WebSocket</td></tr>
+        <tr><td><strong>3 · AI/ML (GPUs)</strong></td><td>Spatio-temporal ATM prediction, GNN mule scoring, LLM agent</td><td><strong>Render</strong> predictions, graphs, risk scores, LLM answers</td></tr>
+        <tr><td><strong>4 · Data</strong></td><td>Postgres (PII), Neo4j (graph), Redis (cache), IPFS (evidence)</td><td><strong>Display</strong> via backend APIs; no direct DB access</td></tr>
+        <tr><td><strong>5 · Blockchain</strong></td><td>Immutable audit trail of actions &amp; evidence hashes</td><td><strong>Surface</strong> audit trail in Command Center + Admin</td></tr>
+        <tr><td><strong>6 · DevOps</strong></td><td>Ship &amp; run everything</td><td><strong>Mine, end to end</strong></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>The end-to-end clock (what my screens surface)</h3>
+    <div class="flow">
+      <div class="step">Complaint filed<small>T+0–2 min</small></div><span class="arrow">→</span>
+      <div class="step">AI prediction<small>T+2–5 min</small></div><span class="arrow">→</span>
+      <div class="step">Auto actions<small>T+5–10 min</small></div><span class="arrow">→</span>
+      <div class="step">Police respond<small>T+10–30 min</small></div><span class="arrow">→</span>
+      <div class="step">Resolution<small>T+30–120 min</small></div>
+    </div>
+
+    <h3>Role sync — who provides to me / what I give back</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Member</th><th>Owns</th><th>Provides to me</th><th>I give back</th></tr></thead>
+      <tbody>
+        <tr><td><strong>M1 · ML (GPU)</strong></td><td>Transformer + GNN + LLM agent</td><td>Prediction API, mule scores, graph nodes/edges, accuracy metrics, NLP endpoint</td><td>Heatmap, graph viz, LLM chat UI, model-metric charts</td></tr>
+        <tr><td><strong>M2 · Backend (GPU)</strong></td><td>FastAPI, Postgres/Neo4j/Redis, JWT, WebSocket</td><td>REST endpoints, WS events, auth tokens, complaint/mule/alert data</td><td>Axios client, WS client, auth flows, agreed API contracts (§9)</td></tr>
+        <tr><td><strong>M4 · Victim/Integration</strong></td><td>Victim Portal, complaint flow, status tracking</td><td>Shared design system + components from my <code>ui-kit</code></td><td><code>ui-kit</code>, tokens, base React setup, WS/API helpers</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.9em;color:var(--muted)">We agree API contracts jointly in §9. Keep the shared component API stable — Member 4 builds on it.</p>
+  </section>
+
+  <!-- ============ 3 PORTFOLIO ============ -->
+  <section class="block" id="s3">
+    <p class="eyebrow"><span class="num">03</span> Frontend portfolio</p>
+    <h2>The three apps, decided up front</h2>
+    <p class="sub">One stack across all three so the design system and helpers are reused, never forked.</p>
+
+    <div class="tablewrap"><table>
+      <thead><tr><th></th><th>Command Center</th><th>Field Dashboard</th><th>Admin Panel</th></tr></thead>
+      <tbody>
+        <tr><td><strong>User</strong></td><td>Inspector (desk)</td><td>Constable (patrol)</td><td>IT / system admin</td></tr>
+        <tr><td><strong>Design goal</strong></td><td>Dense, realtime, low eye strain</td><td>Minimal text, big buttons</td><td>Operational clarity</td></tr>
+        <tr><td><strong>Theme</strong></td><td>Dark</td><td>Light + color-coded alerts</td><td>Light</td></tr>
+        <tr><td><strong>Signature features</strong></td><td>Heatmap, money-trail graph, LLM agent, action panel</td><td>Priority alert cards, navigation, quick actions, offline</td><td>User mgmt, health dashboards, audit log, model metrics</td></tr>
+        <tr><td><strong>Realtime</strong></td><td>WebSocket alert feed + live map</td><td>WebSocket alert push</td><td>Health polling (30 s)</td></tr>
+        <tr><td><strong>Port (dev)</strong></td><td><code>3003</code></td><td><code>3002</code></td><td><code>3001</code></td></tr>
+        <tr><td><strong>Public route</strong></td><td><code>/command</code></td><td><code>/field</code></td><td><code>/admin</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="note"><strong>One deliberate call:</strong> use <strong>Leaflet.js</strong> (no API key, self-hostable, fine for 500+ markers with clustering) for the SIH demo. <strong>Mapbox GL</strong> is the clean upgrade path but needs a token — keep map code behind a thin wrapper so we can swap without touching feature code.</div>
+
+    <h3>Shared decisions across all three</h3>
+    <div class="grid cols-3">
+      <div class="card"><span class="meta">LANGUAGE</span><h4>React 19 + TypeScript (strict)</h4><p>One codebase, three apps. Strict TS catches contract drift before it ships.</p></div>
+      <div class="card"><span class="meta">STATE</span><h4>Redux Toolkit</h4><p>Server cache (RTK Query) + websocket slice + auth slice. Not prop-drilling through 12 screens.</p></div>
+      <div class="card"><span class="meta">STYLING</span><h4>Tailwind + shadcn/ui primitives</h4><p>Design tokens in CSS, components composed with Tailwind utilities on a shared <code>ui-kit</code> base.</p></div>
+      <div class="card"><span class="meta">FORMS</span><h4>React Hook Form + Zod</h4><p>Validated against the exact API schemas in §9. One source of truth for field rules.</p></div>
+      <div class="card"><span class="meta">TRANSPORT</span><h4>Axios + native WebSocket</h4><p>Axios with interceptors for auth. A small WS wrapper (reconnect + event map) shared by all apps.</p></div>
+      <div class="card"><span class="meta">RESPONSIVE</span><h4>Mobile-first CSS</h4><p>Field is phone-first; Command/Admin are desktop-first, but all must not break below ~1100px.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 4 CODE STRUCTURE ============ -->
+  <section class="block" id="s4">
+    <p class="eyebrow"><span class="num">04</span> Code structure</p>
+    <h2>Monorepo — one repo, four frontends, one shared kit</h2>
+    <p class="sub">npm/pnpm workspaces so the UI kit and TS configs are shared; each app stays independently buildable and deployable.</p>
+
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">sih26184 / repository tree (frontend + devops)</span></div><pre>
+<k>sih26184/</k>                                  <span class="c"># repo root (git)</span>
+├── <span class="b">apps/</span>                                 <span class="c"># one folder per web app</span>
+│   ├── <span class="b">frontend-victim/</span>      <span class="c"># Victim Portal   → M4, port 3000 (consumes my ui-kit)</span>
+│   ├── <span class="b">frontend-admin/</span>      <span class="c"># Admin Panel     → me, port 3001</span>
+│   ├── <span class="b">frontend-field/</span>      <span class="c"># Field Dashboard → me, port 3002</span>
+│   └── <span class="b">frontend-command/</span>    <span class="c"># Command Center  → me, port 3003</span>
+├── <span class="b">packages/</span>               <span class="c"># shared, versioned packages</span>
+│   └── <span class="b">ui-kit/</span>               <span class="c"># MY design system: components, tokens, clients</span>
+├── <span class="b">devops/</span>               <span class="c"># everything infra</span>
+│   ├── <span class="b">docker/</span>             <span class="c"># Dockerfiles + nginx gateways</span>
+│   ├── <span class="b">compose/</span>            <span class="c"># docker-compose stacks</span>
+│   ├── <span class="b">k8s/</span>                <span class="c"># manifests, configmaps, minikube bootstrap</span>
+│   ├── <span class="b">ci/</span>                 <span class="c"># Jenkinsfile + GitHub Actions workflow</span>
+│   ├── <span class="b">monitoring/</span>        <span class="c"># prometheus config + grafana dashboards</span>
+│   ├── <span class="b">logging/</span>           <span class="c"># ELK compose + filebeat config</span>
+│   └── <span class="b">scripts/</span>            <span class="c"># compose-up.sh, demo-prep.sh</span>
+├── <span class="b">.env.example</span>          <span class="c"># all shared env vars (committed)</span>
+├── <span class="b">.github/</span>              <span class="c"># backup CI</span>
+├── <span class="b">docs/</span>                 <span class="c"># API contracts, architecture, glossary</span>
+└── package.json           <span class="c"># workspace root (scripts orchestrate builds)</span></pre></div>
+
+    <h3>Per-app structure — Command Center (the deepest app)</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">apps/frontend-command / src</span></div><pre>
+src/
+├── <span class="b">main.tsx</span>                 <span class="c"># entry — mounts providers</span>
+├── <span class="b">app/</span>
+│   ├── routes.tsx           <span class="c"># route table (lazy-loaded)</span>
+│   ├── providers.tsx        <span class="c"># store + theme + ws provider</span>
+│   └── layout/
+│       ├── Topbar.tsx       <span class="c"># station, clock, connection dot, user</span>
+│       ├── Sidebar.tsx      <span class="c"># nav + unread alert badge</span>
+│       └── CommandPalette.tsx <span class="c"># ⌘K global search/actions</span>
+├── <span class="b">features/</span>               <span class="c"># one folder per product area</span>
+│   ├── map/                 <span class="c"># heatmap (Leaflet wrapper)</span>
+│   │   ├── MapProvider.tsx
+│   │   ├── HeatmapLayer.tsx
+│   │   ├── AtmMarker.tsx
+│   │   ├── AtmPopup.tsx
+│   │   └── filters/         <span class="c"># time/location/risk filters</span>
+│   ├── graph/               <span class="c"># money-trail graph (D3 wrapper)</span>
+│   │   ├── MoneyGraph.tsx
+│   │   ├── useGraphLayout.ts
+│   │   └── NodePanel.tsx
+│   ├── llm-agent/           <span class="c"># inspector natural-language query UI</span>
+│   │   ├── ChatThread.tsx
+│   │   ├── QuickPrompts.tsx
+│   │   ├── QueryBuilder.tsx <span class="c"># visual alternative to typing cypher</span>
+│   │   └── ResultRenderer.tsx <span class="c"># text / chart / table / graph</span>
+│   ├── actions/             <span class="c"># trigger verify / freeze / FIR / dispatch</span>
+│   │   ├── ActionPanel.tsx
+│   │   └── ConfirmModal.tsx
+│   ├── alerts/              <span class="c"># realtime feed + toast</span>
+│   │   ├── AlertFeed.tsx
+│   │   └── useAlerts.ts
+│   ├── cases/               <span class="c"># complaint detail + evidence viewer</span>
+│   └── dashboard/           <span class="c"># per-station overview</span>
+├── <span class="b">shared/</span>                 <span class="c"># app-scoped utils (not UI)</span>
+│   ├── api/                 <span class="c"># axios instances + RTK Query slices</span>
+│   ├── ws/                  <span class="c"># ws client wrapper + event hooks</span>
+│   └── mock/                <span class="c"># demo seed data (§16)</span>
+├── <span class="b">store/</span>                  <span class="c"># Redux slices per domain</span>
+└── <span class="b">styles/</span>                <span class="c"># app-level css over the ui-kit tokens</span></pre></div>
+
+    <p>Field and Admin follow the same <span class="inline-code">features/</span> pattern with fewer folders — Field has <span class="inline-code">alerts/</span>, <span class="inline-code">navigation/</span>, <span class="inline-code">dispatch/</span>, <span class="inline-code">backup/</span>; Admin has <span class="inline-code">users/</span>, <span class="inline-code">health/</span>, <span class="inline-code">audit/</span>, <span class="inline-code">models/</span>, <span class="inline-code">complaints/</span>, <span class="inline-code">evidence/</span>.</p>
+
+    <h3>Shared <code>ui-kit</code> package</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">packages/ui-kit</span></div><pre>
+packages/ui-kit/
+├── src/
+│   ├── <span class="b">components/</span>          <span class="c"># Button, Card, Badge, Modal, Input, Table, Tab,
+│   │                       # AlertCard, StatusTimeline, RiskPill, Toast, Spinner…</span>
+│   ├── <span class="b">primitives/</span>         <span class="c"># shadcn/ui base (non-visual logic, Radix-adjacent)</span>
+│   ├── <span class="b">hooks/</span>              <span class="c"># useAuth, useSocket, useTheme, useDebounce</span>
+│   ├── <span class="b">lib/</span>                <span class="c"># axios client, ws client, format utils, time utils</span>
+│   ├── <span class="b">styles/</span>             <span class="c"># tokens.css, themes.css, tailwind preset</span>
+│   ├── <span class="b">icons/</span>
+│   └── <span class="b">index.ts</span>            <span class="c"># public surface — keep stable for M4</span>
+├── tailwind.preset.ts     <span class="c"># design tokens → Tailwind theme</span>
+└── package.json           <span class="c"># @sih/ui, versioned</span></pre></div>
+
+    <div class="note warn"><strong>Contract rule:</strong> the <code>ui-kit</code> public API (<code>index.ts</code> exports + prop signatures) is the seam between me and Member 4. Once we agree it, I don't break it without a version bump and a note to M4.</div>
+  </section>
+
+  <!-- ============ 5 DESIGN SYSTEM ============ -->
+  <section class="block" id="s5">
+    <p class="eyebrow"><span class="num">05</span> Design system</p>
+    <h2>Tokens — one palette, two themes, semantic color</h2>
+    <p class="sub">Colors are defined once as CSS custom-properties and consumed everywhere. Dark (Command) and light (Field/Admin/Victim) both derive from the same token set.</p>
+
+    <div class="legend-bar">
+      <span><i class="sw" style="background:#2a6cd8"></i> accent · steel blue</span>
+      <span><i class="sw" style="background:#16815f"></i> good / low risk</span>
+      <span><i class="sw" style="background:#a8640a"></i> warn / medium</span>
+      <span><i class="sw" style="background:#c02f45"></i> crit / high risk</span>
+    </div>
+
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">src/styles/tokens.css</span></div><pre>
+<span class="c">/* ---- light (default ground) ---- */</span>
+:root{
+  --bg:#eef2f7;  --surface:#ffffff;  --surface-2:#f6f8fc;
+  --ink:#1d2740; --body:#3d4a63;     --muted:#64728c;
+  --line:#d8e0ec; --line-2:#c3cfdf;
+  --accent:#2a6cd8; --accent-2:#1e4fa8; --accent-soft:#e4ecfa; --onaccent:#fff;
+  --good:#16815f; --warn:#a8640a; --crit:#c02f45;
+  --good-soft:#e3f4ed; --warn-soft:#faf0dc; --crit-soft:#fbe7ea;
+  --code:#0d1730; --code-ink:#dbe6f7;
+  --danger-hover:#a51f34; <span class="c">/* destructive buttons */</span>
+}
+<span class="c">/* ---- dark: follows OS, but loses to an explicit light choice ---- */</span>
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a101d; --surface:#121a2c; --surface-2:#0e1626;
+    --ink:#e8eef8; --body:#b4bfd3; --muted:#7c8bab;
+    --line:#24304a; --line-2:#31405f;
+    --accent:#5b97f2; --accent-2:#8ab4f7; --accent-soft:#16233f; --onaccent:#081326;
+    --good:#3ecf9c; --warn:#e3a34b; --crit:#f0697c;
+    --good-soft:#102920; --warn-soft:#2b2213; --crit-soft:#2b151b;
+    --code:#080e1c; --code-ink:#cfdbf0;
+    --danger-hover:#ff8a99;
+  }
+}
+<span class="c">/* ---- dark: explicit toggle wins over OS ---- */</span>
+:root[data-theme="dark"]{ <span class="c">/* same values as above — duplicated for clarity */ </span>}</pre></div>
+
+    <div class="note"><strong>Why this matters:</strong> the artifact/page must apply a color in the unstamped state too. Every token is declared on bare <code>:root</code> first; the media query and the explicit toggle only <em>redefine</em> it. No token lives only inside a dark block, or the Command Center renders light-on-light.</div>
+
+    <h3>Typography &amp; spacing</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Role</th><th>Face</th><th>Scale notes</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td>Headings</td><td class="mono">IBM Plex Sans 700</td><td>clamp(1.2→1.9rem); <code>text-wrap:balance</code></td><td>Page &amp; section titles</td></tr>
+        <tr><td>Body</td><td class="mono">IBM Plex Sans 400</td><td>16px, line-height 1.68, ≤70ch</td><td>Reading text</td></tr>
+        <tr><td>Mono / data</td><td class="mono">IBM Plex Mono</td><td>12.5px; <code>font-variant-numeric:tabular-nums</code></td><td>IDs, coords, tables, code, scores</td></tr>
+        <tr><td>Eyebrow/label</td><td class="mono">Plex Mono, uppercase</td><td>10–12px, letter-spacing .1–.14em</td><td>Section numbers, table headers</td></tr>
+      </tbody>
+    </table></div>
+    <p>Spacing follows a 4px base grid (4·8·12·16·24·32·48·64). Radius: 8–10px for cards, 999px for pills, 6px for small controls. Shadows come from one token so light/dark stay consistent.</p>
+
+    <h3>Risk color — not color alone</h3>
+    <p class="note"><strong>Color-blind safe:</strong> risk is shown as color <strong>+</strong> a label pill ("High") <strong>+</strong> sometimes a symbol (▲/●/▼) and a density edge. Never rely on hue alone to convey severity.</p>
+  </section>
+
+  <!-- ============ 6 COMMAND CENTER ============ -->
+  <section class="block" id="s6">
+    <p class="eyebrow"><span class="num">06</span> Command Center</p>
+    <h2>The inspector's desk — intelligence, not forms</h2>
+    <p class="sub">Dark, dense, realtime. An inspector runs 12+ cases; everything must be <em>findable</em>, not hunted.</p>
+
+    <div class="grid cols-3">
+      <div class="card"><span class="meta">VIEW 1 · MAP</span><h4>Live ATM heatmap</h4><p>Leaflet + a heatmap overlay. 500+ clustered markers, risk-coded, WebSocket-updated. Red high / amber medium / green low.</p></div>
+      <div class="card"><span class="meta">VIEW 2 · GRAPH</span><h4>Money-trail graph</h4><p>D3 force-directed rendering of Neo4j subgraph: victim→mule→mule→ATM. Click a node → detail panel.</p></div>
+      <div class="card"><span class="meta">VIEW 3 · LLM</span><h4>Natural-language agent</h4><p>Ask "mules linked to C1001" and get text + chart + graph + suggested follow-ups.</p></div>
+      <div class="card"><span class="meta">VIEW 4 · ACTIONS</span><h4>Action panel</h4><p>Trigger Step-Up Verification, Request Freeze, Generate FIR draft, Dispatch patrol — all with confirm modals.</p></div>
+      <div class="card"><span class="meta">VIEW 5 · ALERTS</span><h4>Realtime feed</h4><p>WebSocket-pushed priority alerts with unread badges + toasts for high-risk predictions.</p></div>
+      <div class="card"><span class="meta">VIEW 6 · CASES</span><h4>Complaint detail</h4><p>Timeline, evidence (verifiable against IPFS/blockchain hash), linked mules, status history.</p></div>
+    </div>
+
+    <h3>Map spec</h3>
+    <ul>
+      <li>Tile layer: OpenStreetMap (no key). Heat = <code>Leaflet.heat</code> weighted by <code>risk_score</code>.</li>
+      <li>Markers: circle markers colored by risk; >= 80 → show on top; click opens <code>AtmPopup</code> (id, block, risk, predicted windows, connected mules, "Open case").</li>
+      <li>Controls: zoom, pan, reset view; <strong>filters</strong> for time range, fraud type, min-risk slider.</li>
+      <li>Realtime: a new <code>prediction.new</code> WS event re-positions/elevates the controlled marker within 2 s.</li>
+      <li>Performance: marker clustering (Leaflet.markercluster) keeps 500+ markers at 60 fps.</li>
+    </ul>
+
+    <h3>Graph spec</h3>
+    <ul>
+      <li>Feed: <span class="inline-code">GET /api/mules/{complaint_id}/graph</span> → <code>{nodes:[], edges:[]}</code> (shape in §9).</li>
+      <li>Node shape/color encodes type (victim, mule, upi, phone, bank, atm); ring width encodes <code>mule_score</code>.</li>
+      <li>Interactions: zoom, pan, drag nodes; select highlights neighbors (≤100ms); a small legend + minimap.</li>
+      <li>Simulation: D3 <code>forceSimulation</code> + <code>forceLink</code> + <code>forceManyBody</code>; freeze layout on select for stability.</li>
+    </ul>
+
+    <h3>LLM agent spec</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">llm-agent / interaction contract</span></div><pre>
+<span class="c"># Officer types (natural language):</span>
+"Show all high-risk ATMs in Indiranagar linked to investment fraud in the last 2 hours"
+
+<span class="c"># Backend (M1/M2) turns it into a constrained Cypher query:</span>
+<span class="k">MATCH</span> (c:Complaint)-[:CONNECTED_TO]->(a:ATM)
+<span class="k">WHERE</span> c.type = "Investment" <span class="k">AND</span> a.area = "Indiranagar"
+   <span class="k">AND</span> a.risk_score > 70 <span class="k">AND</span> c.created_at > datetime() - <span class="s">"2h"</span>
+<span class="k">RETURN</span> a.id, a.area, a.risk_score, COUNT(c) <span class="k">AS</span> complaints
+
+<span class="c"># UI renders: result table + map pins + a "Repeat for: last 6h" quick action.
+# Vague query? backend returns {clarification: "...", suggestions:[...]} → I render the prompt.</span></pre></div>
+    <ul>
+      <li>Chat thread persists in <code>localStorage</code> per inspector; "save as template" writes to backend.</li>
+      <li>Structured <code>QueryBuilder</code> (pick entity → attribute → operators) is a full visual alternative to typing — no cypher skill needed.</li>
+      <li>Response budget: <strong>&lt; 5 s</strong> including the LLM call; show skeleton + streaming text.</li>
+    </ul>
+
+    <h3>Power-user shortcuts</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Key</th><th>Action</th><th>Key</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">G then M</td><td>Go to map</td><td class="mono">G then G</td><td>Go to graph</td></tr>
+        <tr><td class="mono">G then C</td><td>Go to cases list</td><td class="mono">⌘K / Ctrl-K</td><td>Command palette (search case/ATM/action)</td></tr>
+        <tr><td class="mono">A</td><td>Open action panel on selected case</td><td class="mono">1 / 2 / 3</td><td>Cycles next unread alert priority</td></tr>
+        <tr><td class="mono">T</td><td>Quick "trigger verification" (with confirm)</td><td class="mono">Esc</td><td>Close modal / deselect</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="note warn">Destructive actions (freeze, terminal status changes) always open a <strong>confirm modal</strong> restating the target ID and consequence — never a bare button tap.</div>
+  </section>
+
+  <!-- ============ 7 FIELD ============ -->
+  <section class="block" id="s7">
+    <p class="eyebrow"><span class="num">07</span> Field Dashboard</p>
+    <h2>The constable's phone — respond, don't read</h2>
+    <p class="sub">Mobile-first. Big buttons, tiny text, zero friction, offline-capable.</p>
+
+    <h3>Primary screen: alert cards</h3>
+    <ul>
+      <li>Cards ordered by priority (crit → warn → info) with a right edge stripe in the risk color.</li>
+      <li>Each card: ATM name + block, <strong>risk score</strong>, predicted withdrawal window, distance + ETA from officer's GPS, connected mule count.</li>
+      <li>Tap a card → full detail + actions.</li>
+    </ul>
+
+    <h3>Quick actions (primary CTA per state)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Action</th><th>What it does</th><th>Updates</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Navigate</strong></td><td>Opens device maps app with ATM coords</td><td>—</td></tr>
+        <tr><td><strong>Dispatch</strong></td><td>Marks "patrol dispatched" once en route</td><td>Sets <code>status=dispatched</code> + client timestamp</td></tr>
+        <tr><td><strong>Verify</strong></td><td>Marks arrived + verification checked</td><td>Sets <code>status=verified</code></td></tr>
+        <tr><td><strong>Backup</strong></td><td>Requests backup from control room</td><td>WS <code>backup.requested</code> → control room toast</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Offline support</h3>
+    <ul>
+      <li>Service worker caches shell + current alert list (Cache-first for static, network-first for alerts).</li>
+      <li>Actions taken offline queue locally (<code>localStorage</code>) and flush on reconnect (WS <code>action.ack</code>).</li>
+      <li>Show a persistent "offline — changes queued" chip so officers know their taps aren't lost.</li>
+    </ul>
+
+    <h3>State model (local, per officer)</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">store/alertsSlice.ts (shape)</span></div><pre>
+interface FieldAlert {
+  id: string
+  complaint_id: string
+  atm_id: string
+  atm_name: string
+  block: string
+  lat: number; lng: number
+  risk_score: number                 <span class="c">// 0–100</span>
+  priority: 'crit' | 'warn' | 'info'
+  predicted_window: { from: string; to: string }
+  distance_km?: number; eta_min?: number <span class="c">// computed from officer GPS</span>
+  status: 'new' | 'dispatched' | 'verified' | 'backup'
+  fts_timestamps?: Record<string, string> <span class="c">// offline queue of when actions were tapped</span>
+}</pre></div>
+
+    <div class="note">Field uses a <strong>light</strong> theme (officers are outdoors in sunlight) — but the alert stripe and risk pill still obey the semantic risk colors from §5.</div>
+  </section>
+
+  <!-- ============ 8 ADMIN ============ -->
+  <section class="block" id="s8">
+    <p class="eyebrow"><span class="num">08</span> Admin Panel</p>
+    <h2>Run the platform — people, health, evidence</h2>
+    <p class="sub">The admin face is about operations: keep users right, keep the system healthy, keep the record auditable.</p>
+
+    <div class="grid cols-3">
+      <div class="card"><span class="meta">USERS</span><h4>User &amp; role management</h4><p>Add / edit / deactivate officers and admins; assign roles (Admin, Inspector, Constable); reset passwords; audit who did it.</p></div>
+      <div class="card"><span class="meta">HEALTH</span><h4>System health dashboard</h4><p>Per-service CPU, RAM, GPU, disk, network. Recharts line/area charts, 30 s polling, red node for down services.</p></div>
+      <div class="card"><span class="meta">MODELS</span><h4>ML performance</h4><p>Live accuracy / precision / recall / latency for Transformer + GNN, fed by M1's metrics endpoint.</p></div>
+      <div class="card"><span class="meta">AUDIT</span><h4>Audit log viewer</h4><p>Searchable, filterable action history (who/what/when + blockchain tx id). Source of legal-trust story.</p></div>
+      <div class="card"><span class="meta">COMPLAINTS</span><h4>Complaint overview</h4><p>Volume, status funnel, median resolution time. Charts + table + export CSV.</p></div>
+      <div class="card"><span class="meta">EVIDENCE</span><h4>Evidence management</h4><p>List evidence per case; verify a file's hash against the stored <code>file_hash</code> / IPFS CID.</p></div>
+    </div>
+
+    <h3>Charts decision</h3>
+    <p><strong>Recharts</strong> for dashboards (light, React-native, works for line/area/bar/pie). No chart library on the Command Center map/graph — those use Leaflet and D3 respectively.</p>
+    <div class="note">KPIs on the Admin home as <strong>big-number tiles</strong> (reported complaints today, open cases, avg resolution time, model latency p95) — the numbers are the point, keep them the hero.</div>
+  </section>
+
+  <!-- ============ 9 API CONTRACTS ============ -->
+  <section class="block" id="s9">
+    <p class="eyebrow"><span class="num">09</span> API contracts (v1 — agreed with M2)</p>
+    <h2>The endpoints my screens consume</h2>
+    <p class="sub">These are <em>jointly agreed contracts</em>. Base URL <span class="inline-code">/api</span> behind the gateway; WS at <span class="inline-code">/ws</span>. Confirm exact field names with Member 2 before freeze.</p>
+
+    <h3>Auth</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method &amp; path</th><th>Body / params</th><th>Returns</th></tr></thead>
+      <tbody>
+        <tr><td><code>POST /api/auth/login</code></td><td><code>{ username, password }</code></td><td><code>{ access_token, refresh_token, user }</code></td></tr>
+        <tr><td><code>POST /api/auth/refresh</code></td><td><code>{ refresh_token }</code></td><td><code>{ access_token }</code></td></tr>
+        <tr><td><code>GET /api/auth/me</code></td><td>—</td><td><code>User</code> (role, station, name, id)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Complaints &amp; cases</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method &amp; path</th><th>Returns</th></tr></thead>
+      <tbody>
+        <tr><td><code>GET /api/complaints?status=&amp;page=</code></td><td><code>{ items: Complaint[], total, page }</code></td></tr>
+        <tr><td><code>GET /api/complaints/{id}</code></td><td><code>Complaint</code> full (victim, fraud fields, status, timeline)</td></tr>
+        <tr><td><code>GET /api/complaints/{id}/evidence</code></td><td><code>Evidence[]</code> (file_type, file_hash, ipfs_cid, uploaded_at)</td></tr>
+        <tr><td><code>GET /api/complaints/{id}/timeline</code></td><td><code>TimelineEvent[]</code></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Prediction &amp; map</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method &amp; path</th><th>Returns</th></tr></thead>
+      <tbody>
+        <tr><td><code>GET /api/predictions?complaint_id=</code></td><td><code>Prediction[]</code> — top-3 ATMs w/ probability</td></tr>
+        <tr><td><code>GET /api/atms?min_risk=&amp;area=&amp;since=</code></td><td><code>AtmRisk[]</code> for the heatmap</td></tr>
+        <tr><td><code>GET /api/mules/{complaint_id}/graph</code></td><td><code>{ nodes: GraphNode[], edges: GraphEdge[] }</code></td></tr>
+        <tr><td><code>GET /api/mules/{id}</code></td><td><code>Mule</code> with score breakdown</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Actions</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method &amp; path</th><th>Body</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>POST /api/actions</code></td><td><code>{ complaint_id, action_type, params }</code></td><td>Creates + returns the action (id, status, tx_hash)</td></tr>
+        <tr><td><code>PATCH /api/actions/{id}</code></td><td><code>{ status, note }</code></td><td>Field status updates (dispatched/verified/backup)</td></tr>
+        <tr><td><code>GET /api/actions?complaint_id=</code></td><td>—</td><td>History + blockchain tx ids</td></tr>
+      </tbody>
+    </table></div>
+    <p><code>action_type</code> ∈ <span class="inline-code">step_up_verification · freeze_request · fir_draft · dispatch_patrol · backup_request</span>.</p>
+
+    <h3>Admin</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Method &amp; path</th><th>Returns</th></tr></thead>
+      <tbody>
+        <tr><td><code>GET/POST/PATCH/DELETE /api/admin/users</code></td><td><code>User[]</code> manage</td></tr>
+        <tr><td><code>GET /api/admin/health</code></td><td>per-service CPU/RAM/GPU/disk/net</td></tr>
+        <tr><td><code>GET /api/admin/model-metrics</code></td><td>accuracy/precision/recall/latency series</td></tr>
+        <tr><td><code>GET /api/admin/audit?filter=</code></td><td>action log + tx hashes</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Key JSON shapes</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">Complaint · Prediction · AtmRisk · GraphNode</span></div><pre>
+<span class="c">// GET /api/complaints/{id} → Complaint</span>
+{ id, status, fraud_type, amount,
+  created_at, updated_at,
+  victim: { id, name_masked, phone_masked },
+  fraudster: { upi, phone },
+  timeline: [ { at: string, state: string, actor: string } ] }
+
+<span class="c">// GET /api/predictions?complaint_id= → Prediction[]</span>
+[{ atm_id, atm_name, area, lat, lng,
+   probability,            <span class="c">// 0..1, top usually ≥ .70</span>
+   predicted_window: {from,to}, method: "spatio-temporal" }]
+
+<span class="c">// GET /api/atms → AtmRisk[]  (heatmap points)</span>
+[{ atm_id, atm_name, area, lat, lng,
+   risk_score,                 <span class="c">// 0–100</span>
+   priority: "crit"|"warn"|"info",
+   connected_high_risk_mules: number }]
+
+<span class="c">// GET /api/mules/{id}/graph → { nodes, edges }</span>
+nodes: [{ id, label, type: "victim"|"mule"|"upi"|"phone"|"bank"|"atm",
+          mule_score? }]
+edges: [{ source, target, rel: "SENT_MONEY_TO"|"TRANSFERRED_TO"|"WITHDREW_AT"|"CONNECTED_TO",
+          amount? }]</pre></div>
+
+    <h3>WebSocket events</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Event</th><th>Payload key</th><th>Fan-out to</th></tr></thead>
+      <tbody>
+        <tr><td><code>complaint.created</code></td><td><code>complaint_id</code></td><td>Command (new case)</td></tr>
+        <tr><td><code>prediction.new</code></td><td><code>AtmRisk[]</code></td><td>Command (heatmap update), Field (alert card)</td></tr>
+        <tr><td><code>action.triggered</code></td><td><code>action</code> + <code>tx_hash</code></td><td>Command + Admin (audit)</td></tr>
+        <tr><td><code>alert.push</code></td><td><code>FieldAlert</code></td><td>Field (priority card), Command (toast)</td></tr>
+        <tr><td><code>backup.requested</code></td><td><code>{ complaint_id, officer_id }</code></td><td>Command (control-room toast)</td></tr>
+        <tr><td><code>status.updated</code></td><td><code>{ complaint_id, status }</code></td><td>All + victim portal</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>WS transport decision:</strong> if Member 2 uses FastAPI's built-in WebSocket, the browser uses the native <code>WebSocket</code> API behind my small wrapper. If they use <code>python-socketio</code>, I use <code>socket.io-client</code> instead. Pick one with M2 on Day 1 — the wrapper isolates this so screens don't change either way.</div>
+  </section>
+
+  <!-- ============ 10 AUTH ============ -->
+  <section class="block" id="s10">
+    <p class="eyebrow"><span class="num">10</span> Auth &amp; RBAC</p>
+    <h2>Who may see what, enforced at the route</h2>
+    <p class="sub">My frontends gate the UI; the backend enforces truth. Tokens come from Member 2's auth service.</p>
+
+    <div class="tablewrap"><table>
+      <thead><tr><th>App</th><th>Accepts</th><th>Session</th></tr></thead>
+      <tbody>
+        <tr><td>Command Center</td><td>Government ID + password</td><td>4 h</td></tr>
+        <tr><td>Field Dashboard</td><td>ID + password (biometric optional on device)</td><td>4 h</td></tr>
+        <tr><td>Admin Panel</td><td>ID + password</td><td>8 h</td></tr>
+        <tr><td>Victim Portal (M4)</td><td>Phone + OTP</td><td>2 h</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Route guards &amp; role levels</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Role</th><th>Can reach</th><th>Guard</th></tr></thead>
+      <tbody>
+        <tr><td><code>admin</code></td><td>Admin Panel + everything</td><td>redirect to /login if <code>role !== admin</code></td></tr>
+        <tr><td><code>inspector</code></td><td>Command Center (map, graph, LLM, actions, cases)</td><td>apps mirror role in the JWT claim</td></tr>
+        <tr><td><code>constable</code></td><td>Field Dashboard (alerts, dispatch, verify, backup)</td><td>same</td></tr>
+        <tr><td><code>victim</code></td><td>Their own complaint + status only</td><td>portal-level (M4)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Token handling in <code>ui-kit</code></h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">packages/ui-kit/src/lib/http.ts</span></div><pre>
+<span class="c">// Single axios instance shared by all apps. Interceptors do auth + refresh.</span>
+<span class="k">const</span> http = axios.<span class="k">create</span>({ baseURL: <span class="s">"/api"</span>, timeout: 10000 })
+
+http.interceptors.request.<span class="k">use</span>(cfg =&gt; {
+  <span class="k">const</span> t = localStorage.<span class="k">getItem</span>(<span class="s">"access"</span>)
+  <span class="k">if</span> (t) cfg.headers.Authorization = <span class="s">`Bearer ${t}`</span>
+  <span class="k">return</span> cfg
+})
+http.interceptors.response.<span class="k">use</span>(r =&gt; r, <span class="k">async</span> err =&gt; {
+  <span class="k">if</span> (err.response?.status === 401) {
+    <span class="k">const</span> ok = <span class="k">await</span> attemptRefresh()      <span class="c">// calls /api/auth/refresh once</span>
+    <span class="k">if</span> (ok) <span class="k">return</span> http(err.config)     <span class="c">// replay original request</span>
+    emitAuthExpired()                         <span class="c">// → route to /login</span>
+  }
+  <span class="k">return</span> Promise.<span class="k">reject</span>(err)
+})</pre></div>
+
+    <h3>Security hygiene (in all three apps)</h3>
+    <ul>
+      <li>Store tokens in <code>localStorage</code> for this demo so refresh works across tabs; note as an accepted trade-off (<code>HttpOnly</code> cookie is the prod upgrade).</li>
+      <li>Every API input validated client-side with the same Zod schema backend uses.</li>
+      <li>Prefer backend-enforced PII masking (backend already masks victim phone/name in payloads).</li>
+      <li>Logout clears tokens + calls <code>/api/auth/logout</code>.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 11 DEVOPS ============ -->
+  <section class="block" id="s11">
+    <p class="eyebrow"><span class="num">11</span> DevOps</p>
+    <h2>Run the whole platform with one command</h2>
+    <p class="sub">My largest ownership area. Everything conventional, stitched so the demo can start clean and CI can ship it.</p>
+
+    <h3>Port &amp; route map (the single source of truth)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Service</th><th>Container</th><th>Exposed port</th><th>Public path (via nginx :80)</th></tr></thead>
+      <tbody>
+        <tr><td>Victim Portal</td><td class="mono">victim-frontend</td><td>3000</td><td><code>/</code></td></tr>
+        <tr><td>Admin Panel</td><td class="mono">admin-frontend</td><td>3001</td><td><code>/admin</code></td></tr>
+        <tr><td>Field Dashboard</td><td class="mono">field-frontend</td><td>3002</td><td><code>/field</code></td></tr>
+        <tr><td>Command Center</td><td class="mono">command-frontend</td><td>3003</td><td><code>/command</code></td></tr>
+        <tr><td>Backend API</td><td class="mono">backend-api</td><td>8000</td><td><code>/api</code> + <code>/ws</code></td></tr>
+        <tr><td>ML model server</td><td class="mono">ml-model-server</td><td>8080</td><td>internal (<code>/api/v1/model</code>)</td></tr>
+        <tr><td>Graph DB</td><td class="mono">neo4j-database</td><td>7687 / 7474</td><td>internal</td></tr>
+        <tr><td>Relational DB</td><td class="mono">postgres-database</td><td>5432</td><td>internal</td></tr>
+        <tr><td>Cache / pub-sub</td><td class="mono">redis-cache</td><td>6379</td><td>internal</td></tr>
+        <tr><td>Blockchain node</td><td class="mono">blockchain-node</td><td>7050</td><td>internal</td></tr>
+        <tr><td>Gateway</td><td class="mono">nginx-gateway</td><td><strong>80</strong> / 443</td><td>all the above routes</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Docker Compose (core services shown)</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">devops/compose/docker-compose.yml</span></div><pre>
+<span class="k">services:</span>
+  <span class="a">victim-frontend</span>:
+    build: { context: ../../apps/frontend-victim }
+    depends_on: [nginx-gateway]
+  <span class="a">admin-frontend</span>:
+    build: { context: ../../apps/frontend-admin }
+  <span class="a">field-frontend</span>:
+    build: { context: ../../apps/frontend-field }
+  <span class="a">command-frontend</span>:
+    build: { context: ../../apps/frontend-command }
+  <span class="a">backend-api</span>:
+    build: { context: ../../   <span class="c"># M2's FastAPI context</span> }
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: <span class="s">${DATABASE_URL}</span>
+      REDIS_URL: <span class="s">${REDIS_URL}</span>
+      NEO4J_URI: <span class="s">${NEO4J_URI}</span>
+  <span class="a">ml-model-server</span>:   <span class="c"># M1's TorchServe (GPU via nvidia runtime if present)</span>
+    build: { context: <span class="s">../../ml</span> }
+    ports: ["8080:8080"]
+  <span class="a">neo4j-database</span>:
+    image: neo4j:<span class="s">5</span>
+    ports: ["7687:7687", "7474:7474"]
+    environment:
+      NEO4J_AUTH: <span class="s">neo4j/${NEO4J_PASSWORD}</span>
+  <span class="a">postgres-database</span>:
+    image: postgres:<span class="s">16</span>
+    ports: ["5432:5432"]
+  <span class="a">redis-cache</span>:
+    image: redis:<span class="s">7</span>
+    ports: ["6379:6379"]
+    command: [<span class="s">"redis-server"</span>, <span class="s">"--appendonly"</span>, <span class="s">"yes"</span>]
+  <span class="a">nginx-gateway</span>:
+    build: { dockerfile: devops/docker/nginx.Dockerfile }
+    ports: ["80:80", "443:443"]
+    depends_on: [victim-frontend, admin-frontend, field-frontend,
+                 command-frontend, backend-api]</pre></div>
+
+    <p><span class="pill acc">Gateway config</span> The nginx server block maps <code>/admin</code>, <code>/field</code>, <code>/command</code>, <code>/(victim)</code> to their app containers and reverse-proxies <code>/api</code> and <code>/ws</code> to <code>backend-api:8000</code>. This is how <em>four</em> apps share one origin — important for cookies/CORS and for the demo (one URL).</p>
+
+    <h3>Kubernetes (Minikube for the demo)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Manifest</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">namespace.yaml</td><td>Isolate the workload</td></tr>
+        <tr><td class="mono">configmap-frontends.yaml</td><td>Env for the 4 web apps (VITE_*, API base)</td></tr>
+        <tr><td class="mono">deployment-*.yaml</td><td>Deployment per service with <code>resources.limits</code>, <code>livenessProbe</code>, <code>readinessProbe</code></td></tr>
+        <tr><td class="mono">service-*.yaml</td><td>Internal ClusterIP DNS per service</td></tr>
+        <tr><td class="mono">ingress.yaml</td><td>Path routing mirroring nginx routes</td></tr>
+        <tr><td class="mono">hpa-ml.yaml</td><td>HorizontalPodAutoscaler on the ML service (scale on queue depth)</td></tr>
+        <tr><td class="mono">minikube-setup.sh</td><td>Bootstrap: start, enable ingress/registry, apply manifests, wait ready</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Auto-scaling story for judges:</strong> the ML service scales with <code>hpa-ml.yaml</code>; failed containers restart via the deployment's <code>restartPolicy</code>/liveness; rolling updates give zero-downtime deploys. This is the concrete "production-ready" evidence.</div>
+
+    <h3>CI/CD — Jenkins (primary) + GitHub Actions (backup)</h3>
+    <div class="panel"><div class="fhead"><span class="dots"><i></i><i></i><i></i></span><span class="fname">devops/ci/Jenkinsfile (stages)</span></div><pre>
+pipeline {
+  agent any
+  stages {
+    stage(<span class="s">'Build'</span>)    { steps { sh <span class="s">'npm ci && tsc --noEmit && npm run lint && npm test'</span> } }
+    stage(<span class="s">'Test'</span>)    { steps { sh <span class="s">'docker compose -f devops/compose/test.yml up --build'</span> } }
+    stage(<span class="s">'Images'</span>)  { steps { sh <span class="s">'docker build -t ghcr.io/sih26184/app .'</span> } }
+    stage(<span class="s">'Push'</span>)    { steps { sh <span class="s">'docker push ghcr.io/sih26184/app'</span> } }
+    stage(<span class="s">'Deploy'</span>)  { steps { sh <span class="s">'kubectl apply -f devops/k8s/manifests'</span> } }
+    stage(<span class="s">'Health'</span>)  { steps { sh <span class="s">'kubectl rollout status deploy/app --timeout=120s'</span> } }
+  }
+  post { success { notifyDiscord(<span class="s">'✅ build green'</span>) }
+         failure { notifyDiscord(<span class="s">'❌ build red'</span>) } }
+}</pre></div>
+    <p>The GitHub Actions workflow mirrors the same stages as a fallback if Jenkins is unavailable during the demo. Trigger for both: every push to the repo.</p>
+
+    <h3>Monitoring &amp; logging</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Stack</th><th>What it collects / ships</th><th>Cadence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Prometheus + Grafana</strong></td><td>System (CPU/RAM/GPU/disk/net), app (latency, errors, req/s), business (complaints, predictions, resolution rate)</td><td>Scrape every <strong>30 s</strong>; Grafana dashboards live</td></tr>
+        <tr><td><strong>Alert rules</strong></td><td>CPU &gt; 80% · p95 latency &gt; 2 s · complaint queue &gt; 50 (→ scale ML)</td><td>Immediate notify</td></tr>
+        <tr><td><strong>ELK</strong></td><td>Elasticsearch (store) + Filebeat/Logstash (ship/parse) + Kibana (search)</td><td>30-day retention, levels DEBUG→ERROR</td></tr>
+      </tbody>
+    </table></div>
+    <p>Dashboards ship as JSON in <code>devops/monitoring/grafana/dashboards</code> (dashboards-as-code) so the demo opens a pre-built, branded view — not a blank Grafana.</p>
+
+    <h3>Env variables (committed as <code>.env.example</code>)</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Var</th><th>App</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>VITE_API_BASE</code></td><td>all FE</td><td>Gateway API base (prod: same origin <code>/api</code>)</td></tr>
+        <tr><td><code>VITE_WS_URL</code></td><td>all FE</td><td>WebSocket endpoint</td></tr>
+        <tr><td><code>VITE_MAP_TILES</code></td><td>command</td><td>Tile URL + attribution (OSM default)</td></tr>
+        <tr><td><code>VITE_APP_THEME</code></td><td>command</td><td>force <code>dark</code> on Command</td></tr>
+        <tr><td><code>DATABASE_URL / REDIS_URL / NEO4J_URI</code></td><td>backend</td><td>data layer (owned by M2, I wire into compose)</td></tr>
+        <tr><td><code>NEO4J_PASSWORD</code></td><td>neo4j</td><td>graph creds</td></tr>
+        <tr><td><code>ML_MODEL_URI</code></td><td>backend</td><td>where the ML server lives</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- ============ 12 PERF ============ -->
+  <section class="block" id="s12">
+    <p class="eyebrow"><span class="num">12</span> Performance &amp; accessibility</p>
+    <h2>The numbers I hold myself to</h2>
+    <p class="sub">These are demo-day and judging criteria; several are measurable in Lighthouse/Playwright.</p>
+
+    <div class="tablewrap"><table>
+      <thead><tr><th>Metric</th><th>Target</th><th>How I check</th></tr></thead>
+      <tbody>
+        <tr><td>First Contentful Paint</td><td><strong>&lt; 1.5 s</strong></td><td>Lighthouse / WebPageTest</td></tr>
+        <tr><td>Time to Interactive</td><td><strong>&lt; 3 s</strong></td><td>Lighthouse</td></tr>
+        <tr><td>Lighthouse overall</td><td><strong>&gt; 90</strong> all UIs</td><td>Perf budget in CI</td></tr>
+        <tr><td>Animations / transitions</td><td><strong>60 fps</strong></td><td>DevTools performance trace</td></tr>
+        <tr><td>Map: markers rendered</td><td><strong>500+</strong> without lag</td><td>clustering + viewport culling</td></tr>
+        <tr><td>Map: heatmap update latency</td><td><strong>&lt; 2 s</strong> after new prediction</td><td>stopwatch on WS event</td></tr>
+        <tr><td>Graph: nodes rendered</td><td><strong>100+</strong></td><td>canvas/SVG cap + scale**
+
+        </td></tr>
+        <tr><td>Graph: node selection highlight</td><td><strong>&lt; 100 ms</strong></td><td>simple spatial lookup</td></tr>
+        <tr><td>LLM agent response</td><td><strong>&lt; 5 s</strong> incl. LLM call</td><td>skeleton + streaming</td></tr>
+        <tr><td>Full stack <code>compose up</code></td><td><strong>&lt; 2 min</strong></td><td>timed start script</td></tr>
+        <tr><td>CI/CD pipeline</td><td><strong>&lt; 10 min</strong></td><td>Jenkins build time</td></tr>
+        <tr><td>Monitoring truth-lag</td><td><strong>≤ 30 s</strong></td><td>Grafana scrape cadence</td></tr>
+        <tr><td>Demo uptime</td><td><strong>99.9%</strong></td><td>health probes pre-demo</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Accessibility (WCAG 2.1 AA)</h3>
+    <ul>
+      <li>Full keyboard navigation; visible focus rings on every interactive element.</li>
+      <li>Screen-reader friendly: role/label on map &amp; graph actions, <code>aria-live</code> on alert toasts.</li>
+      <li>Risk conveyed not by color alone (adds label + symbol).</li>
+      <li>Contrast meets AA in both themes; the Command dark theme is checked for the accent on dark.</li>
+      <li><code>prefers-reduced-motion</code> disables non-essential animation.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 13 TESTING ============ -->
+  <section class="block" id="s13">
+    <p class="eyebrow"><span class="num">13</span> Testing</p>
+    <h2>Three layers, wired into CI</h2>
+    <div class="grid cols-3">
+      <div class="card"><span class="meta">UNIT</span><h4>Jest + React Testing Library</h4><p>Components, reducers, <code>ui-kit</code>, auth interceptors, formatting utils. Fast, run in the Build stage.</p></div>
+      <div class="card"><span class="meta">E2E</span><h4>Playwright</h4><p>Full journeys: inspector triggers verification; constable dispatches; admin adds a user. Run against the compose stack in Test stage.</p></div>
+      <div class="card"><span class="meta">PERF</span><h4>Lighthouse CI + WebPageTest</h4><p>Budget gate: FCP, TTI, LH score. Blocks merge if a page regresses.</p></div>
+    </div>
+    <div class="note">The decisive E2E (for the demo and for judges): <em>Victim → complaint → heatmap updates → inspector triggers verification → field alert appears → status resolves.</em> This one flow gets a woven Playwright net.</div>
+  </section>
+
+  <!-- ============ 14 TEAM SYNC ============ -->
+  <section class="block" id="s14">
+    <p class="eyebrow"><span class="num">14</span> Team sync</p>
+    <h2>Who depends on me, and what I need from them</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Partner</th><th>I need from them (for my work)</th><th>They need from me</th><th>Sync cadence</th></tr></thead>
+      <tbody>
+        <tr><td><strong>M2 · Backend</strong></td><td>Final API contracts (§9), WebSocket event names, sample JSON, CORS/route setup</td><td>Axios + WS clients that match, agreed field names, bugs reported with the expected payload</td><td>Daily contract review</td></tr>
+        <tr><td><strong>M1 · ML</strong></td><td>Prediction/risk data shapes, a seeded sample prediction, model-metrics endpoint, LLM answer format</td><td>UI to render all of it, accuracy metrics surfaced in Admin</td><td>2–3×/week</td></tr>
+        <tr><td><strong>M4 · Victim</strong></td><td>Nothing blocking — but a stable <code>ui-kit</code> API</td><td>The <code>ui-kit</code>, tokens, base React + routing + auth setup</td><td>On each <code>ui-kit</code> bump</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.95em">Artifacts to keep in one shared <code>docs/</code> so they stay the single source of truth: <span class="inline-code">API-CONTRACTS.md</span>, <span class="inline-code">ENV.md</span>, <span class="inline-code">STACK.md</span> (ports, compose, k8s), <span class="inline-code">UI-KIT-API.md</span>.</p>
+  </section>
+
+  <!-- ============ 15 PLAN ============ -->
+  <section class="block" id="s15">
+    <p class="eyebrow"><span class="num">15</span> 10-day plan</p>
+    <h2>My delivery schedule</h2>
+    <p class="sub">Rebalanced around what I actually own (web-only, no WhatsApp). Aligned to repo + backend readiness.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Day</th><th>Focus</th><th>Session-end exit criteria</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>Planning &amp; foundations</td><td>Monorepo scaffolded; workspaces + TS configs; CI skeleton; env doc; API contracts with M2 agreed in <code>docs/</code></td></tr>
+        <tr><td><strong>2</strong></td><td><code>ui-kit</code> + auth</td><td>Tokens, theme, 12 core components, axios + ws clients, route guards, login flow working</td></tr>
+        <tr><td><strong>3</strong></td><td>Admin Panel</td><td>User mgmt, health charts (Recharts), audit log w/ filters working against M2's admin endpoints (or mock)</td></tr>
+        <tr><td><strong>4</strong></td><td>Field Dashboard</td><td>Alert cards, priority routing, navigate/dispatch/verify/backup, offline queue</td></tr>
+        <tr><td><strong>5</strong></td><td>Command — map + heatmap</td><td>Leaflet heatmap, 500+ clustered pins, risk filters, WS live update ≤ 2 s</td></tr>
+        <tr><td><strong>6</strong></td><td>Command — graph + LLM</td><td>D3 money-trail graph (nodes/edges), selection ≤100 ms; LLM agent chat + query builder + result renderer</td></tr>
+        <tr><td><strong>7</strong></td><td>Command — actions + demo glue</td><td>Action panel + confirm modals + ⌘K palette; realtime alert feed; wire victim→command loop with M4</td></tr>
+        <tr><td><strong>8</strong></td><td>Responsive + cross-app polish</td><td>All three apps solid to ~1100px; keyboard + a11y + reduced-motion pass; Lighthouse ≥ 90</td></tr>
+        <tr><td><strong>9</strong></td><td>DevOps cut-over</td><td>Dockerfiles + compose green; Minikube manifests apply; Jenkins + GH Actions run; Prometheus/Grafana/ELK dashboards up</td></tr>
+        <tr><td><strong>10</strong></td><td>Full test, demo prep</td><td>E2E suite green incl. the decisive flow; demo script + backup video; dry run with team</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Sequencing logic (why this order)</h3>
+    <p>Admin + Field first — they're small and unblock other members; the Command Center is the deepest and benefits from settled API contracts and M1's sample predictions before its map/graph/LLM get wired. DevOps lands Day 9 so CI actually runs against built features, and Day 10 hardens it for the judges.</p>
+  </section>
+
+  <!-- ============ 16 DEMO ============ -->
+  <section class="block" id="s16">
+    <p class="eyebrow"><span class="num">16</span> Demo &amp; judging</p>
+    <h2>My 5-minute slice of the walkthrough</h2>
+    <p class="sub">I drive every UI on stage and explain the pipeline. The victim/backend parts are props seeded with demo data (never real).</p>
+
+    <div class="tablewrap"><table>
+      <thead><tr><th>Time</th><th>On screen</th><th>What I say</th></tr></thead>
+      <tbody>
+        <tr><td>0:00</td><td>Victim Portal submits (M4) →</td><td>"Complaint registers; the backend lights up the pipeline."</td></tr>
+        <tr><td>0:45</td><td>Status update via WS</td><td>"Status streams immediately via WebSocket."</td></tr>
+        <tr><td>1:30</td><td>Command Center heatmap updates</td><td>"The predicted ATM appears as high-risk within moments."</td></tr>
+        <tr><td>2:00</td><td>Money-trail graph (D3)</td><td>"GNN found the mule chain; scores shown on the rings."</td></tr>
+        <tr><td>2:30</td><td>LLM agent: "mules linked to C1001"</td><td>"Natural language in, structured query out — no cypher needed."</td></tr>
+        <tr><td>3:00</td><td>Action panel → Trigger Step-Up Verification</td><td>"One confirmed action, logged to the blockchain trail."</td></tr>
+        <tr><td>3:30</td><td>Field Dashboard alert appears</td><td>"The constable acts on a big-button mobile UI."</td></tr>
+        <tr><td>4:00</td><td>Admin → health + audit log</td><td>"Operability: per-service health and an auditable record."</td></tr>
+        <tr><td>4:30</td><td>Audit log → blockchain tx hashes</td><td>"Every action is tamper-evident."</td></tr>
+        <tr><td>5:00</td><td>—</td><td>Q&amp;A</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Anticipated judge questions (my answers)</h3>
+    <ul>
+      <li><strong>"How does the LLM know what to query?"</strong> — LangChain converts natural language to a constrained Cypher query; I render the result (maps, charts, graphs).</li>
+      <li><strong>"Vague question?"</strong> — the agent returns a clarification prompt + suggestions, which the UI renders.</li>
+      <li><strong>"Privacy?"</strong> — JWT + role-based access; backend masks PII; evidence hashed and encrypted.</li>
+      <li><strong>"Scalable?"</strong> — microservices, K8s auto-scale on the ML queue, rolling updates, one-command stack.</li>
+      <li><strong>"Offline?"</strong> — Field queued actions + service worker; Victim Portal is a PWA.</li>
+      <li><strong>"Evidence integrity?"</strong> — file hash + IPFS CID, verifiable against the blockchain trail I surface in the audit log.</li>
+    </ul>
+
+    <div class="note crit"><strong>Demo non-negotiables:</strong> pre-seed realistic sample data (marked as sample), run the full stack <em>before</em> the judges arrive, keep a recorded backup video, and practice the zero-network-failure fallback (offline PWA + queued actions) in case the venue wifi drops.</div>
+  </section>
+
+  <!-- ============ RECAP ============ -->
+  <section class="block">
+    <p class="eyebrow"><span class="num">★</span> At-a-glance</p>
+    <h2>What "done" looks like for me</h2>
+    <div class="toc-grid">
+      <a class="t" href="#s3"><span class="n">03 · PORTFOLIO</span><span class="d">3 police/system web apps + shared <code>ui-kit</code>, one stack</span></a>
+      <a class="t" href="#s9"><span class="n">09 · CONTRACTS</span><span class="d">API + WebSocket contracts agreed and consumed correctly</span></a>
+      <a class="t" href="#s11"><span class="n">11 · DEVOPS</span><span class="d">One-command stack, K8s manifests, CI/CD, monitoring, logging</span></a>
+      <a class="t" href="#s12"><span class="n">12 · PERF</span><span class="d">Lighthouse ≥ 90, WCAG 2.1 AA, 500+ map pins, &lt; 5 s LLM</span></a>
+      <a class="t" href="#s6"><span class="n">06 · COMMAND</span><span class="d">Heatmap + graph + LLM agent + confirm-guarded actions</span></a>
+      <a class="t" href="#s7"><span class="n">07 · FIELD</span><span class="d">Big-button alert UI with offline queued actions</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="block wrap">
+  <strong style="color:var(--ink)">Member 3 · Frontend &amp; DevOps Lead — SIH 2026 · SIH26184 · Predictive Analytics Framework for Cybercrime Complaints.</strong><br>
+  Reference document v1.0. Web-only scope (no WhatsApp / native apps this build). Where this doc and a team member differ on a contract, this doc is the joint starting point — confirm the diff with that member before shipping.
+  <br><a class="backtotop" href="#top">↑ Back to top</a>
+</footer>

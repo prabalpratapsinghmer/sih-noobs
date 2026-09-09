@@ -1,0 +1,667 @@
+# COMPLETE PROJECT OVERVIEW FOR MEMBER 3 (FRONTEND & DEVOPS LEAD)
+# SIH 2026: Predictive Analytics Framework for Cybercrime Complaints
+# Project ID: SIH26184
+# Team: 4 Members | GPUs: 2 (Member 1 & Member 2 have GPUs)
+
+
+## 🎯 PROJECT OBJECTIVE
+
+Build a complete, production-ready predictive analytics platform that helps law enforcement agencies proactively prevent cybercrime cash withdrawals. The system takes victim complaints, uses AI to predict where criminals will withdraw money, identifies mule accounts used for money laundering, and enables police to take preventive action through ATM verification triggers—all within minutes of the complaint being filed.
+
+**Core Problem We're Solving:**
+Currently, when a cybercrime complaint is filed, it takes 2-4 hours for police to coordinate with banks to freeze accounts. By that time, criminals have already withdrawn the money from ATMs. Our system reduces this response time to under 5 minutes by:
+1. Instantly analyzing the complaint
+2. Predicting which ATM the criminal will use
+3. Triggering facial recognition/OTP verification at that ATM
+4. Alerting nearby police officers
+5. Identifying and freezing mule accounts
+
+
+## 🏗️ SYSTEM ARCHITECTURE OVERVIEW
+
+The system consists of 5 main layers:
+
+**Layer 1: User Interfaces (3 Web Applications + WhatsApp Chatbot)**
+1. Victim Complaint Portal (PWA) - For citizens to file complaints and track status
+2. Police Command Center (Desktop Web) - For inspectors to investigate with heatmaps and LLM
+3. Police Field Dashboard (Mobile-Responsive Web) - For constables to receive alerts on the go
+4. WhatsApp Chatbot Integration - For anonymous tips, complaint status, and officer alerts
+
+**Layer 2: API Gateway & Backend Services**
+- FastAPI REST APIs for all CRUD operations
+- WebSocket server for real-time updates
+- Authentication & Authorization (JWT + Role-based access)
+- Banking Switch API Mock (simulates Step-Up Verification trigger)
+
+**Layer 3: AI/ML Engine (Runs on 2 GPU Machines)**
+- Spatio-Temporal Transformer Model: Predicts ATM withdrawal locations with 85%+ accuracy
+- Graph Neural Network (GNN): Detects and scores mule accounts in transaction networks
+- Mule Scoring Algorithm: Rule-based overlay that scores accounts 0-100 based on suspicious patterns
+- LLM Agent: LangChain + LLM for natural language database queries
+
+**Layer 4: Data Layer**
+- PostgreSQL: Stores victim PII, complaint metadata, user accounts
+- Neo4j Graph Database: Stores relationships between victims, mules, ATMs, and complaints
+- Redis: Caching, session storage, rate limiting
+- IPFS: Decentralized storage for encrypted evidence files
+
+**Layer 5: Blockchain Audit Layer**
+- Hyperledger Fabric / Ethereum: Immutable audit trail of all actions
+- Cryptographic hashing: Every evidence file, prediction, and action is hashed and stored on-chain
+- Tamper-proof chain of custody: Complete case history from complaint to resolution
+
+
+## 🔄 COMPLETE END-TO-END USER FLOW
+
+**PHASE 1: VICTIM COMPLAINT (T+0 to T+2 minutes)**
+
+The victim who lost money to a scam interacts with the system through TWO possible channels:
+
+Channel A: Victim Complaint Portal (Web - PWA)
+- Victim opens the portal on their phone or laptop
+- Fills a simple 3-step complaint form (Personal Details → Fraud Details → Fraudster Details)
+- Uploads screenshots, transaction proofs, and other evidence
+- Submits the complaint and receives: "✅ Complaint #C1001 Registered"
+- Gets a unique complaint reference number for tracking
+
+Channel B: WhatsApp Chatbot (Quick, Anonymous Channel)
+- Victim messages the official WhatsApp number
+- The chatbot guides them through a conversational flow
+- For anonymous tips, the chatbot offers complete confidentiality
+- Victim provides details via text or voice notes
+- System creates a complaint in the backend and provides a reference number
+- Status updates are sent proactively via WhatsApp
+
+**Key Features in Victim Portal:**
+- Real-time status tracking with visual timeline (Submitted → Analyzing → Action Taken → Resolved)
+- Push notifications for status changes via WhatsApp/Email/SMS
+- Evidence upload with encryption before storage
+- Multi-language support for regional accessibility
+- PWA capability for offline submission and installation on home screen
+
+**PHASE 2: AI ANALYSIS & PREDICTION (T+2 to T+5 minutes)**
+
+As soon as the complaint is submitted, the backend triggers the AI/ML pipeline:
+
+Step 2A: Spatio-Temporal Transformer Analysis
+- The Transformer model analyzes the fraudster's historical withdrawal patterns
+- Considers spatial factors (ATM proximity to metro stations, police stations, transport hubs)
+- Considers temporal factors (time of day, day of week, fraud patterns)
+- Factors in local traffic density and transit accessibility
+- Output: Top 3 most likely ATM locations with probability scores (70%+ for top prediction)
+
+Step 2B: Graph Neural Network Mule Detection
+- The GNN traces funds through the transaction network
+- Identifies the entire money trail: Victim → Primary Mule → Secondary Mule → ATM
+- Each account is scored 0-100 based on suspicious patterns
+- Accounts scoring 70+ are marked HIGH RISK for immediate freeze
+- The system generates a visual graph showing the complete money trail
+
+Step 2C: Integrated Output
+- Merges ATM predictions with mule account data
+- Determines if the predicted ATM is connected to high-risk mules
+- If risk threshold is met, proceeds to Phase 3 automatically
+
+**PHASE 3: AUTOMATED ACTIONS (T+5 to T+10 minutes)**
+
+Based on the AI analysis, the system triggers automated actions:
+
+Action 1: Step-Up Verification Trigger
+- System calls the Banking Switch API Mock
+- Requests: Enable Facial Recognition or OTP verification on the predicted ATM
+- The API simulates a real banking network integration
+- Accounts linked to high-risk mules are specifically flagged
+- Verification remains active for the predicted withdrawal window (2-6 hours)
+
+Action 2: Mule Account Freeze Alert
+- System generates a freeze request letter automatically
+- The request is sent to the Bank Nodal Officer via the system
+- High-risk mule accounts are flagged for immediate freeze
+- All freeze requests are logged on the blockchain for audit
+
+Action 3: Police Alert Generation
+- System sends a priority alert to the nearest police station
+- Alert contains: ATM location, risk score, withdrawal window, connected mules
+- Alert is pushed to the Police Field Dashboard in real-time
+- Constables on duty receive the alert on their mobile dashboard
+
+**PHASE 4: POLICE INVESTIGATION & ACTION (T+10 to T+30 minutes)**
+
+Two types of police users interact with the system:
+
+Police Command Center (Inspectors - Web Desktop):
+- Inspector opens the Command Center dashboard
+- Sees live heatmap of all high-risk ATMs in their jurisdiction
+- Views the graph visualization showing the complete money trail
+- Uses the LLM Agent to ask questions in natural language:
+  "Show all high-risk ATMs in Indiranagar connected to investment fraud in the last 2 hours"
+- Clicks on the predicted ATM to view full details
+- Reviews the mule accounts and their scores
+- Takes actions:
+  → Trigger Step-Up Verification (if not auto-triggered)
+  → Request Account Freeze for high-risk mules
+  → Generate FIR Draft automatically
+  → Dispatch patrol to the ATM location
+- All actions are logged on the blockchain
+
+Police Field Dashboard (Constables/Patrol - Mobile-Responsive Web):
+- Constable opens the dashboard on their phone
+- Sees active alerts pushed to their dashboard
+- Alert card shows: ATM location, risk score, distance from officer's location, time to reach
+- Constable can:
+  → Navigate to the ATM using integrated maps
+  → Mark "Patrol Dispatched" when en route
+  → Mark "Verification Checked" upon arrival
+  → Request backup if needed
+- All actions update the complaint status in real-time
+
+**PHASE 5: OUTCOME & FEEDBACK LOOP (T+30 minutes to T+2 hours)**
+
+Success Scenario:
+- Criminal attempts withdrawal at the predicted ATM
+- Facial Recognition / OTP verification blocks the transaction
+- Police arrive (or receive real-time alert)
+- Mule accounts are frozen, money is recovered
+- Complaint status updates to "RESOLVED"
+- The system records this as a "Successful Prevention"
+
+The Feedback Loop:
+- Officer marks the case as "Successful Prevention"
+- All data (predictions, actions, outcomes) is logged
+- The system periodically (daily/weekly) retrains models with new data
+- The model improves over time with real-world feedback
+- This creates a self-improving AI system
+
+**PHASE 6: SYSTEM ADMINISTRATION (Ongoing)**
+
+Admin Management Panel (IT Team - Web Desktop):
+- System Admins manage the entire platform
+- Key capabilities:
+  → User Management: Add/remove/update police officers and admins
+  → Role Assignment: Assign roles (Inspector, Constable, Admin)
+  → System Health Monitoring: CPU, RAM, GPU, Disk, Network usage
+  → Model Performance: View accuracy, precision, recall metrics
+  → Audit Logs: View all actions taken in the system (blockchain-backed)
+  → Complaint Overview: See all complaints, their status, and resolution times
+  → Evidence Management: Access and verify stored evidence
+
+
+## 🎨 THE 3 USER INTERFACES IN DETAIL
+
+**UI 1: Victim Complaint Portal (Web - PWA)**
+- Purpose: Allow victims to file complaints and track status
+- Design Philosophy: Simple, trustworthy, reassuring
+- Color Theme: Clean white/blue (creates trust and professionalism)
+- Key Features:
+  * 3-Step complaint form (fast and easy)
+  * Real-time status tracking with visual timeline
+  * File upload for screenshots and evidence
+  * WhatsApp integration for status updates
+  * Multi-language support
+  * PWA capability (installable on phone home screen)
+  * Accessibility: WCAG 2.1 AA compliant
+- Target User: Panicked victim who just lost money
+- Emotional Design: Calming colors, reassuring messages, clear action buttons
+
+**UI 2: Police Command Center (Web - Desktop)**
+- Purpose: Provide intelligence and investigative capabilities to inspectors
+- Design Philosophy: Information-dense, action-oriented, real-time
+- Color Theme: Dark theme (reduces eye strain during long shifts)
+- Key Components:
+  * Live ATM Heatmap (Mapbox/Leaflet)
+  * Risk color coding: Red (High), Orange (Medium), Green (Low)
+  * Interactive graph visualization (D3.js + Neo4j)
+  * LLM Agent chat interface (natural language querying)
+  * Action panel (Trigger Verification, Freeze Accounts, Generate FIR)
+  * Real-time alerts (WebSocket pushed)
+  * Keyboard shortcuts for power users
+- Target User: Cybercrime Inspector managing 12+ cases simultaneously
+- Professional Features: Export reports, print screens, share insights
+
+**UI 3: Police Field Dashboard (Web - Mobile Responsive)**
+- Purpose: Enable constables to respond to ATM alerts on the go
+- Design Philosophy: Minimal text, big buttons, mobile-first
+- Color Theme: Light theme with color-coded alerts
+- Key Features:
+  * Live alert cards with priority (High/Medium/Low)
+  * ATM location with integrated navigation
+  * Distance calculation from officer's location
+  * Quick action buttons: Navigate, Dispatch, Verify, Backup
+  * Active alerts count and status
+  * Offline support for areas with poor connectivity
+- Target User: Constable on patrol, on the move
+- Mobile-First: Designed for phone screens first, tablets second
+
+
+## 🧠 LLM AGENT & CHATBOT SYSTEM
+
+**LLM Agent (Advanced - For Inspectors)**
+- Purpose: Allow investigators to query the graph database in natural language
+- Technology: LangChain + GPT-4/Claude/LLaMA
+- How It Works:
+  1. Officer types a question: "Show all high-risk ATMs in Indiranagar connected to investment fraud in the last 2 hours"
+  2. LLM understands the intent and extracts: Location, Risk Level, Time Frame, Fraud Type
+  3. LLM generates a Cypher query for Neo4j: MATCH (c:Complaint)-[:CONNECTED_TO]->(a:ATM) WHERE c.type = "Investment" AND c.time > datetime() - 2h AND a.location = "Indiranagar" AND a.risk_score > 70 RETURN a.id, a.risk_score, COUNT(c) as complaint_count
+  4. Query executes on Neo4j
+  5. Results are formatted as natural language with visualizations
+  6. Response includes: Data + Charts + Recommendations + Action Buttons
+- Key Features:
+  * Handles complex multi-hop queries
+  * Understands police-specific terminology
+  * Provides visual results (graphs, charts, maps)
+  * Suggests follow-up queries
+  * Saves frequently used queries as templates
+
+**Integrated Chatbot (Simple - For All Users)**
+- Purpose: Help users navigate the system and answer FAQs
+- Technology: RAG (Retrieval-Augmented Generation) + Vector Database
+- How It Works:
+  1. User asks: "How do I trigger Step-Up Verification?"
+  2. System searches a knowledge base of FAQs and documentation
+  3. Retrieves the most relevant answer
+  4. Returns a concise, helpful response
+- Key Features:
+  * Pre-built FAQs: "What is a mule account?", "How does the predictive model work?"
+  * Suggestion chips for quick answers
+  * Feedback buttons: "Did this help? Yes/No"
+  * Escalates complex queries to the LLM Agent
+- Target User: All system users (officers, victims, admins)
+
+**WhatsApp Chatbot (Communication Channel)**
+- Purpose: Provide an accessible, anonymous reporting channel
+- Technology: WhatsApp Cloud API + FastAPI Webhook
+- Key Features:
+  * Anonymous tip-off: Users can report without revealing identity
+  * Complaint creation: File complaints via WhatsApp conversation
+  * Status updates: Receive updates on your complaint via WhatsApp
+  * Officer alerts: System pushes ATM predictions to registered officers
+  * Voice notes: Upload audio complaints
+  * Images: Upload screenshots and evidence
+  * Multi-language: Support for 22 Indian languages
+- Real-World Precedent: Punjab Police's WhatsApp chatbot achieved 41.28% tip conversion rate
+- Security: HMAC signature verification ensures webhook authenticity
+
+
+## 📊 DATABASE & BLOCKCHAIN ARCHITECTURE
+
+**PostgreSQL (Relational Database)**
+- Purpose: Store all structured, relational data
+- Tables: Users, Complaints, Evidence Metadata, User Roles, Audit Logs
+- Security: All PII is encrypted at rest (AES-256)
+- Key Tables:
+  * users: id, name, role, station, phone, email, hashed_password
+  * complaints: id, victim_name, phone, amount, fraud_type, fraudster_upi, fraudster_phone, status, created_at
+  * evidence: id, complaint_id, file_hash, ipfs_cid, file_type, uploaded_at
+  * actions: id, complaint_id, action_type, initiated_by, status, created_at
+
+**Neo4j (Graph Database)**
+- Purpose: Store relationships between entities for money trail analysis
+- Nodes: Victim, Mule, ATM, Complaint, Phone_Number, UPI_ID, Bank_Account
+- Relationships: SENT_MONEY_TO, TRANSFERRED_TO, WITHDREW_AT, CONNECTED_TO
+- Key Queries:
+  * Find shortest path between victim and ATM
+  * Identify all mule accounts connected to a complaint
+  * Find ATMs with the most connected complaints
+  * Detect patterns in money laundering networks
+- Mule Scoring: Each node has a "mule_score" property (0-100) calculated by the algorithm
+
+**Redis (Caching & Sessions)**
+- Purpose: Speed up frequently accessed data
+- Cache: ATM predictions, user sessions, rate limiting
+- Pub/Sub: Real-time WebSocket message distribution
+
+**IPFS (Decentralized Storage)**
+- Purpose: Store encrypted evidence files
+- How It Works:
+  1. File uploaded → AES-256 encrypted
+  2. Encrypted file → Uploaded to IPFS
+  3. IPFS CID (Content Identifier) → Stored in PostgreSQL
+  4. File hash → Stored on blockchain for verification
+- Benefits: Immutable, censorship-resistant, content-addressed
+
+**Blockchain (Hyperledger Fabric / Ethereum)**
+- Purpose: Immutable audit trail for legal admissibility
+- What's Stored:
+  * Complaint submission timestamp (cryptographic proof of existence)
+  * Evidence file hashes (proof of integrity)
+  * AI predictions and triggers (proof of proactive action)
+  * Police actions (proof of chain of custody)
+  * Resolution status (complete case history)
+- Why It Matters: Digital evidence must be tamper-proof for court admissibility
+- Implementation: Only hashes are stored, not full data (to save cost and maintain privacy)
+
+
+## 🔒 SECURITY ARCHITECTURE
+
+**Authentication**
+- JWT-based authentication for all web interfaces
+- OTP-based login for Victim Portal (phone number + OTP)
+- Government ID + Password for Police Command Center
+- Biometric + Password for Police Field Dashboard (optional)
+- Session expiration: 8 hours for admins, 4 hours for officers
+
+**Authorization (Role-Based Access)**
+- Admin: Full access to all features and user management
+- Inspector: Access to Command Center, LLM Agent, all complaints
+- Constable: Access to Field Dashboard, ATM alerts, limited complaints
+- Victim: Read-only access to their own complaint and status
+
+**Data Encryption**
+- All victim PII is encrypted at rest (AES-256)
+- All data is encrypted in transit (TLS 1.3)
+- Evidence files are encrypted before IPFS upload
+- Passwords are hashed with bcrypt (salt rounds: 12)
+
+**API Security**
+- Rate limiting: 100 requests per minute per user
+- CORS: Only allowed origins
+- Input validation: All API inputs validated with Pydantic/Zod
+- SQL/NoSQL injection prevention: ORM/parameterized queries
+- XSS prevention: Content Security Policy (CSP) headers
+
+
+## 🛠️ DEVOPS INFRASTRUCTURE (YOUR PRIMARY RESPONSIBILITY)
+
+**Containerization (Docker)**
+- Every service runs in its own container:
+  * victim-frontend (React) - Port 3000
+  * admin-frontend (React) - Port 3001
+  * field-frontend (React) - Port 3002
+  * backend-api (FastAPI) - Port 8000
+  * ml-model-server (TorchServe) - Port 8080
+  * neo4j-database - Port 7687 (Bolt) + 7474 (HTTP)
+  * postgres-database - Port 5432
+  * redis-cache - Port 6379
+  * blockchain-node - Port 7050 (Hyperledger)
+  * nginx-gateway - Port 80
+- Docker Compose: Single command spins up entire stack
+
+**Orchestration (Kubernetes)**
+- Minikube for local demo environment
+- Kubernetes manifests for each service
+- Auto-scaling: ML service scales based on queue length
+- Self-healing: Failed containers restart automatically
+- Rolling updates: Zero-downtime deployments
+- Service discovery: Internal DNS for microservices
+
+**CI/CD Pipeline (Jenkins)**
+- Trigger: Every push to GitHub repository
+- Stages:
+  1. Build: Run unit tests, linting, type checking
+  2. Test: Run integration tests in isolated environment
+  3. Build Docker images: Create images for all services
+  4. Push images: Push to Docker Registry (GitHub Container Registry)
+  5. Deploy: Apply Kubernetes manifests to Minikube
+  6. Health check: Verify all services are running
+  7. Notify: Send build status to team Discord/Slack
+
+**Monitoring (Prometheus + Grafana)**
+- Metrics collected:
+  * System: CPU, RAM, GPU, Disk, Network
+  * Application: API latency, error rate, request count
+  * Business: Complaint volume, prediction accuracy, resolution rate
+- Alerts:
+  * CPU > 80% → Notify admin
+  * API latency > 2s → Investigate bottleneck
+  * Complaint queue > 50 → Scale ML service
+- Dashboard: Real-time Grafana dashboards visible to team
+
+**Logging (ELK Stack)**
+- Elasticsearch: Store all logs
+- Logstash: Parse and process logs
+- Kibana: Search and visualize logs
+- Log Rotation: Retain 30 days of logs
+- Log Levels: DEBUG, INFO, WARNING, ERROR
+
+
+## 🗓️ YOUR 10-DAY DEVELOPMENT PLAN
+
+**Day 1: Setup & Planning**
+- Set up development environment (Node.js, React, Docker)
+- Initialize Git repository and GitHub project
+- Create Figma wireframes for all 3 UIs
+- Finalize component breakdown and folder structure
+- Define API contracts with Member 2
+- Set up project management (JIRA/GitHub Projects)
+
+**Day 2: Foundation & Authentication**
+- Set up React projects (3 apps: Admin, Field, Victim)
+- Implement routing (React Router)
+- Set up Tailwind CSS with dark/light theme
+- Implement authentication flow (login, logout, token refresh)
+- Create reusable UI components (buttons, cards, modals, inputs)
+- Set up Axios with interceptors for API calls
+
+**Day 3: Victim Portal & PWA**
+- Build the 3-step complaint form
+- Implement file upload with drag-and-drop
+- Set up WebSocket connection for real-time status
+- Implement the status tracker with visual timeline
+- Add PWA manifest and service workers
+- Test offline capability
+- Integrate WhatsApp template messages for status updates
+
+**Day 4: Admin Dashboard & Charts**
+- Build the Admin Management Panel
+- Implement user management (add, edit, delete users)
+- Build the system health dashboard with Recharts
+- Create audit log viewer with filtering
+- Implement model performance metrics display
+- Add notification settings
+
+**Day 5: Command Center - Map & Heatmap**
+- Set up Mapbox GL / Leaflet.js
+- Implement ATM heatmap with risk coloring
+- Add map controls (zoom, pan, reset)
+- Implement ATM popup with details
+- Add heatmap filters (time, location, risk level)
+- Connect to WebSocket for real-time ATM updates
+- Implement cluster rendering for performance
+
+**Day 6: Command Center - Graph & LLM Agent**
+- Set up Neo4j Bloom embed or D3.js for graph visualization
+- Implement graph controls (zoom, pan, select, reset)
+- Build the LLM Agent chat interface
+- Implement quick prompts for common queries
+- Create structured query builder (visual alternative to typing)
+- Add result rendering (text, charts, tables, graphs)
+- Implement chat history and saved queries
+
+**Day 7: Command Center - Actions & Chatbot**
+- Build the Action Panel (Trigger Verification, Freeze, FIR, Dispatch)
+- Implement confirmation modals for destructive actions
+- Build the Integrated Chatbot (FAQ widget)
+- Create FAQ knowledge base
+- Implement suggestion chips for quick answers
+- Add feedback mechanism (Did this help?)
+- Connect all actions to backend APIs
+
+**Day 8: Field Dashboard & Responsive Design**
+- Build the Police Field Dashboard (mobile-first)
+- Implement alert cards with priority coloring
+- Add ATM navigation integration
+- Implement quick action buttons
+- Ensure all 3 UIs are fully responsive
+- Test on multiple screen sizes and devices
+- Add offline support for field dashboard
+
+**Day 9: DevOps & Deployment**
+- Write Dockerfiles for all services
+- Create docker-compose.yml for local development
+- Set up Jenkins pipeline
+- Write Kubernetes manifests (Deployments, Services, ConfigMaps)
+- Set up Minikube for demo
+- Implement Prometheus metrics export
+- Set up Grafana dashboards
+- Add ELK stack for logging
+
+**Day 10: Testing, Polish & Demo Preparation**
+- End-to-end testing of all 3 UIs
+- Test the complete user flow (Victim → AI → Action → Resolution)
+- Performance testing (Lighthouse scores > 90)
+- Cross-browser testing (Chrome, Firefox, Edge, Safari)
+- Fix all bugs and polish UI
+- Prepare demo script (timed 5-minute walkthrough)
+- Prepare presentation slides
+- Record demo video as backup
+- Final team sync and dry run
+
+
+## 🤝 HOW YOU WORK WITH OTHER MEMBERS
+
+**With Member 1 (ML Lead - GPU Available):**
+- Member 1 builds the Spatio-Temporal Transformer and GNN models
+- Member 1 exposes models via FastAPI (TorchServe)
+- You consume those APIs in the Command Center dashboard
+- You display: ATM predictions (heatmap), mule scores (graph), risk alerts
+- Member 1 provides: API endpoints, model accuracy metrics, sample predictions
+
+**With Member 2 (Backend Guru - GPU Available):**
+- Member 2 builds all backend APIs (FastAPI) and database schemas
+- Member 2 provides: REST endpoints, WebSocket server, database data
+- You consume: Complaint data, mule data, prediction data, user data
+- You integrate: Authentication, WebSocket connection, API calls
+- Coordinate on: API contracts, response formats, error handling
+
+**With Member 4 (Victim/Integration - No GPU):**
+- Member 4 builds the Victim Portal and handles integration
+- You coordinate on: Consistent design system, shared components
+- Member 4 handles: Victim UX, complaint flow, status tracking
+- You handle: Police UX, command center, field dashboard
+- Together you ensure: Seamless flow from victim complaint to police action
+
+
+## 📊 KEY PERFORMANCE INDICATORS (KPIs) FOR YOUR WORK
+
+1. **UI Performance:**
+   - First Contentful Paint (FCP) < 1.5 seconds
+   - Time to Interactive (TTI) < 3 seconds
+   - Lighthouse score > 90 for all UIs
+   - 60+ FPS for animations and transitions
+
+2. **Map Performance:**
+   - 500+ ATM markers rendered without lag
+   - Heatmap updates within 2 seconds of new prediction
+   - Smooth zoom and pan at 60 FPS
+
+3. **Graph Performance:**
+   - 100+ nodes rendered without performance issues
+   - Zoom and pan responsive
+   - Node selection and highlighting under 100ms
+
+4. **LLM Agent Performance:**
+   - Query response under 5 seconds (including LLM call)
+   - 95%+ accurate Cypher query generation
+   - Clear, readable responses with visual aids
+
+5. **DevOps Performance:**
+   - CI/CD pipeline completes under 10 minutes
+   - All services start with docker-compose up in under 2 minutes
+   - Monitoring dashboards update every 30 seconds
+   - 99.9% uptime during demo
+
+6. **User Experience:**
+   - All UIs pass WCAG 2.1 AA accessibility standards
+   - Color-blind safe design (not just color-based indicators)
+   - Keyboard navigable throughout
+   - Screen reader compatible
+
+
+## 🎯 PRESENTATION STRATEGY FOR SIH JUDGES
+
+**Your Role in the Presentation:**
+- You will demonstrate all 3 UIs during the demo
+- You will explain the DevOps infrastructure
+- You will handle questions about scalability and production-readiness
+
+**Your Key Talking Points:**
+1. "We built 3 responsive web interfaces for different user personas"
+2. "The Command Center provides real-time intelligence through heatmaps and graphs"
+3. "The Field Dashboard enables rapid police response from anywhere"
+4. "Our LLM Agent allows officers to ask complex questions in plain English"
+5. "We containerized everything with Docker and orchestrated with Kubernetes"
+6. "Our CI/CD pipeline ensures rapid, reliable deployments"
+7. "We monitor everything with Prometheus and Grafana"
+8. "The system is production-ready and scalable"
+
+**Demo Flow (5 Minutes):**
+1. (0:00) Show Victim Portal → Submit complaint
+2. (0:45) Show WebSocket status update
+3. (1:30) Open Command Center → Show heatmap update
+4. (2:00) Show graph visualization of mule network
+5. (2:30) Use LLM Agent: "Show mules for C1001"
+6. (3:00) Trigger Step-Up Verification
+7. (3:30) Open Field Dashboard → Show alert
+8. (4:00) Show Admin Panel → System health, audit logs
+9. (4:30) Show blockchain audit trail
+10. (5:00) Q&A
+
+**Anticipated Judge Questions:**
+- "How does the LLM know what to query?" → LangChain converts natural language to Cypher queries
+- "What if the officer asks a vague question?" → System asks for clarification or suggests queries
+- "How do you ensure data privacy?" → JWT authentication, role-based access, encryption
+- "How scalable is this?" → Kubernetes auto-scaling, microservices architecture
+- "What about offline use?" → Field Dashboard has offline support, Victim Portal is PWA
+- "How is evidence integrity maintained?" → Blockchain-backed audit trail, file hashing
+
+
+## 🏆 WHAT MAKES THIS PROJECT STAND OUT
+
+1. **Complete End-to-End Ecosystem:** From victim complaint to police action in under 10 minutes
+2. **Multiple Access Channels:** Web portals + WhatsApp for maximum reach
+3. **AI-Powered Proactive Intervention:** Predicts crime before it happens
+4. **Blockchain-Backed Evidence:** Tamper-proof chain of custody for legal admissibility
+5. **Real-Time Intelligence:** WebSocket-driven real-time updates across all interfaces
+6. **Natural Language Interface:** LLM Agent makes complex data accessible to officers
+7. **Mobile-First Design:** Field dashboard optimized for officers on the move
+8. **Production-Ready DevOps:** Docker, Kubernetes, Jenkins, Prometheus stack
+9. **Mule Account Scoring:** Identifies and scores money laundering accounts
+10. **Anonymous Tip Channel:** WhatsApp chatbot encourages public participation
+
+**Your Contribution to This Success:**
+- All 3 beautiful, functional web interfaces
+- LLM Agent that enables natural language intelligence
+- Complete DevOps pipeline for production readiness
+- Real-time WebSocket integration
+- Monitoring and observability infrastructure
+- Professional, responsive, accessible UI design
+
+
+## 🛠️ TOOLS & TECHNOLOGIES YOU'LL USE
+
+**Frontend:**
+- React.js with TypeScript (strict mode)
+- Tailwind CSS + shadcn/ui components
+- Mapbox GL / Leaflet.js for mapping
+- D3.js + vis.js for graph visualization
+- Redux Toolkit for state management
+- Socket.io-client for WebSocket
+- Axios for API calls
+- React Hook Form + Zod for forms
+- Framer Motion for animations
+- AG Grid for data tables
+
+**DevOps:**
+- Docker + Docker Compose
+- Kubernetes (Minikube)
+- Jenkins (CI/CD pipeline)
+- GitHub Actions (backup CI)
+- Prometheus + Grafana (monitoring)
+- ELK Stack (Elasticsearch, Logstash, Kibana)
+- SonarQube (code quality)
+- OWASP ZAP (security scanning)
+- Terraform (infrastructure as code - optional)
+
+**Testing:**
+- Jest + React Testing Library (unit tests)
+- Playwright (end-to-end tests)
+- Lighthouse (performance)
+- WebPageTest (performance testing)
+
+**Collaboration:**
+- GitHub (code repository)
+- JIRA / GitHub Projects (task management)
+- Figma (UI/UX design)
+- Discord / Slack (team communication)
+- Confluence / GitHub Wiki (documentation)
+

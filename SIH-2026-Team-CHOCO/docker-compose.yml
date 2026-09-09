@@ -1,0 +1,206 @@
+# Compose v2 (spec format). The `version:` key is obsolete — dropped deliberately:
+# docker-compose v1 would mis-handle the long-form `depends_on` conditions below.
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_URL=postgresql+asyncpg://sih_admin:password@postgres:5432/sih26184_app
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=sih_admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sih26184_app
+      - PG_ENCRYPTION_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_HTTP_URI=http://neo4j:7474
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - REDIS_URL=redis://redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET_KEY=your-super-secret-key-change-in-production-min-64-chars-long!
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=1440
+      - JWT_REFRESH_TOKEN_EXPIRE_DAYS=7
+      - CORS_ORIGINS=["*"]
+      - RATE_LIMIT_PER_USER=100
+      - RATE_LIMIT_PER_IP=1000
+      - PINATA_API_KEY=mock_key
+      - PINATA_API_SECRET=mock_secret
+      - WHATSAPP_API_TOKEN=mock_token
+      - WHATSAPP_PHONE_NUMBER_ID=mock_number_id
+      - WHATSAPP_WEBHOOK_VERIFY_TOKEN=verify_token_here
+      - SENDGRID_API_KEY=mock_key
+      - TWILIO_ACCOUNT_SID=mock_sid
+      - TWILIO_AUTH_TOKEN=mock_token
+      - TWILIO_PHONE_NUMBER=+1234567890
+      - APP_NAME=SIH26184
+      - APP_VERSION=1.0.0
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
+      - SUPABASE_URL=
+      - SUPABASE_KEY=
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=sih_admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=sih26184_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sih_admin -d sih26184_app"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_memory_heap_initial__size=512m
+      - NEO4J_dbms_memory_heap_max__size=512m
+      - NEO4J_dbms_memory_pagecache_size=512m
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+      - NEO4J_dbms_security_procedures_allowlist=apoc.*
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    healthcheck:
+      # neo4j:5-community ships wget, not curl — this used to fail silently,
+      # keeping `backend` gated on `service_healthy` forever
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7474"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    ports:
+      - "9090:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=30d
+    volumes:
+      - ./deployments/monitoring/prometheus:/etc/prometheus:ro
+      - prometheus_data:/prometheus
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  grafana:
+    # Port 9091 → 3000: 3000 stays reserved for the Victim app later
+    image: grafana/grafana:11.1.0
+    ports:
+      - "9091:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./deployments/monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  celery-worker:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile.backend
+    command: celery -A api.tasks.celery_app worker --loglevel=info
+    environment:
+      - POSTGRES_URL=postgresql+asyncpg://sih_admin:password@postgres:5432/sih26184_app
+      - POSTGRES_HOST=postgres
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=password
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+    depends_on:
+      - postgres
+      - neo4j
+      - redis
+  qdrant:
+    image: qdrant/qdrant:v1.11.0
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.58
+    ports:
+      - "16686:16686" # Web UI
+      - "4318:4318"   # OTLP HTTP receiver
+    restart: unless-stopped
+
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sih26184-frontend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  neo4j_data:
+  neo4j_logs:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  qdrant_data:

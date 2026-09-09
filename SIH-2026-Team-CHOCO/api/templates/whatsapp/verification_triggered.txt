@@ -1,0 +1,17 @@
+# WhatsApp template: verification_triggered (category: ALERT_UPDATE)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: inspecting officers + on-site constable
+# Buttons: CONFIRM_ARRIVAL (quick reply)
+
+✅ *Step-Up Verification Active*
+
+Officer {{1}},
+
+Verification (OTP + facial) is now ACTIVE at ATM *{{2}}*:
+
+*Verification ID:* {{3}}
+*Affected accounts:* {{4}}
+*Active for:* {{5}} hour(s)
+
+Any withdrawal attempt will require identity verification.
+— CyberCell

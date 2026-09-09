@@ -1,0 +1,41 @@
+<!-- Template: status_updated
+     Variables: {complaint_id}, {status}
+     Status values: SUBMITTED | ANALYZING | ACTION_TAKEN | RESOLVED
+     Rendered by api/services/notifications.py render("status_updated", ...) -->
+<!DOCTYPE html>
+<html lang="en">
+<body style="font-family: Arial, Helvetica, sans-serif; background: #f4f6f8; margin: 0; padding: 24px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+               style="background: #ffffff; border-radius: 8px; overflow: hidden;
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <tr>
+            <td style="background: #1a2b4a; color: #ffffff; padding: 20px 28px;">
+              <h1 style="margin: 0; font-size: 20px;">Complaint {complaint_id}: {status}</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; color: #333333; font-size: 14px; line-height: 1.6;">
+              <p>Dear Complainant,</p>
+              <p>The status of your complaint <strong>{complaint_id}</strong> has changed to:</p>
+              <p style="display: inline-block; background: #eef2ff; color: #1e3a8a;
+                        border-radius: 4px; padding: 6px 14px; font-weight: bold;">
+                {status}
+              </p>
+              <p>No action is required from your side at this moment.</p>
+              <p style="margin-bottom: 0;">— CyberCell, SIH26184 Predictive Analytics Framework</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background: #f8fafc; padding: 12px 28px; color: #64748b; font-size: 12px;">
+              For assistance, call 1930 or reply to this email.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

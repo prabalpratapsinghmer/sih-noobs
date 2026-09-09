@@ -1,0 +1,15 @@
+# WhatsApp template: welcome_menu (category: MARKETING — for opt-in users only)
+# Pre-approved format for Meta Cloud API.
+# Sends: any user messaging the bot first
+# Quick replies: REPORT | STATUS | TIP | EMERGENCY
+
+👮 *CyberCell Bot*
+
+How can I help you today?
+
+1. 📝 *Report a fraud* — reply *report*
+2. 🔍 *Check complaint status* — reply *status*
+3. 🕵️ *Submit anonymous tip* — reply *tip*
+4. 🚨 *Emergency* — reply *emergency*
+
+Emergency? Call *100*. For cybercrime, call *1930*.

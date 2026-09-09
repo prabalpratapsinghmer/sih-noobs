@@ -1,0 +1,17 @@
+# WhatsApp template: mule_detected (category: ALERT_UPDATE)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: inspecting officers
+# Buttons: VIEW_CHAIN | REQUEST_FREEZE (quick replies)
+
+⚡ *Mule Account Flagged*
+
+Officer {{1}},
+
+The scoring engine flagged account *{{2}}* for complaint *{{3}}*:
+
+*Final score:* {{4}}/100
+*Risk level:* {{5}} ▲
+
+Risk ≥ 80 (HIGH): recommend immediate freeze + step-up verification.
+Reply *freeze* to request account freeze.
+— CyberCell

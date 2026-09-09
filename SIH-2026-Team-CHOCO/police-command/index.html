@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber Command Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo"><i class="fas fa-shield-halved"></i> <span>CyberCell</span></div>
+            <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard')">
+                <i class="fas fa-chart-pie"></i> <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-page="heatmap" onclick="switchPage('heatmap')">
+                <i class="fas fa-map"></i> <span>Heatmap</span>
+            </a>
+            <a href="#" class="nav-item" data-page="graph" onclick="switchPage('graph')">
+                <i class="fas fa-project-diagram"></i> <span>Mule Network</span>
+            </a>
+            <a href="#" class="nav-item" data-page="llm" onclick="switchPage('llm')">
+                <i class="fas fa-robot"></i> <span>LLM Agent</span>
+            </a>
+            <a href="#" class="nav-item" data-page="alerts" onclick="switchPage('alerts')">
+                <i class="fas fa-bell"></i> <span>Alerts</span>
+                <span class="badge" id="alertBadge">12</span>
+            </a>
+            <a href="#" class="nav-item" data-page="cases" onclick="switchPage('cases')">
+                <i class="fas fa-folder"></i> <span>Cases</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="avatar">IS</div>
+                <div><span class="user-name">Inspector Singh</span><span class="user-role">Cyber Cell Lead</span></div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <h1 id="pageTitle">Command Center</h1>
+                <span class="live-badge"><span class="dot"></span> Live</span>
+            </div>
+            <div class="topbar-right">
+                <span class="date-time" id="currentTime"></span>
+                <button class="icon-btn" onclick="showNotifications()" id="notifBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-dot"></span>
+                </button>
+                <button class="icon-btn" onclick="showSettings()" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- ===== PAGE: DASHBOARD ===== -->
+        <div id="page-dashboard" class="page-content active">
+            <!-- Stats -->
+            <section class="stats-row">
+                <div class="stat-card" onclick="showComplaints()">
+                    <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+                    <div class="stat-info"><span class="stat-number" id="totalComplaints">47</span><span class="stat-label">Active Complaints</span></div>
+                    <span class="stat-change up">+12%</span>
+                </div>
+                <div class="stat-card" onclick="showHighRiskATMs()">
+                    <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-info"><span class="stat-number" id="highRiskATMs">12</span><span class="stat-label">High Risk ATMs</span></div>
+                    <span class="stat-change up">+5%</span>
+                </div>
+                <div class="stat-card" onclick="showRecoveredFunds()">
+                    <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info"><span class="stat-number">8.2Cr</span><span class="stat-label">Funds Recovered</span></div>
+                    <span class="stat-change up">+23%</span>
+                </div>
+                <div class="stat-card" onclick="showResponseTime()">
+                    <div class="stat-icon yellow"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info"><span class="stat-number">2.3m</span><span class="stat-label">Avg Response Time</span></div>
+                    <span class="stat-change down">-8%</span>
+                </div>
+            </section>
+
+            <!-- Dashboard Grid -->
+            <section class="dashboard-grid">
+                <!-- Heatmap Preview -->
+                <div class="panel panel-heatmap">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-map"></i> Live ATM Heatmap</h3>
+                        <button class="btn-sm" onclick="switchPage('heatmap')">View Full <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="panel-body">
+                        <div id="heatmapPreview" style="height: 200px;"></div>
+                    </div>
+                </div>
+
+                <!-- Alerts Preview -->
+                <div class="panel panel-alerts">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-bell"></i> Active Alerts</h3>
+                        <span class="alert-count" id="alertCount">12</span>
+                    </div>
+                    <div class="panel-body alerts-scroll" id="alertList">
+                        <!-- Dynamic alerts loaded by JS -->
+                    </div>
+                </div>
+
+                <!-- Graph Preview -->
+                <div class="panel panel-graph">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-project-diagram"></i> Mule Network</h3>
+                        <button class="btn-sm" onclick="switchPage('graph')">View Full <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="panel-body">
+                        <div id="graphPreview" style="height: 180px;"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="panel panel-actions">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="action-grid">
+                            <button class="action-btn primary" onclick="triggerVerification()">
+                                <i class="fas fa-fingerprint"></i> Step-Up Verification
+                            </button>
+                            <button class="action-btn danger" onclick="freezeMule()">
+                                <i class="fas fa-lock"></i> Freeze Mule
+                            </button>
+                            <button class="action-btn success" onclick="generateFIR()">
+                                <i class="fas fa-file-pen"></i> Generate FIR
+                            </button>
+                            <button class="action-btn warning" onclick="dispatchPatrol()">
+                                <i class="fas fa-phone"></i> Dispatch Patrol
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Complaints -->
+            <section class="recent-section">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-list"></i> Recent Complaints</h3>
+                        <button class="btn-sm" onclick="switchPage('cases')">View All</button>
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <table class="complaint-table" id="complaintTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Victim</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="complaintTableBody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== PAGE: HEATMAP ===== -->
+        <div id="page-heatmap" class="page-content">
+            <div class="panel full-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-map"></i> Full ATM Heatmap</h3>
+                    <div class="panel-actions">
+                        <button class="btn-sm" onclick="refreshHeatmap()"><i class="fas fa-sync"></i> Refresh</button>
+                        <button class="btn-sm" onclick="filterHeatmap()"><i class="fas fa-filter"></i> Filter</button>
+                        <button class="btn-sm" onclick="exportHeatmap()"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="heatmapFull" style="height: 500px;"></div>
+                    <div class="legend">
+                        <span><span class="dot-red"></span> Critical (80-100%)</span>
+                        <span><span class="dot-orange"></span> High (60-79%)</span>
+                        <span><span class="dot-yellow"></span> Medium (40-59%)</span>
+                        <span><span class="dot-green"></span> Low (0-39%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: GRAPH ===== -->
+        <div id="page-graph" class="page-content">
+            <div class="panel full-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-project-diagram"></i> Mule Network Graph</h3>
+                    <div class="panel-actions">
+                        <button class="btn-sm" onclick="resetGraph()"><i class="fas fa-undo"></i> Reset View</button>
+                        <button class="btn-sm" onclick="toggleGraphPhysics()"><i class="fas fa-play"></i> Toggle Physics</button>
+                        <button class="btn-sm" onclick="zoomGraphIn()"><i class="fas fa-search-plus"></i> Zoom In</button>
+                        <button class="btn-sm" onclick="zoomGraphOut()"><i class="fas fa-search-minus"></i> Zoom Out</button>
+                        <button class="btn-sm" onclick="exportGraph()"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="graphFull" style="height: 450px; background: #0a0e17; border-radius: 8px;"></div>
+                    <div class="graph-legend black-theme">
+                        <span><span class="legend-dot green"></span> Victim</span>
+                        <span><span class="legend-dot red"></span> Mule (Critical)</span>
+                        <span><span class="legend-dot orange"></span> Mule (High)</span>
+                        <span><span class="legend-dot yellow"></span> Mule (Medium)</span>
+                        <span><span class="legend-dot light-green"></span> Mule (Low)</span>
+                        <span><span class="legend-dot blue"></span> ATM</span>
+                        <span><span class="legend-dot purple"></span> Evidence</span>
+                        <span><span class="legend-dot cyan"></span> Bank Account</span>
+                    </div>
+                    <div class="graph-instructions black-theme">
+                        <span><i class="fas fa-mouse-pointer"></i> Click node for details</span>
+                        <span><i class="fas fa-expand"></i> Double-click for full info</span>
+                        <span><i class="fas fa-arrows-alt"></i> Drag to navigate</span>
+                        <span><i class="fas fa-scroll"></i> Scroll to zoom</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: LLM ===== -->
+        <div id="page-llm" class="page-content">
+            <div class="panel full-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-robot"></i> LLM Intelligence Agent</h3>
+                    <span class="llm-status"><span class="dot-green"></span> Online</span>
+                </div>
+                <div class="panel-body llm-full">
+                    <div class="llm-chat" id="llmChatFull">
+                        <!-- Dynamic content -->
+                    </div>
+                    <div class="llm-input-area">
+                        <div class="llm-suggestions" id="llmSuggestions">
+                            <button class="suggestion-chip" onclick="setLLMInput('Show high risk ATMs in Indiranagar')">High risk in Indiranagar</button>
+                            <button class="suggestion-chip" onclick="setLLMInput('Find all mule accounts connected to complaint C1001')">Mules for C1001</button>
+                            <button class="suggestion-chip" onclick="setLLMInput('Show fraud trends for this week')">Fraud trends this week</button>
+                            <button class="suggestion-chip" onclick="setLLMInput('What is the risk level of ATM 452')">ATM 452 risk</button>
+                            <button class="suggestion-chip" onclick="setLLMInput('Show all complaints from last 24 hours')">Last 24h complaints</button>
+                            <button class="suggestion-chip" onclick="setLLMInput('Which ATMs have the highest risk score')">Highest risk ATMs</button>
+                        </div>
+                        <div class="llm-input">
+                            <input type="text" id="llmInput" placeholder="Ask me anything about cybercrime intelligence..." onkeydown="if(event.key==='Enter') sendLLMQuery()" />
+                            <button onclick="sendLLMQuery()"><i class="fas fa-arrow-up"></i></button>
+                            <button onclick="clearLLMChat()" class="clear-btn"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: ALERTS ===== -->
+        <div id="page-alerts" class="page-content">
+            <div class="panel full-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-bell"></i> All Alerts</h3>
+                    <div class="panel-actions">
+                        <button class="btn-sm" onclick="markAllRead()"><i class="fas fa-check-double"></i> Mark All Read</button>
+                        <button class="btn-sm" onclick="refreshAlerts()"><i class="fas fa-sync"></i> Refresh</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="alert-filters">
+                        <button class="filter-btn active" onclick="filterAlerts('all')">All</button>
+                        <button class="filter-btn" onclick="filterAlerts('critical')">Critical</button>
+                        <button class="filter-btn" onclick="filterAlerts('high')">High</button>
+                        <button class="filter-btn" onclick="filterAlerts('medium')">Medium</button>
+                        <button class="filter-btn" onclick="filterAlerts('low')">Low</button>
+                    </div>
+                    <div class="alerts-list" id="allAlertsList">
+                        <!-- Dynamic content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PAGE: CASES ===== -->
+        <div id="page-cases" class="page-content">
+            <div class="panel full-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-folder"></i> All Cases</h3>
+                    <div class="panel-actions">
+                        <button class="btn-sm" onclick="addCase()"><i class="fas fa-plus"></i> New Case</button>
+                        <button class="btn-sm" onclick="exportCases()"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="case-filters">
+                        <button class="filter-btn active" onclick="filterCases('all')">All</button>
+                        <button class="filter-btn" onclick="filterCases('open')">Open</button>
+                        <button class="filter-btn" onclick="filterCases('investigating')">Investigating</button>
+                        <button class="filter-btn" onclick="filterCases('action_taken')">Action Taken</button>
+                        <button class="filter-btn" onclick="filterCases('resolved')">Resolved</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="complaint-table" id="casesTable">
+                            <thead>
+                                <tr>
+                                    <th>Case ID</th>
+                                    <th>Victim</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Assigned To</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="casesTableBody">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-cog"></i> Settings</h2>
+                <button class="modal-close" onclick="closeSettings()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h3>Appearance</h3>
+                    <div class="settings-item">
+                        <span>Theme</span>
+                        <button class="btn-sm" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i> Toggle Theme
+                        </button>
+                    </div>
+                    <div class="settings-item">
+                        <span>Language</span>
+                        <select class="settings-select">
+                            <option>English</option>
+                            <option>Hindi</option>
+                            <option>Kannada</option>
+                            <option>Tamil</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>Notifications</h3>
+                    <div class="settings-item">
+                        <span>Push Notifications</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <span>Email Alerts</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <span>SMS Alerts</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" />
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>System</h3>
+                    <div class="settings-item">
+                        <span>Auto-Refresh Rate</span>
+                        <select class="settings-select">
+                            <option>30 seconds</option>
+                            <option selected>1 minute</option>
+                            <option>5 minutes</option>
+                            <option>Never</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <span>Data Export Format</span>
+                        <select class="settings-select">
+                            <option selected>CSV</option>
+                            <option>JSON</option>
+                            <option>Excel</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeSettings()">Close</button>
+                <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div class="modal-overlay" id="notificationsModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h2><i class="fas fa-bell"></i> Notifications</h2>
+                <button class="modal-close" onclick="closeNotifications()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="notifications-list" id="notificationsList">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeNotifications()">Close</button>
+                <button class="btn-primary" onclick="markAllNotificationsRead()">Mark All Read</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Confirmation Modal -->
+    <div class="modal-overlay" id="actionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Action Confirmation</h2>
+                <button class="modal-close" onclick="closeActionModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Are you sure you want to perform this action?</p>
+                <div id="modalExtraContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeActionModal()">Cancel</button>
+                <button class="btn-primary" id="modalConfirmBtn" onclick="confirmAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/llm.js"></script>
+</body>
+</html>

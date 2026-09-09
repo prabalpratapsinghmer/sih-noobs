@@ -1,0 +1,3 @@
+# SMS template: atm_alert (police recipients)
+# Variables: {atm_id}, {probability}, {time_window}, {complaint_id}
+ALERT: Predicted cash-out at ATM {atm_id} ({probability:.0%}) within {time_window}h for complaint {complaint_id}. Dispatch unit now. — CyberCell

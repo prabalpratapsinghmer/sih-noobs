@@ -1,0 +1,6 @@
+network_id,num_mules,sophistication,activity_period_days,total_fraud_amount,detection_status,created_at
+NET_0000,9,low,63,7443419,detected,2026-06-05 22:38:04.516522
+NET_0001,17,medium,334,5239386,active,2026-03-01 22:38:04.516526
+NET_0002,20,high,263,1997476,dormant,2026-02-05 22:38:04.516528
+NET_0003,14,medium,111,2927508,detected,2026-03-19 22:38:04.516531
+NET_0004,15,high,149,8346187,active,2025-12-18 22:38:04.516534

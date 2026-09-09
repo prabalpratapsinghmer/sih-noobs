@@ -1,0 +1,52 @@
+<!-- Template: verification_triggered (police recipients)
+     Variables: {atm_id}, {affected_accounts}, {verification_id}, {duration_hours}
+     Rendered by api/services/notifications.py render("verification_triggered", ...) -->
+<!DOCTYPE html>
+<html lang="en">
+<body style="font-family: Arial, Helvetica, sans-serif; background: #f4f6f8; margin: 0; padding: 24px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+               style="background: #ffffff; border-radius: 8px; overflow: hidden;
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <tr>
+            <td style="background: #1a2b4a; color: #ffffff; padding: 20px 28px;">
+              <h1 style="margin: 0; font-size: 20px;">Step-Up Verification Sent</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; color: #333333; font-size: 14px; line-height: 1.6;">
+              <p>Officer,</p>
+              <p>Step-up verification (<strong>OTP + facial</strong>) has been dispatched to the
+                 banking switch for ATM <strong>{atm_id}</strong>.</p>
+              <table role="presentation" width="100%" style="border-collapse: collapse; margin: 16px 0;">
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Verification ID</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;"><strong>{verification_id}</strong></td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Affected Accounts</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">{affected_accounts}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Active For</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">{duration_hours} hour(s)</td>
+                </tr>
+              </table>
+              <p>Withdrawals at this ATM now require OTP and/or facial verification for the
+                 affected accounts.</p>
+              <p style="margin-bottom: 0;">— CyberCell, SIH26184 Predictive Analytics Framework</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background: #f8fafc; padding: 12px 28px; color: #64748b; font-size: 12px;">
+              The action is recorded on the blockchain audit trail.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

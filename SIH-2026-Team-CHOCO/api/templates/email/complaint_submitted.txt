@@ -1,0 +1,14 @@
+Subject: Complaint {complaint_id} Received
+
+Dear Complainant,
+
+Your cybercrime complaint has been submitted successfully.
+
+  Complaint ID : {complaint_id}
+  Amount       : Rs. {amount:,.0f}
+  Fraud Type   : {fraud_type}
+
+Track the status of your complaint at any time. You will be notified
+on every update.
+
+— CyberCell, SIH26184 Predictive Analytics Framework

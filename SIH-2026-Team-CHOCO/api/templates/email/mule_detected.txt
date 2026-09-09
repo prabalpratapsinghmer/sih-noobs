@@ -1,0 +1,15 @@
+Subject: MULE DETECTED — Account {account_id} ({risk_level})
+
+Officer,
+
+The mule scoring engine has flagged an account linked to complaint
+{complaint_id}:
+
+  Account    : {account_id}
+  Final Score: {final_score:.1f} / 100
+  Risk Level : {risk_level} (HIGH >= 80, MEDIUM 50-79, LOW < 50)
+
+Recommended action for HIGH: immediate account freeze + step-up
+verification.
+
+— CyberCell, SIH26184 Predictive Analytics Framework

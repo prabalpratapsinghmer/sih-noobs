@@ -1,0 +1,15 @@
+# WhatsApp template: status_updated (category: UTILITY)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: victim
+# Quick replies: DETAILS | HELP
+
+📋 *Status Update*
+
+Complaint *{{1}}* — status changed to:
+
+*{{2}}*
+
+{{3}}
+
+No action needed unless we contact you.
+— CyberCell

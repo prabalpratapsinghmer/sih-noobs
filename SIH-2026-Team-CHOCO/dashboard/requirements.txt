@@ -1,0 +1,8 @@
+# Dashboard Requirements
+streamlit==1.28.2
+plotly==5.18.0
+psutil==5.9.6
+torch>=2.6.0
+tensorboard==2.14.0
+pandas==2.1.3
+numpy==1.26.2

@@ -1,0 +1,148 @@
+{
+  "families": [
+    "Alliance No\\.2",
+    "Alliance No\\.1"
+  ],
+  "scale": {
+    "heading-1": {
+      "fontFamily": "Alliance No\\.2",
+      "fontSize": "18px",
+      "fontWeight": "700",
+      "lineHeight": null,
+      "source": "css"
+    },
+    "heading-2": {
+      "fontFamily": "Alliance No\\.2",
+      "fontSize": "16px",
+      "fontWeight": "700",
+      "lineHeight": null,
+      "source": "css"
+    },
+    "heading-3": {
+      "fontFamily": "Alliance No\\.2",
+      "fontSize": "13px",
+      "fontWeight": "700",
+      "lineHeight": null,
+      "source": "css"
+    },
+    "body": {
+      "fontFamily": "Alliance No\\.1",
+      "fontSize": ".7777777778rem",
+      "fontWeight": "400",
+      "lineHeight": null,
+      "source": "css"
+    },
+    "caption": {
+      "fontFamily": "Alliance No\\.1",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "lineHeight": null,
+      "source": "css"
+    }
+  },
+  "fontFaces": [
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-Regular.woff2",
+      "format": "woff2",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-Regular.woff",
+      "format": "woff",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-RegularItalic.woff2",
+      "format": "woff2",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-RegularItalic.woff",
+      "format": "woff",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-Bold.woff2",
+      "format": "woff2",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-Bold.woff",
+      "format": "woff",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-BoldItalic.woff2",
+      "format": "woff2",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.1",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo1-BoldItalic.woff",
+      "format": "woff",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-Regular.woff2",
+      "format": "woff2",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-Regular.woff",
+      "format": "woff",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-RegularItalic.woff2",
+      "format": "woff2",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-RegularItalic.woff",
+      "format": "woff",
+      "weight": "400"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-Bold.woff2",
+      "format": "woff2",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-Bold.woff",
+      "format": "woff",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-BoldItalic.woff2",
+      "format": "woff2",
+      "weight": "700"
+    },
+    {
+      "family": "Alliance No\\.2",
+      "src": "https://www.palantir.com/fonts/Alliance/AllianceNo2-BoldItalic.woff",
+      "format": "woff",
+      "weight": "700"
+    }
+  ],
+  "rules": {
+    "maxSizesPerScreen": 4,
+    "headingWeightRange": "600-700",
+    "bodyWeight": 400,
+    "lineHeightBody": 1.5,
+    "lineHeightHeading": 1.2
+  }
+}

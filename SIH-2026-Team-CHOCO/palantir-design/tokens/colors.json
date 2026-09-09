@@ -1,0 +1,91 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "core": {
+    "text-primary": {
+      "value": "#ffffff",
+      "role": "text-primary",
+      "name": "body-color"
+    },
+    "background": {
+      "value": "#1e2124",
+      "role": "background",
+      "name": "text-color"
+    },
+    "surface": {
+      "value": "#000000",
+      "role": "surface"
+    },
+    "text-muted": {
+      "value": "#9b9b9b",
+      "role": "text-muted",
+      "name": "text-color-light"
+    },
+    "accent": {
+      "value": "#8c7847",
+      "role": "accent",
+      "name": "accent-color"
+    },
+    "border": {
+      "value": "#636363",
+      "role": "border",
+      "name": "text-color-medium"
+    }
+  },
+  "status": {
+    "danger": {
+      "value": "#994500",
+      "role": "danger"
+    }
+  },
+  "extended": {
+    "color-881280": {
+      "value": "#881280",
+      "role": "unknown"
+    },
+    "color-0000ee": {
+      "value": "#0000ee",
+      "role": "info"
+    },
+    "accent05-opaque-color": {
+      "value": "#f4f7f6",
+      "role": "unknown",
+      "name": "accent05-opaque-color"
+    },
+    "color-aaaaaa": {
+      "value": "#aaaaaa",
+      "role": "unknown"
+    },
+    "text-color-medium": {
+      "value": "#b9b9b9",
+      "role": "unknown",
+      "name": "text-color-medium"
+    },
+    "text-color-light": {
+      "value": "#767676",
+      "role": "unknown",
+      "name": "text-color-light"
+    },
+    "color-565656": {
+      "value": "#565656",
+      "role": "unknown"
+    },
+    "color-1a1aa6": {
+      "value": "#1a1aa6",
+      "role": "unknown"
+    },
+    "body-color-medium": {
+      "value": "#2f3234",
+      "role": "unknown",
+      "name": "body-color-medium"
+    },
+    "body-color-light": {
+      "value": "#494a4b",
+      "role": "unknown",
+      "name": "body-color-light"
+    }
+  },
+  "meta": {
+    "theme": "dark",
+    "extracted": "2026-09-06"
+  }
+}

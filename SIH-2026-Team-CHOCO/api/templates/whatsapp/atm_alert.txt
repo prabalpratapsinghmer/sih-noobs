@@ -1,0 +1,18 @@
+# WhatsApp template: atm_alert (category: ALERT_UPDATE)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: constables/inspectors registered for field duty
+# Buttons: CONFIRM_ARRIVAL (quick reply) | CALL_OIC
+
+🚨 *ATM Alert — Action Required*
+
+Officer {{1}},
+
+Predicted cash-out for complaint *{{2}}* at:
+
+*ATM:* {{3}}
+*Probability:* {{4}}
+*Time window:* {{5}} hours
+
+Proceed to the ATM immediately. Verification has been triggered.
+Respond with *confirm* when on site.
+— CyberCell

@@ -1,0 +1,9 @@
+Subject: Complaint {complaint_id}: {status}
+
+Dear Complainant,
+
+The status of your complaint {complaint_id} has changed to: {status}
+
+No action is required from your side at this moment.
+
+— CyberCell, SIH26184 Predictive Analytics Framework

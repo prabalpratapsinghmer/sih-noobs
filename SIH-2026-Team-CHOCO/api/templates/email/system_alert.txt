@@ -1,0 +1,7 @@
+Subject: System Alert
+
+Admin,
+
+{message}
+
+— CyberCell, SIH26184 Predictive Analytics Framework

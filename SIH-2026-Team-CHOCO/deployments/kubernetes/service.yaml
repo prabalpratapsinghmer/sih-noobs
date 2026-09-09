@@ -1,0 +1,39 @@
+# ============================================================================
+# SIH26184 — Kubernetes Service
+# ============================================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: sih26184-api
+  namespace: sih26184
+  labels:
+    app: sih26184-api
+    component: prediction-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app: sih26184-api
+
+---
+# Banking Mock Service (internal only)
+apiVersion: v1
+kind: Service
+metadata:
+  name: sih26184-banking-mock
+  namespace: sih26184
+  labels:
+    app: sih26184-banking-mock
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: http
+  selector:
+    app: sih26184-banking-mock

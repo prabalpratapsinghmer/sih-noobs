@@ -1,0 +1,14 @@
+Subject: ATM ALERT — Predicted cash-out at {atm_id}
+
+Officer,
+
+The prediction model has identified a high-probability withdrawal
+location for complaint {complaint_id}.
+
+  ATM         : {atm_id}
+  Probability : {probability:.0%}
+  Time Window : {time_window} hours
+
+Dispatched constabulary to the ATM. Step-up verification triggered.
+
+— CyberCell, SIH26184 Predictive Analytics Framework

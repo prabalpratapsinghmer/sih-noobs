@@ -1,0 +1,15 @@
+Subject: Step-Up Verification Sent to {atm_id}
+
+Officer,
+
+Step-up verification (OTP + facial) has been dispatched to the banking
+switch for ATM {atm_id}.
+
+  Verification ID : {verification_id}
+  Affected Accounts: {affected_accounts}
+  Active For       : {duration_hours} hour(s)
+
+Withdrawals at this ATM now require verification for the affected
+accounts. Action recorded on the blockchain audit trail.
+
+— CyberCell, SIH26184 Predictive Analytics Framework

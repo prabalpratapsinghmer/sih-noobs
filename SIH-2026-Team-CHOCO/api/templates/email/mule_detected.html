@@ -1,0 +1,56 @@
+<!-- Template: mule_detected (police recipients)
+     Variables: {account_id}, {final_score}, {risk_level}, {complaint_id}
+     Rendered by api/services/notifications.py render("mule_detected", ...) -->
+<!DOCTYPE html>
+<html lang="en">
+<body style="font-family: Arial, Helvetica, sans-serif; background: #f4f6f8; margin: 0; padding: 24px;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+               style="background: #ffffff; border-radius: 8px; overflow: hidden;
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <tr>
+            <td style="background: #7f1d1d; color: #ffffff; padding: 20px 28px;">
+              <h1 style="margin: 0; font-size: 20px;">⚡ Mule Account Detected</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; color: #333333; font-size: 14px; line-height: 1.6;">
+              <p>Officer,</p>
+              <p>The mule scoring engine has flagged an account linked to complaint
+                 <strong>{complaint_id}</strong>:</p>
+              <table role="presentation" width="100%" style="border-collapse: collapse; margin: 16px 0;">
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Account</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;"><strong>{account_id}</strong></td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Final Score</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">{final_score:.1f} / 100</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0;">Risk Level</td>
+                  <td style="padding: 8px 12px; border: 1px solid #e2e8f0;">
+                    <span style="background: #fee2e2; color: #991b1b; border-radius: 4px; padding: 2px 8px; font-weight: bold;">
+                      {risk_level} ▲
+                    </span>
+                  </td>
+                </tr>
+              </table>
+              <p><strong>Recommended action:</strong> immediate account freeze + step-up verification
+                 when score ≥ 80 (HIGH).</p>
+              <p style="margin-bottom: 0;">— CyberCell, SIH26184 Predictive Analytics Framework</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background: #f8fafc; padding: 12px 28px; color: #64748b; font-size: 12px;">
+              Hybrid scoring: GNN probability (70%) + rule-based score (30%), capped at 100.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

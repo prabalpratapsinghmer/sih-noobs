@@ -1,0 +1,51 @@
+# Build stage
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copy workspace config and package files
+COPY package.json pnpm-workspace.yaml ./
+COPY apps/command-center/package.json ./apps/command-center/
+COPY apps/field-dashboard/package.json ./apps/field-dashboard/
+COPY apps/admin-panel/package.json ./apps/admin-panel/
+COPY apps/victim-portal/package.json ./apps/victim-portal/
+COPY packages/ui-kit/package.json ./packages/ui-kit/
+
+# Install dependencies
+RUN pnpm install
+
+# Copy source code
+COPY . .
+
+# Pass the app name as a build argument
+ARG APP_NAME
+ENV APP_NAME=${APP_NAME}
+
+# Build the specific app and the ui-kit
+RUN pnpm --filter "./packages/ui-kit" build || true
+RUN pnpm --filter "./apps/${APP_NAME}" build
+
+# Serve stage
+FROM nginx:alpine
+
+ARG APP_NAME
+ENV APP_NAME=${APP_NAME}
+
+# Copy the built assets to Nginx
+COPY --from=builder /app/apps/${APP_NAME}/dist /usr/share/nginx/html
+
+# Add a basic Nginx config to handle React Router (SPA fallback to index.html)
+RUN echo 'server { \
+    listen 80; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html index.htm; \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

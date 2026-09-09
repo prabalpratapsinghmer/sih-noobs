@@ -1,0 +1,3 @@
+# SMS template: status_updated
+# Variables: {complaint_id}, {status}
+Status update: complaint {complaint_id} is now {status}. No action needed unless contacted. — CyberCell

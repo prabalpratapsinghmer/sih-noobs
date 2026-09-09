@@ -1,0 +1,12 @@
+# WhatsApp template: system_alert (category: UTILITY)
+# Pre-approved format for Meta Cloud API — variables use {{N}} placeholders.
+# Sends: system administrators
+
+⚠️ *System Alert*
+
+Admin {{1}},
+
+{{2}}
+
+Check /health and Grafana dashboards.
+— CyberCell Ops
