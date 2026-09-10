@@ -1,58 +1,79 @@
-# Compose v2 (spec format). The `version:` key is obsolete — dropped deliberately:
-# docker-compose v1 would mis-handle the long-form `depends_on` conditions below.
+# Compose v2 specification.
+# The `version:` key is intentionally omitted.
 
 services:
+
   backend:
     build:
       context: .
       dockerfile: deployments/Dockerfile.backend
+
     ports:
       - "8000:8000"
-    env_file: .env
+
+    env_file:
+      - .env
+
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - PG_ENCRYPTION_KEY=${PG_ENCRYPTION_KEY}
-      - NEO4J_URI=bolt://neo4j:7687
-      - NEO4J_HTTP_URI=http://neo4j:7474
-      - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
-      - JWT_REFRESH_TOKEN_EXPIRE_DAYS=7
-      - CORS_ORIGINS=${CORS_ORIGINS}
-      - RATE_LIMIT_PER_USER=100
-      - RATE_LIMIT_PER_IP=1000
-      - PINATA_API_KEY=${PINATA_API_KEY:-mock_key}
-      - PINATA_API_SECRET=${PINATA_API_SECRET:-mock_secret}
-      - WHATSAPP_API_TOKEN=${WHATSAPP_API_TOKEN:-mock_token}
-      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID:-mock_number_id}
-      - WHATSAPP_WEBHOOK_VERIFY_TOKEN=${WHATSAPP_WEBHOOK_VERIFY_TOKEN:-verify_token_here}
-      - SENDGRID_API_KEY=${SENDGRID_API_KEY:-mock_key}
-      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-mock_sid}
-      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-mock_token}
-      - TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER:-+1234567890}
-      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
-      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET}
-      - APP_NAME=SIH26184
-      - APP_VERSION=1.0.0
-      - DEBUG=false
-      - LOG_LEVEL=INFO
-      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@redis:6379/1
-      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@redis:6379/2
-      - QDRANT_HOST=qdrant
-      - QDRANT_PORT=6333
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
-      - SUPABASE_URL=${SUPABASE_URL:-}
-      - SUPABASE_KEY=${SUPABASE_KEY:-}
+      POSTGRES_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PG_ENCRYPTION_KEY: ${PG_ENCRYPTION_KEY}
+
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_HTTP_URI: http://neo4j:7474
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      NEO4J_DATABASE: neo4j
+
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ACCESS_TOKEN_EXPIRE_MINUTES: ${JWT_ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
+      JWT_REFRESH_TOKEN_EXPIRE_DAYS: "7"
+
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      RATE_LIMIT_PER_USER: "100"
+      RATE_LIMIT_PER_IP: "1000"
+
+      PINATA_API_KEY: ${PINATA_API_KEY:-mock_key}
+      PINATA_API_SECRET: ${PINATA_API_SECRET:-mock_secret}
+
+      WHATSAPP_API_TOKEN: ${WHATSAPP_API_TOKEN:-mock_token}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID:-mock_number_id}
+      WHATSAPP_WEBHOOK_VERIFY_TOKEN: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN:-verify_token_here}
+
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY:-mock_key}
+
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID:-mock_sid}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-mock_token}
+      TWILIO_PHONE_NUMBER: ${TWILIO_PHONE_NUMBER:-+1234567890}
+
+      GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_OAUTH_CLIENT_ID}
+      GOOGLE_OAUTH_CLIENT_SECRET: ${GOOGLE_OAUTH_CLIENT_SECRET}
+
+      APP_NAME: SIH26184
+      APP_VERSION: "1.0.0"
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD}@redis:6379/2
+
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: "6333"
+
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_KEY: ${SUPABASE_KEY:-}
+
     depends_on:
       postgres:
         condition: service_healthy
@@ -60,134 +81,230 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+
     restart: unless-stopped
+
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8000/health
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
+
   postgres:
     image: postgres:16-alpine
-    env_file: .env
+
+    env_file:
+      - .env
+
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
     ports:
       - "5432:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
       interval: 10s
       timeout: 5s
       retries: 5
+
     restart: unless-stopped
+
 
   neo4j:
     image: neo4j:5-community
-    env_file: .env
+
+    # IMPORTANT:
+    # Do NOT put `env_file: .env` here.
+    # The .env contains application variables that Neo4j
+    # would try to interpret as Neo4j configuration.
+
     environment:
-      - NEO4J_AUTH=neo4j/${NEO4J_PASSWORD}
-      - NEO4J_PLUGINS=["apoc"]
-      - NEO4J_dbms_memory_heap_initial__size=512m
-      - NEO4J_dbms_memory_heap_max__size=512m
-      - NEO4J_dbms_memory_pagecache_size=512m
-      - NEO4J_dbms_security_procedures_unrestricted=apoc.*
-      - NEO4J_dbms_security_procedures_allowlist=apoc.*
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+
+      NEO4J_PLUGINS: '["apoc"]'
+
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 512m
+
+      NEO4J_dbms_security_procedures_allowlist: apoc.*
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+
     ports:
       - "7474:7474"
       - "7687:7687"
+
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
+
     healthcheck:
-      # neo4j:5-community ships wget, not curl — this used to fail silently,
-      # keeping `backend` gated on `service_healthy` forever
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7474"]
+      test:
+        - CMD
+        - wget
+        - --no-verbose
+        - --tries=1
+        - --spider
+        - http://localhost:7474
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 30s
+
     restart: unless-stopped
+
 
   redis:
     image: redis:7-alpine
+
     ports:
       - "6379:6379"
-    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru --appendonly yes
+
+    command:
+      - redis-server
+      - --requirepass
+      - ${REDIS_PASSWORD}
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - allkeys-lru
+      - --appendonly
+      - yes
+
     volumes:
       - redis_data:/data
+
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test:
+        - CMD
+        - redis-cli
+        - -a
+        - ${REDIS_PASSWORD}
+        - ping
       interval: 10s
       timeout: 5s
       retries: 5
+
     restart: unless-stopped
 
-  prometheus:
-    image: prom/prometheus:v2.53.0
-    ports:
-      - "9090:9090"
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
-      - --storage.tsdb.retention.time=30d
-    volumes:
-      - ./deployments/monitoring/prometheus:/etc/prometheus:ro
-      - prometheus_data:/prometheus
-    depends_on:
-      - backend
-    restart: unless-stopped
-
-  grafana:
-    # Port 9091 → 3000: 3000 stays reserved for the Victim app later
-    image: grafana/grafana:11.1.0
-    ports:
-      - "9091:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin123
-      - GF_USERS_ALLOW_SIGN_UP=false
-    volumes:
-      - ./deployments/monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
-      - grafana_data:/var/lib/grafana
-    depends_on:
-      - prometheus
-    restart: unless-stopped
 
   celery-worker:
     build:
       context: .
       dockerfile: deployments/Dockerfile.backend
-    command: celery -A api.tasks.celery_app worker --loglevel=info
+
+    command:
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+
     environment:
-      - POSTGRES_URL=postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      - POSTGRES_HOST=postgres
-      - NEO4J_URI=bolt://neo4j:7687
-      - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379/0
-      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@redis:6379/1
-      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@redis:6379/2
+      POSTGRES_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD}@redis:6379/2
+
     depends_on:
-      - postgres
-      - neo4j
-      - redis
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+
   qdrant:
     image: qdrant/qdrant:v1.11.0
+
     ports:
       - "6333:6333"
       - "6334:6334"
+
     volumes:
       - qdrant_data:/qdrant/storage
+
     restart: unless-stopped
+
 
   jaeger:
     image: jaegertracing/all-in-one:1.58
+
     ports:
-      - "16686:16686" # Web UI
-      - "4318:4318"   # OTLP HTTP receiver
+      - "16686:16686"
+      - "4318:4318"
+
+    restart: unless-stopped
+
+
+  prometheus:
+    image: prom/prometheus:v2.53.0
+
+    ports:
+      - "9090:9090"
+
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=30d
+
+    volumes:
+      - ./deployments/monitoring/prometheus:/etc/prometheus:ro
+      - prometheus_data:/prometheus
+
+    depends_on:
+      - backend
+
+    restart: unless-stopped
+
+
+  grafana:
+    image: grafana/grafana:11.1.0
+
+    # Port 9091 -> 3000
+    # Port 3000 remains reserved for the frontend.
+
+    ports:
+      - "9091:3000"
+
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
+      GF_USERS_ALLOW_SIGN_UP: "false"
+
+    volumes:
+      - ./deployments/monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+
+    depends_on:
+      - prometheus
+
     restart: unless-stopped
 
 
@@ -195,12 +312,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
     container_name: sih26184-frontend
+
     ports:
       - "3000:3000"
-    restart: unless-stopped
+
     depends_on:
       - backend
+
+    restart: unless-stopped
+
 
 volumes:
   postgres_data:
