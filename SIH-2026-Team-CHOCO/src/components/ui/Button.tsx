@@ -15,7 +15,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       // Palantir High-contrast Invert Button
       primary:
-        'bg-white text-[#121417] hover:bg-[#000000] hover:text-white border border-white hover:border-white',
+        'bg-white text-[#121417] hover:bg-black/30 backdrop-blur-md hover:text-white border border-white hover:border-white',
       // Palantir Deep Green Accent
       accent:
         'bg-[#2b5945] text-white hover:bg-[#356e56] border border-[#2b5945] hover:border-[#356e56]',
@@ -23,7 +23,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-[#2b5945] text-white hover:bg-[#356e56] border border-[#2b5945] hover:border-[#356e56]',
       // Palantir Invert Dark Card Button
       secondary:
-        'bg-[#000000] text-white border border-[#636363] hover:bg-white hover:text-[#121417] hover:border-white',
+        'bg-black/30 backdrop-blur-md text-white border border-[#636363] hover:bg-white hover:text-[#121417] hover:border-white',
       // Subtle Bordered Ghost
       ghost:
         'bg-transparent text-[#c0c9c2] hover:text-white hover:bg-[#2f3234] border border-transparent hover:border-[#636363]',

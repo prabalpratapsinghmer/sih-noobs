@@ -44,12 +44,12 @@ export const Report: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e2124] text-white pt-24 pb-16 px-4 md:px-8">
+    <div className="min-h-screen bg-transparent text-white pt-24 pb-16 px-4 md:px-8">
       <div className="w-full max-w-5xl mx-auto space-y-8">
         {/* Top Header & Segmented Switcher */}
         <div className="flex items-center justify-between flex-wrap gap-4 pb-6 border-b border-[#636363]/40">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-card bg-[#000000] border border-[#2b5945] flex items-center justify-center text-[#a0d1b8] shadow-sm">
+            <div className="w-10 h-10 rounded-card bg-black/30 backdrop-blur-md border border-[#2b5945] flex items-center justify-center text-[#a0d1b8] shadow-sm">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>

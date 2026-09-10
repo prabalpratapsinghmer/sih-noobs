@@ -13,7 +13,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          'bg-[#000000] border border-[#636363] text-white transition-all duration-200',
+          'bg-black/30 backdrop-blur-md border border-[#636363] text-white transition-all duration-200',
           chamfered ? 'card-chamfer' : 'rounded-card',
           interactive && 'hover:border-white cursor-pointer',
           density === 'compact' ? 'p-3.5 sm:p-4' : density === 'spacious' ? 'p-6 sm:p-8' : 'p-4 sm:p-5 md:p-6',

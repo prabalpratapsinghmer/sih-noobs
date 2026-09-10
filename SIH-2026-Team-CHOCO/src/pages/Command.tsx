@@ -46,10 +46,10 @@ export const Command: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e2124] text-white pt-20 pb-16 px-4 md:px-6">
+    <div className="min-h-screen bg-transparent text-white pt-20 pb-16 px-4 md:px-6">
       <div className="w-full max-w-[1740px] mx-auto space-y-4">
         {/* Top Telemetry Mission Strip - Palantir Dark Surface */}
-        <div className="p-4 bg-[#000000] border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
+        <div className="p-4 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#ff4136]" />
@@ -59,7 +59,7 @@ export const Command: React.FC = () => {
               <select
                 value={activeCaseId}
                 onChange={handleSelectCase}
-                className="bg-[#1e2124] border border-[#636363] text-white text-xs font-mono px-2 py-1 ml-2 rounded"
+                className="bg-transparent border border-[#636363] text-white text-xs font-mono px-2 py-1 ml-2 rounded"
               >
                 <option value={activeCaseId}>{activeCaseId}</option>
                 {complaints.filter(c => c.complaint_id !== activeCaseId).map(c => (
@@ -112,7 +112,7 @@ export const Command: React.FC = () => {
         </div>
 
         {/* Bottom Mission Control Bar */}
-        <div className="p-4 bg-[#000000] border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
+        <div className="p-4 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
           <div className="flex items-center gap-3">
             <UniversalFreezeButton />
 

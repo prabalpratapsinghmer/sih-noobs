@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-[#000000]/80"
+            className="fixed inset-0 bg-black/30 backdrop-blur-md/80"
             onClick={onClose}
           />
           <motion.div
@@ -59,7 +59,7 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className={cn(
-              'relative z-10 w-full bg-[#000000] border border-[#636363] rounded-card p-6 shadow-2xl text-white',
+              'relative z-10 w-full bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-6 shadow-2xl text-white',
               maxWStyles[maxWidth]
             )}
           >

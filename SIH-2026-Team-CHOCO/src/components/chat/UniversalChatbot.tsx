@@ -246,7 +246,7 @@ export const UniversalChatbot: React.FC = () => {
               {/* Drawer Top Header */}
               <div className="p-4 bg-[#121417] border-b border-[#636363]/50 flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-btn bg-[#1e2124] border border-[#2b5945] flex items-center justify-center text-[#a0d1b8]">
+                  <div className="w-9 h-9 rounded-btn bg-black/40 backdrop-blur-sm border border-[#2b5945] flex items-center justify-center text-[#a0d1b8]">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
@@ -381,7 +381,7 @@ export const UniversalChatbot: React.FC = () => {
                         {isBot && (
                           <button
                             onClick={() => handleCopy(m.id, m.text)}
-                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 rounded bg-[#1e2124] border border-[#636363] text-[#c0c9c2] hover:text-white transition-opacity"
+                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 rounded bg-black/40 backdrop-blur-sm border border-[#636363] text-[#c0c9c2] hover:text-white transition-opacity"
                             title="Copy text"
                           >
                             {copiedId === m.id ? (

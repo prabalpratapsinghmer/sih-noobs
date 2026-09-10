@@ -265,7 +265,9 @@ services:
 
 
   prometheus:
-    image: prom/prometheus:v2.53.0
+    build:
+      context: ./deployments/monitoring/prometheus
+      dockerfile: Dockerfile
 
     ports:
       - "9090:9090"
@@ -275,7 +277,6 @@ services:
       - --storage.tsdb.retention.time=30d
 
     volumes:
-      - ./deployments/monitoring/prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
 
     depends_on:
@@ -285,7 +286,9 @@ services:
 
 
   grafana:
-    image: grafana/grafana:11.1.0
+    build:
+      context: ./deployments/monitoring/grafana
+      dockerfile: Dockerfile
 
     # Port 9091 -> 3000
     # Port 3000 remains reserved for the frontend.
@@ -299,7 +302,6 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
 
     volumes:
-      - ./deployments/monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
       - grafana_data:/var/lib/grafana
 
     depends_on:

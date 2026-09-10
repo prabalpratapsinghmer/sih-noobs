@@ -437,7 +437,7 @@ export const ThreatMap: React.FC = () => {
     <div
       data-impeccable-ignore="true"
       className={cn(
-        'w-full bg-[#000000] border border-[#636363] rounded-sm relative flex flex-col select-none text-white transition-all duration-200',
+        'w-full bg-black/30 backdrop-blur-md border border-[#636363] rounded-sm relative flex flex-col select-none text-white transition-all duration-200',
         isFullScreen
           ? 'fixed inset-0 z-[2500] w-screen h-screen min-h-screen p-2 md:p-4 rounded-none border-none'
           : 'h-full min-h-[460px]'
@@ -453,7 +453,7 @@ export const ThreatMap: React.FC = () => {
             </span>
           </div>
           <Badge variant="live">{isFullScreen ? 'FULLSCREEN HD TACTICAL RADAR' : 'ZERO-CLUTTER FEED'}</Badge>
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-btn bg-[#1e2124] border border-[#636363]/60 text-xs font-mono text-white">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-btn bg-black/40 backdrop-blur-sm border border-[#636363]/60 text-xs font-mono text-white">
             <span className="text-[#a0d1b8] font-semibold">GPS:</span>
             <span>{selectedAtm.lat.toFixed(4)}° N, {selectedAtm.lng.toFixed(4)}° E</span>
           </div>
@@ -583,14 +583,14 @@ export const ThreatMap: React.FC = () => {
         <div className="absolute bottom-4 right-4 flex flex-col gap-1 z-[500]">
           <button
             onClick={handleZoomIn}
-            className="w-8 h-8 rounded-btn bg-[#000000]/90 border border-[#636363] text-white hover:border-white flex items-center justify-center text-xs transition-colors"
+            className="w-8 h-8 rounded-btn bg-black/30 backdrop-blur-md/90 border border-[#636363] text-white hover:border-white flex items-center justify-center text-xs transition-colors"
             aria-label="Zoom in"
           >
             <Plus className="w-4 h-4" />
           </button>
           <button
             onClick={handleZoomOut}
-            className="w-8 h-8 rounded-btn bg-[#000000]/90 border border-[#636363] text-white hover:border-white flex items-center justify-center text-xs transition-colors"
+            className="w-8 h-8 rounded-btn bg-black/30 backdrop-blur-md/90 border border-[#636363] text-white hover:border-white flex items-center justify-center text-xs transition-colors"
             aria-label="Zoom out"
           >
             <Minus className="w-4 h-4" />
@@ -680,7 +680,7 @@ export const ThreatMap: React.FC = () => {
 
             <div className="space-y-4 text-xs font-sans">
               {/* Default Active Engine Status */}
-              <div className="p-3 border-l-2 border-[#a0d1b8] bg-[#1e2124] flex items-start gap-2.5">
+              <div className="p-3 border-l-2 border-[#a0d1b8] bg-black/40 backdrop-blur-sm flex items-start gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#a0d1b8] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-semibold text-white">Zero-Watermark Engine Active (No Key Required)</div>

@@ -49,10 +49,10 @@ export const PatrolCard: React.FC<PatrolCardProps> = ({ alert, onStatusChange })
       density="compact"
       className={`border rounded-card transition-all text-white ${
         status === 'SECURED'
-          ? 'border-[#2b5945] bg-[#000000]'
+          ? 'border-[#2b5945] bg-black/30 backdrop-blur-md'
           : isCritical
-          ? 'border-[#ff4136]/60 bg-[#000000]'
-          : 'border-[#636363] bg-[#000000]'
+          ? 'border-[#ff4136]/60 bg-black/30 backdrop-blur-md'
+          : 'border-[#636363] bg-black/30 backdrop-blur-md'
       }`}
     >
       <div className="flex items-center justify-between pb-2.5 border-b border-[#636363]/40 mb-2.5">

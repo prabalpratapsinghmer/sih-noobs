@@ -426,7 +426,7 @@ export const StatutoryModal: React.FC<StatutoryModalProps> = ({ documentId, onCl
         {/* Top Header Bar */}
         <div className="p-4 bg-[#121417] border-b border-[#636363]/60 flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-btn bg-[#1e2124] border border-[#2b5945] flex items-center justify-center text-[#a0d1b8]">
+            <div className="w-9 h-9 rounded-btn bg-black/40 backdrop-blur-sm border border-[#2b5945] flex items-center justify-center text-[#a0d1b8]">
               <Scale className="w-4 h-4" />
             </div>
             <div>
@@ -511,7 +511,7 @@ export const StatutoryModal: React.FC<StatutoryModalProps> = ({ documentId, onCl
                     className={cn(
                       'w-full text-left p-2.5 rounded-btn text-xs font-sans transition-all flex flex-col gap-1 border',
                       isSelected
-                        ? 'bg-[#1e2124] text-white border-white font-semibold'
+                        ? 'bg-black/40 backdrop-blur-sm text-white border-white font-semibold'
                         : 'text-[#c0c9c2] border-transparent hover:bg-[#121417] hover:text-white'
                     )}
                   >
@@ -569,7 +569,7 @@ export const StatutoryModal: React.FC<StatutoryModalProps> = ({ documentId, onCl
                   >
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <h4 className="text-xs font-sans font-bold text-white flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-[#1e2124] border border-[#636363] text-center leading-5 text-[11px] font-mono text-[#a0d1b8]">
+                        <span className="w-5 h-5 rounded-full bg-black/40 backdrop-blur-sm border border-[#636363] text-center leading-5 text-[11px] font-mono text-[#a0d1b8]">
                           {idx + 1}
                         </span>
                         {clause.title}
@@ -616,7 +616,7 @@ export const StatutoryModal: React.FC<StatutoryModalProps> = ({ documentId, onCl
             </div>
 
             {/* Cryptographic Footprint Anchor */}
-            <div className="p-3 bg-[#000000] border border-[#636363]/40 rounded-btn flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-[#9b9b9b]">
+            <div className="p-3 bg-black/30 backdrop-blur-md border border-[#636363]/40 rounded-btn flex items-center justify-between flex-wrap gap-2 text-[11px] font-mono text-[#9b9b9b]">
               <span>SHA-256 MERKLE ANCHOR: 0x4f8a9e2b1c7d3f5a8e0c2b4a6e8f1c3a5b7d9e</span>
               <span className="text-[#a0d1b8] flex items-center gap-1">
                 <Lock className="w-3 h-3" />

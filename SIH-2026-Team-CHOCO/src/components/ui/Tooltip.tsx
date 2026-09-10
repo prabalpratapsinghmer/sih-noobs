@@ -36,7 +36,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         <div
           role="tooltip"
           className={cn(
-            'absolute z-50 px-3 py-1.5 bg-[#000000] border border-[#636363] text-white text-xs font-mono rounded-btn shadow-floating pointer-events-none whitespace-nowrap animate-in fade-in zoom-in-95 duration-150',
+            'absolute z-50 px-3 py-1.5 bg-black/30 backdrop-blur-md border border-[#636363] text-white text-xs font-mono rounded-btn shadow-floating pointer-events-none whitespace-nowrap animate-in fade-in zoom-in-95 duration-150',
             posClasses[position],
             className
           )}

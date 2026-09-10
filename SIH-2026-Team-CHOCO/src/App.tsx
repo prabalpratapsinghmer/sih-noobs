@@ -48,9 +48,9 @@ export const App: React.FC = () => {
   }, [theme])
 
   return (
-    <div className="min-h-[100dvh] bg-[#0d0f12] text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200 relative overflow-x-hidden">
+    <div className="min-h-[100dvh] bg-transparent text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200 relative overflow-x-hidden">
       {/* GhostFibers WebGL dynamic ambient background */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-60">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <GhostFibers
           lineColor="#140E35"
           glowColor="#3437A0"
@@ -82,8 +82,8 @@ export const App: React.FC = () => {
         />
       </div>
 
-      {/* Gentle vignette backdrop for high contrast text readability */}
-      <div className="fixed inset-0 bg-[#000000]/35 pointer-events-none z-0" />
+      {/* Acrylic backdrop for high contrast text readability */}
+      <div className="fixed inset-0 bg-black/20 backdrop-blur-[8px] pointer-events-none z-0" />
 
       <div className="relative z-10 flex flex-col min-h-screen">
         <GlobalShortcuts />

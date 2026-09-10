@@ -121,7 +121,7 @@ export const AuthModal: React.FC = () => {
           </div>
           <button
             onClick={closeAuthModal}
-            className="w-8 h-8 rounded-btn bg-[#1e2124] border border-[#636363]/40 text-[#c0c9c2] hover:text-white hover:border-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-btn bg-black/40 backdrop-blur-sm border border-[#636363]/40 text-[#c0c9c2] hover:text-white hover:border-white flex items-center justify-center transition-colors"
             aria-label="Close dialog"
           >
             <X className="w-4 h-4" />

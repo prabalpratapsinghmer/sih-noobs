@@ -17,7 +17,7 @@ export const MobileBottomDock: React.FC = () => {
   return (
     <nav
       aria-label="Mobile Navigation Dock"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-[#000000]/95 backdrop-blur-md border-t border-[#636363]/40 lg:hidden select-none pb-[max(env(safe-area-inset-bottom,0px),8px)] pt-1"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-black/30 backdrop-blur-md/95 backdrop-blur-md border-t border-[#636363]/40 lg:hidden select-none pb-[max(env(safe-area-inset-bottom,0px),8px)] pt-1"
     >
       <div className="grid grid-cols-5 h-12">
         {tabs.map((tab) => {

@@ -39,7 +39,7 @@ export const UniversalFreezeButton: React.FC = () => {
 
   if (state === 'confirming') {
     return (
-      <div className="flex items-center gap-2 bg-[#000000] p-1.5 rounded-btn border-2 border-[#ff4136] animate-pulse">
+      <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md p-1.5 rounded-btn border-2 border-[#ff4136] animate-pulse">
         <span className="font-mono text-xs text-[#ff7066] font-bold px-2">
           LOCK ALL 8 NODES & ₹5,00,000?
         </span>

@@ -88,10 +88,10 @@ export const Field: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e2124] text-white pt-20 pb-24 px-3 sm:px-4 select-none">
+    <div className="min-h-screen bg-transparent text-white pt-20 pb-24 px-3 sm:px-4 select-none">
       <div className="w-full max-w-2xl mx-auto space-y-4">
         {/* Officer Tactical Identity Header */}
-        <div className="p-4 bg-[#000000] border border-[#636363] rounded-card flex items-center justify-between">
+        <div className="p-4 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-btn bg-[#121417] border border-[#2b5945] flex items-center justify-center text-[#a0d1b8] font-mono font-bold text-xs">
               Δ4
@@ -112,7 +112,7 @@ export const Field: React.FC = () => {
         </div>
 
         {/* GPS & Tactical Link Banner */}
-        <div className="p-3.5 bg-[#000000] border border-[#636363] rounded-card flex items-center justify-between font-mono text-xs text-[#c0c9c2]">
+        <div className="p-3.5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card flex items-center justify-between font-mono text-xs text-[#c0c9c2]">
           <div className="flex items-center gap-2">
             <Radio className="w-3.5 h-3.5 text-[#a0d1b8]" />
             <span>POLICE RADIO: SECURE MESH 154.25 MHz</span>

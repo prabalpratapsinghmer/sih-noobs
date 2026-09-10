@@ -100,7 +100,7 @@ export function DemoHUD() {
       {/* Collapsed HUD */}
       <div
         className={cn(
-          'bg-[#000000] border border-[#636363] rounded-card shadow-floating transition-all duration-300 text-white',
+          'bg-black/30 backdrop-blur-md border border-[#636363] rounded-card shadow-floating transition-all duration-300 text-white',
           isExpanded ? 'w-96' : 'w-16'
         )}
       >
@@ -161,7 +161,7 @@ export function DemoHUD() {
                 <span className="text-[#9b9b9b]">STAGE PROGRESS</span>
                 <span className="text-white">{Math.round(progress * 100)}%</span>
               </div>
-              <div className="h-1 bg-[#1e2124] rounded-pill overflow-hidden">
+              <div className="h-1 bg-black/40 backdrop-blur-sm rounded-pill overflow-hidden">
                 <div
                   className="h-full bg-[#2b5945] transition-all duration-100 ease-linear"
                   style={{ width: `${progress * 100}%` }}
@@ -193,7 +193,7 @@ export function DemoHUD() {
                         'flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-mono text-[11px] font-bold mt-0.5',
                         stageStatus === 'complete' && 'bg-[#2b5945] text-white',
                         stageStatus === 'current' && 'bg-white text-black font-bold',
-                        stageStatus === 'pending' && 'bg-[#1e2124] border border-[#636363] text-[#9b9b9b]'
+                        stageStatus === 'pending' && 'bg-black/40 backdrop-blur-sm border border-[#636363] text-[#9b9b9b]'
                       )}
                     >
                       {stageStatus === 'complete' ? (

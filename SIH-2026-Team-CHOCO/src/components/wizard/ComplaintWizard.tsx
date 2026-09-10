@@ -126,7 +126,7 @@ export const ComplaintWizard: React.FC<ComplaintWizardProps> = ({ onSuccess }) =
   ]
 
   return (
-    <Card className="w-full bg-[#000000] border border-[#636363] rounded-card p-6 md:p-8 text-white">
+    <Card className="w-full bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-6 md:p-8 text-white">
       {/* 4-Step Stepper Bar */}
       <div className="pb-8 border-b border-[#636363]/40 mb-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -272,7 +272,7 @@ export const ComplaintWizard: React.FC<ComplaintWizardProps> = ({ onSuccess }) =
                   </label>
                   <select
                     {...register('fraudType')}
-                    className="w-full min-h-[42px] px-3.5 py-2 bg-[#1e2124] text-white rounded-input text-sm border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 transition-colors"
+                    className="w-full min-h-[42px] px-3.5 py-2 bg-black/40 backdrop-blur-sm text-white rounded-input text-sm border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 transition-colors"
                   >
                     <option value="INVESTMENT_SCAM" className="bg-[#121417]">Investment & Trading Bot Scam</option>
                     <option value="KYC_FRAUD" className="bg-[#121417]">Bank / Electricity KYC Phishing</option>
@@ -308,7 +308,7 @@ export const ComplaintWizard: React.FC<ComplaintWizardProps> = ({ onSuccess }) =
                 <textarea
                   {...register('narrative')}
                   rows={4}
-                  className="w-full p-3.5 bg-[#1e2124] text-white rounded-input text-sm border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 transition-colors"
+                  className="w-full p-3.5 bg-black/40 backdrop-blur-sm text-white rounded-input text-sm border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 transition-colors"
                   placeholder="Explain how you were contacted, what instructions you received, and how money was transferred..."
                 />
                 {errors.narrative && (
@@ -432,7 +432,7 @@ export const ComplaintWizard: React.FC<ComplaintWizardProps> = ({ onSuccess }) =
                   <input
                     type="checkbox"
                     {...register('declaration')}
-                    className="mt-1 h-4 w-4 rounded border-[#636363] bg-[#000000] text-white focus:ring-[#a0d1b8]"
+                    className="mt-1 h-4 w-4 rounded border-[#636363] bg-black/30 backdrop-blur-md text-white focus:ring-[#a0d1b8]"
                   />
                   <span className="text-xs font-sans text-[#c0c9c2] leading-relaxed">
                     I solemnly declare under Section 193/228 IPC and Bharatiya Nyaya Sanhita (BNS) that the particulars submitted are true to the best of my knowledge and no funds have been misrepresented.

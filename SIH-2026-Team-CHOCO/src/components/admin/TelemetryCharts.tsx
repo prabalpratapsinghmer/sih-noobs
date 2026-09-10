@@ -91,7 +91,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
     <div className="space-y-6 text-white">
       {/* Top Telemetry KPI Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-1.5">
             <span>STM PREDICTIONS</span>
             <Badge variant="nominal">{modelRun ? 'LIVE RUN' : '98.4%'}</Badge>
@@ -100,7 +100,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
           <div className="text-xs font-mono text-[#a0d1b8] mt-1.5">▲ +0.012 vs baseline v3</div>
         </Card>
 
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-1.5">
             <span>GNN NODES SCORED</span>
             <Badge variant="nominal">{modelRun ? modelRun.mode.toUpperCase() : '96.8%'}</Badge>
@@ -109,7 +109,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
           <div className="text-xs font-mono text-[#9b9b9b] mt-1.5">Target &gt; 95.0% threshold</div>
         </Card>
 
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-1.5">
             <span>MEAN INFERENCE LATENCY</span>
             <Badge variant="live">23ms</Badge>
@@ -118,7 +118,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
           <div className="text-xs font-mono text-[#9b9b9b] mt-1.5">NVIDIA T4 TensorRT cluster</div>
         </Card>
 
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-1.5">
             <span>FALSE POSITIVE RATE</span>
             <Badge variant="nominal">&lt; 0.8%</Badge>
@@ -131,7 +131,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
       {/* Dual Metric Charts: Model Convergence & ROC-AUC */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Chart 1: Training Loss Curve */}
-        <Card className="p-6 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-6 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between pb-3.5 border-b border-[#636363]/40 mb-4">
             <div>
               <h2 className="text-sm font-sans font-semibold text-white">
@@ -194,7 +194,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
         </Card>
 
         {/* Chart 2: ROC-AUC Discrimination Curve */}
-        <Card className="p-6 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-6 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <div className="flex items-center justify-between pb-3.5 border-b border-[#636363]/40 mb-4">
             <div>
               <h2 className="text-sm font-sans font-semibold text-white">
@@ -238,7 +238,7 @@ export const TelemetryCharts: React.FC<{ modelRun?: CaseIntelligence['model_run'
       </div>
 
       {/* Police Cyber Cell Command Roster Table */}
-      <Card className="p-6 bg-[#000000] border border-[#636363] rounded-card">
+      <Card className="p-6 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
         <div className="flex items-center justify-between pb-3.5 border-b border-[#636363]/40 mb-4">
           <div>
             <h2 className="text-sm font-sans font-semibold text-white">

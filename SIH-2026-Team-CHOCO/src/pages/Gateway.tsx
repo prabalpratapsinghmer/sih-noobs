@@ -156,7 +156,7 @@ export function Gateway() {
 
 
   return (
-    <div className="min-h-screen bg-[#1e2124] text-white">
+    <div className="min-h-screen bg-transparent text-white">
       {/* Top Technical Metadata Ticker Bar */}
       <div className="pt-20 pb-4 px-4 md:px-12 border-b border-[#636363]/30 bg-[#121417]/80">
         <div className="mx-auto max-w-[1440px] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-[#9b9b9b]">
@@ -222,7 +222,7 @@ export function Gateway() {
                     'Incident Reporting Portal'
                   )
                 }
-                className="inline-flex items-center justify-center bg-white text-[#121417] hover:bg-[#000000] hover:text-white border border-white font-sans font-semibold text-sm px-6 py-3 rounded-btn transition-all duration-200 active:scale-[0.98]"
+                className="inline-flex items-center justify-center bg-white text-[#121417] hover:bg-black/30 hover:text-white border border-white font-sans font-semibold text-sm px-6 py-3 rounded-btn transition-all duration-200 active:scale-[0.98]"
               >
                 File Emergency Report
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -236,7 +236,7 @@ export function Gateway() {
                     'Tactical Command HQ & Mule Graph'
                   )
                 }
-                className="inline-flex items-center justify-center bg-[#000000] text-white border border-[#636363] hover:border-white font-sans font-medium text-sm px-6 py-3 rounded-btn transition-all duration-200 active:scale-[0.98]"
+                className="inline-flex items-center justify-center bg-black/30 text-white border border-[#636363] hover:border-white font-sans font-medium text-sm px-6 py-3 rounded-btn transition-all duration-200 active:scale-[0.98]"
               >
                 Launch Tactical Command
               </button>
@@ -261,7 +261,7 @@ export function Gateway() {
 
 
       {/* Numerical Telemetry Metrics Strip */}
-      <section className="border-y border-[#636363]/40 bg-[#000000] py-8 px-4 md:px-12">
+      <section className="border-y border-[#636363]/40 bg-black/30 py-8 px-4 md:px-12">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             <div className="border-l border-[#636363]/40 pl-4 sm:pl-6">
@@ -374,7 +374,7 @@ export function Gateway() {
                 onClick={(e) =>
                   handleProtectedClick(e, card.path, getCardRoles(card.path), card.title)
                 }
-                className="group p-6 bg-[#000000] border border-[#636363] rounded-card hover:border-white transition-all duration-200 flex flex-col justify-between cursor-pointer"
+                className="group p-6 bg-black/30 border border-[#636363] rounded-card hover:border-white transition-all duration-200 flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -410,7 +410,7 @@ export function Gateway() {
       </section>
 
       {/* Partner Quotes & Testimonials with Palantir Editorial Motif */}
-      <section className="py-20 px-4 md:px-12 bg-[#1e2124]">
+      <section className="py-20 px-4 md:px-12 bg-transparent">
         <div className="mx-auto max-w-[1440px]">
           <div className="text-left mb-12">
             <h2 className="text-display-md font-bold font-sans text-white">
@@ -458,7 +458,7 @@ export function Gateway() {
       {/* Split 50/50 Dual CTA Banner - Signature Palantir Section */}
       <section className="grid grid-cols-1 md:grid-cols-2 border-y border-[#636363]/40">
         {/* Left Side: Matte Light High-Contrast CTA */}
-        <div className="bg-[#e0e0e0] text-[#121417] p-12 lg:p-20 flex flex-col justify-between">
+        <div className="bg-white/80 text-[#121417] p-12 lg:p-20 flex flex-col justify-between">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight leading-snug mb-4">
               Are you currently experiencing fraud or extortion?
@@ -486,7 +486,7 @@ export function Gateway() {
         </div>
 
         {/* Right Side: Matte Dark Sovereign CTA */}
-        <div className="bg-[#121417] text-white p-12 lg:p-20 flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#636363]/40">
+        <div className="bg-black/40 text-white p-12 lg:p-20 flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#636363]/40">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight leading-snug mb-4">
               Access the Police HQ Command Center
@@ -516,7 +516,7 @@ export function Gateway() {
       </section>
 
       {/* Comprehensive Palantir Multi-Column Footer */}
-      <footer className="bg-[#000000] py-16 px-4 md:px-12 border-t border-[#636363]/40 text-white">
+      <footer className="bg-black/30 py-16 px-4 md:px-12 border-t border-[#636363]/40 text-white">
         <div className="mx-auto max-w-[1440px]">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
             {/* Col 1: Brand & Status */}

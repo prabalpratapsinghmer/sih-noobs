@@ -84,7 +84,7 @@ export const AICopilot: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setCopilotOpen(false)}
-            className="fixed inset-0 bg-[#000000]/80"
+            className="fixed inset-0 bg-black/30 backdrop-blur-md/80"
           />
 
           {/* Drawer Panel - Palantir Dark */}
@@ -93,7 +93,7 @@ export const AICopilot: React.FC = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween', duration: 0.25 }}
-            className="relative z-10 w-full max-w-lg h-full bg-[#000000] border-l border-[#636363] flex flex-col shadow-floating text-white"
+            className="relative z-10 w-full max-w-lg h-full bg-black/30 backdrop-blur-md border-l border-[#636363] flex flex-col shadow-floating text-white"
           >
             {/* Header */}
             <div className="p-4 border-b border-[#636363]/40 flex items-center justify-between select-none">
@@ -129,7 +129,7 @@ export const AICopilot: React.FC = () => {
                 <button
                   key={i}
                   onClick={() => handleSend(p)}
-                  className="px-3 py-1 rounded-btn text-xs font-sans font-medium whitespace-nowrap bg-[#1e2124] border border-[#636363] text-[#c0c9c2] hover:text-white hover:border-white transition-all active:scale-[0.98]"
+                  className="px-3 py-1 rounded-btn text-xs font-sans font-medium whitespace-nowrap bg-black/40 backdrop-blur-sm border border-[#636363] text-[#c0c9c2] hover:text-white hover:border-white transition-all active:scale-[0.98]"
                 >
                   {p}
                 </button>
@@ -178,7 +178,7 @@ export const AICopilot: React.FC = () => {
             </div>
 
             {/* Input Footer */}
-            <div className="p-3.5 border-t border-[#636363]/40 bg-[#000000]">
+            <div className="p-3.5 border-t border-[#636363]/40 bg-black/30 backdrop-blur-md">
               <div className="flex items-center gap-2">
                 <input
                   type="text"
@@ -186,7 +186,7 @@ export const AICopilot: React.FC = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Ask copilot to draft notice, predict ATM, or trace VPA..."
-                  className="flex-1 px-4 py-2 bg-[#1e2124] text-white rounded-btn text-xs border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 placeholder:text-[#9b9b9b]"
+                  className="flex-1 px-4 py-2 bg-black/40 backdrop-blur-sm text-white rounded-btn text-xs border border-[#636363] hover:border-[#c0c9c2] focus:outline-none focus:border-[#2b5945] focus:ring-2 focus:ring-[#2b5945]/30 placeholder:text-[#9b9b9b]"
                 />
                 <Button
                   size="sm"

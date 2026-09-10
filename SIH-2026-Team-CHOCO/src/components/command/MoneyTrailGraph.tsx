@@ -22,7 +22,7 @@ const VictimNode: React.FC<NodeProps> = ({ data }) => {
   return (
     <div
       className={cn(
-        'w-[195px] bg-[#000000] border rounded-card shadow-xl transition-all duration-300',
+        'w-[195px] bg-black/30 backdrop-blur-md border rounded-card shadow-xl transition-all duration-300',
         isSelected ? 'border-[#a0d1b8] ring-2 ring-[#a0d1b8]/40' : 'border-[#636363] hover:border-[#fae0a6]'
       )}
     >
@@ -36,7 +36,7 @@ const VictimNode: React.FC<NodeProps> = ({ data }) => {
             VICTIM {(data.index as number) || 1}
           </span>
         </div>
-        <span className="text-[9px] font-mono text-[#9b9b9b] px-1.5 py-0.5 rounded bg-[#1e2124]">
+        <span className="text-[9px] font-mono text-[#9b9b9b] px-1.5 py-0.5 rounded bg-black/40 backdrop-blur-sm">
           {data.caseId as string}
         </span>
       </div>
@@ -48,7 +48,7 @@ const VictimNode: React.FC<NodeProps> = ({ data }) => {
           <span>{data.account as string}</span>
           <span className="text-[9px] text-[#fae0a6]">{data.timeAgo as string}</span>
         </div>
-        <div className="mt-2 bg-[#1e2124] rounded-sm p-1.5 flex items-center justify-between border border-[#636363]/30">
+        <div className="mt-2 bg-black/40 backdrop-blur-sm rounded-sm p-1.5 flex items-center justify-between border border-[#636363]/30">
           <span className="text-[9px] font-mono text-[#9b9b9b]">DEFRAUDED</span>
           <span className="text-xs font-bold font-mono text-[#ff4136]">
             {formatINR(data.amount as number)}
@@ -67,7 +67,7 @@ const MuleNode: React.FC<NodeProps> = ({ data }) => {
   return (
     <div
       className={cn(
-        'w-[205px] bg-[#000000] border rounded-card shadow-xl transition-colors duration-500',
+        'w-[205px] bg-black/30 backdrop-blur-md border rounded-card shadow-xl transition-colors duration-500',
         isFrozen ? 'border-[#a0d1b8] shadow-[0_0_15px_rgba(43,89,69,0.2)]' : 'border-[#636363]'
       )}
     >
@@ -104,7 +104,7 @@ const MuleNode: React.FC<NodeProps> = ({ data }) => {
         <div className="text-[11px] font-mono text-[#9b9b9b] pt-0.5">
           {data.account as string}
         </div>
-        <div className="mt-2 bg-[#1e2124] rounded-sm p-1.5 flex items-center justify-between border border-[#636363]/30">
+        <div className="mt-2 bg-black/40 backdrop-blur-sm rounded-sm p-1.5 flex items-center justify-between border border-[#636363]/30">
           <span className="text-[9px] font-mono text-[#9b9b9b]">THROUGHPUT</span>
           <span className="text-xs font-bold font-mono text-[#fae0a6]">
             {formatINR(data.amount as number)}
@@ -118,7 +118,7 @@ const MuleNode: React.FC<NodeProps> = ({ data }) => {
 // Custom ATM Target Node
 const AtmNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div className="w-[190px] bg-[#000000] border border-[#ff4136] rounded-card shadow-[0_0_15px_rgba(255,65,54,0.2)]">
+    <div className="w-[190px] bg-black/30 backdrop-blur-md border border-[#ff4136] rounded-card shadow-[0_0_15px_rgba(255,65,54,0.2)]">
       <Handle type="target" position={Position.Left} className="!bg-[#ff4136] !w-2.5 !h-2.5 !border-none" />
       <div className="p-2.5 border-b border-[#ff4136]/30 bg-[#ff4136]/10 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
@@ -472,9 +472,9 @@ export const MoneyTrailGraph: React.FC = () => {
   }, [activeVictims, allNodesFrozen, currentStage, selectedVictimId, totalDefrauded])
 
   return (
-    <div className="w-full h-full min-h-[460px] bg-[#000000] border border-[#636363] rounded-sm relative flex flex-col overflow-hidden select-none text-white">
+    <div className="w-full h-full min-h-[460px] bg-black/30 backdrop-blur-md border border-[#636363] rounded-sm relative flex flex-col overflow-hidden select-none text-white">
       {/* Top Header Controls Bar */}
-      <div className="p-3 border-b border-[#636363]/40 flex items-center justify-between flex-wrap gap-2 z-10 bg-[#000000]">
+      <div className="p-3 border-b border-[#636363]/40 flex items-center justify-between flex-wrap gap-2 z-10 bg-black/30 backdrop-blur-md">
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-2 bg-[#121417] px-3 py-1 rounded-btn border border-[#636363]/60">
             <Users className="w-3.5 h-3.5 text-[#a0d1b8]" />
@@ -561,7 +561,7 @@ export const MoneyTrailGraph: React.FC = () => {
         >
           <Background color="#2f3234" gap={20} />
           <Controls
-            className="!bg-[#000000] !border !border-[#636363] !rounded-sm !shadow-none overflow-hidden"
+            className="!bg-black/30 backdrop-blur-md !border !border-[#636363] !rounded-sm !shadow-none overflow-hidden"
             showInteractive={false}
           />
         </ReactFlow>

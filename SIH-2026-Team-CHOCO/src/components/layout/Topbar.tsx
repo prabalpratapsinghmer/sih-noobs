@@ -88,7 +88,7 @@ export function Topbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[1600] bg-[#000000] border-b border-[#636363]/40">
+      <header className="fixed top-0 left-0 right-0 z-[1600] bg-black/30 backdrop-blur-md border-b border-[#636363]/40">
         <div className="mx-auto max-w-[1440px] px-4 md:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Brand Logo - Palantir Style */}
@@ -140,7 +140,7 @@ export function Topbar() {
               {/* Primary "File Report" CTA button */}
               <Link
                 to="/report"
-                className="hidden md:inline-flex items-center justify-center bg-white text-[#121417] hover:bg-[#000000] hover:text-white border border-white font-sans font-semibold text-xs px-4 py-2 rounded-btn transition-all duration-200 active:scale-[0.98]"
+                className="hidden md:inline-flex items-center justify-center bg-white text-[#121417] hover:bg-black/30 backdrop-blur-md hover:text-white border border-white font-sans font-semibold text-xs px-4 py-2 rounded-btn transition-all duration-200 active:scale-[0.98]"
               >
                 File Report
               </Link>
@@ -174,7 +174,7 @@ export function Topbar() {
                   </button>
 
                   {isProfileOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-72 bg-[#000000] border border-[#636363] rounded-card p-4 shadow-floating z-50 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute right-0 top-full mt-2 w-72 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-4 shadow-floating z-50 animate-in fade-in zoom-in-95 duration-150">
                       <div className="border-b border-[#636363]/40 pb-3 mb-3">
                         <div className="flex items-center justify-between">
                           <p className="font-sans text-sm font-semibold text-white">
@@ -263,7 +263,7 @@ export function Topbar() {
 
       {/* Full-Screen Navigation Launchpad Modal - Exact Palantir Pattern */}
       {isNavModalOpen && (
-        <div className="fixed inset-0 z-[1500] bg-[#000000] pt-20 px-4 md:px-12 pb-12 overflow-y-auto animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[1500] bg-black/30 backdrop-blur-md pt-20 px-4 md:px-12 pb-12 overflow-y-auto animate-in fade-in duration-200">
           <div className="mx-auto max-w-[1400px] h-full flex flex-col justify-between">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 py-8">
               {/* Column 1: Sovereign Navigation with ↳ right-angle arrows */}
@@ -427,11 +427,11 @@ export function Topbar() {
       {/* Command Palette Overlay */}
       {isSearchOpen && (
         <div
-          className="fixed inset-0 z-[1700] bg-[#000000]/80 backdrop-blur-sm flex items-start justify-center pt-24 px-4 animate-in fade-in duration-150"
+          className="fixed inset-0 z-[1700] bg-black/30 backdrop-blur-md/80 backdrop-blur-sm flex items-start justify-center pt-24 px-4 animate-in fade-in duration-150"
           onClick={() => setIsSearchOpen(false)}
         >
           <div
-            className="w-full max-w-2xl bg-[#000000] border border-[#636363] rounded-card p-4 shadow-floating animate-in slide-in-from-top-4 duration-200 text-white"
+            className="w-full max-w-2xl bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-4 shadow-floating animate-in slide-in-from-top-4 duration-200 text-white"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative">
@@ -444,7 +444,7 @@ export function Topbar() {
                 className="w-full bg-[#121417] border border-[#636363] rounded-btn pl-11 pr-14 py-2.5 text-sm text-white placeholder:text-[#9b9b9b] focus:outline-none focus:border-[#2b5945]"
                 autoFocus
               />
-              <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-[#1e2124] border border-[#636363] rounded text-mono-xs text-[#9b9b9b] font-mono">
+              <kbd className="absolute right-3.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-black/40 backdrop-blur-sm border border-[#636363] rounded text-mono-xs text-[#9b9b9b] font-mono">
                 ESC
               </kbd>
             </div>

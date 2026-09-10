@@ -105,7 +105,7 @@ export const CaseTracker: React.FC<CaseTrackerProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6 text-white">
       {/* Top Banner Card */}
-      <Card className="bg-[#000000] border border-[#636363] rounded-card p-6">
+      <Card className="bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-6">
         <CardHeader>
           <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
             <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export const CaseTracker: React.FC<CaseTrackerProps> = ({
 
       {/* Grid: Financial Recovery Status & Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <span className="text-xs font-mono text-[#9b9b9b] uppercase tracking-wider block font-medium">
             RECOVERED / PRESERVED BALANCE
           </span>
@@ -199,7 +199,7 @@ export const CaseTracker: React.FC<CaseTrackerProps> = ({
           </p>
         </Card>
 
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <span className="text-xs font-mono text-[#9b9b9b] uppercase tracking-wider block font-medium">
             SUSPECT MULE NODES
           </span>
@@ -211,7 +211,7 @@ export const CaseTracker: React.FC<CaseTrackerProps> = ({
           </p>
         </Card>
 
-        <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+        <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
           <span className="text-xs font-mono text-[#9b9b9b] uppercase tracking-wider block font-medium">
             POLICE FIR STATUS
           </span>
@@ -225,7 +225,7 @@ export const CaseTracker: React.FC<CaseTrackerProps> = ({
       </div>
 
       {/* Incident Audit Trail */}
-      <Card className="bg-[#000000] border border-[#636363] rounded-card p-6">
+      <Card className="bg-black/30 backdrop-blur-md border border-[#636363] rounded-card p-6">
         <div className="flex items-center justify-between pb-3.5 border-b border-[#636363]/40 mb-2">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-sans font-semibold text-white">

@@ -30,10 +30,10 @@ export const Admin: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e2124] text-white pt-24 pb-16 px-4 md:px-8">
+    <div className="min-h-screen bg-transparent text-white pt-24 pb-16 px-4 md:px-8">
       <div className="w-full max-w-7xl mx-auto space-y-6">
         {/* Admin Operations Top Bar */}
-        <div className="p-5 bg-[#000000] border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
+        <div className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card flex items-center justify-between flex-wrap gap-4 select-none">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-btn bg-[#121417] border border-[#2b5945] flex items-center justify-center text-[#a0d1b8]">
               <Cpu className="w-5 h-5" />
@@ -75,7 +75,7 @@ export const Admin: React.FC = () => {
 
         {/* Database & Graph Infrastructure Cluster Status */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+          <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
             <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-2">
               <span className="flex items-center gap-1.5 text-[#c0c9c2]">
                 <Database className="w-3.5 h-3.5 text-[#4e8af7]" />
@@ -87,7 +87,7 @@ export const Admin: React.FC = () => {
             <div className="text-xs font-mono text-[#9b9b9b] mt-1">4.2M Transaction edges indexed</div>
           </Card>
 
-          <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+          <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
             <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-2">
               <span className="flex items-center gap-1.5 text-[#c0c9c2]">
                 <Server className="w-3.5 h-3.5 text-[#a0d1b8]" />
@@ -99,7 +99,7 @@ export const Admin: React.FC = () => {
             <div className="text-xs font-mono text-[#9b9b9b] mt-1">p99 query latency: 4.1ms</div>
           </Card>
 
-          <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+          <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
             <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-2">
               <span className="flex items-center gap-1.5 text-[#c0c9c2]">
                 <HardDrive className="w-3.5 h-3.5 text-[#fae0a6]" />
@@ -111,7 +111,7 @@ export const Admin: React.FC = () => {
             <div className="text-xs font-mono text-[#9b9b9b] mt-1">SHA-256 Merkle root anchored</div>
           </Card>
 
-          <Card className="p-5 bg-[#000000] border border-[#636363] rounded-card">
+          <Card className="p-5 bg-black/30 backdrop-blur-md border border-[#636363] rounded-card">
             <div className="flex items-center justify-between text-xs font-mono text-[#9b9b9b] mb-2">
               <span className="flex items-center gap-1.5 text-[#c0c9c2]">
                 <Cpu className="w-3.5 h-3.5 text-[#ff7066]" />
