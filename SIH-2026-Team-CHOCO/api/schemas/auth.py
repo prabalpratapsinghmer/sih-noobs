@@ -1,5 +1,6 @@
 """Pydantic schemas for authentication."""
 
+# pyrefly: ignore [missing-import]
 from pydantic import BaseModel, EmailStr, Field
 
 
