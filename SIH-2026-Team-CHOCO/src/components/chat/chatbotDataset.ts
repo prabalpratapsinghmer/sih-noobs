@@ -149,17 +149,16 @@ export function answerGeneralOrSpecificQuestion(query: string): string {
   const lowerQ = q.toLowerCase()
 
   // 1. Math calculation detection (e.g., "what is 25 * 4", "calculate 1500 * 0.18")
-  const mathMatch = lowerQ.match(/^(?:what is|calculate|solve|evaluate)?\s*([\d\s\+\-\*\/\^\(\)\.\%]+)\s*$/i)
-  if (mathMatch && mathMatch[1] && /[\+\-\*\/]/.test(mathMatch[1])) {
+  const mathMatch = lowerQ.match(/^(?:what is|calculate|solve|evaluate)?\s*([\d\s+\-*/^().%]+)\s*$/i)
+  if (mathMatch && mathMatch[1] && /[+\-*/]/.test(mathMatch[1])) {
     try {
       // Safe sanitized arithmetic evaluator
-      const sanitized = mathMatch[1].replace(/[^0-9\+\-\*\/\.\(\)]/g, '')
-      // eslint-disable-next-line no-new-func
+      const sanitized = mathMatch[1].replace(/[^0-9+\-*/.()]/g, '')
       const result = Function(`'use strict'; return (${sanitized})`)()
       if (typeof result === 'number' && !isNaN(result)) {
         return `🧮 **Calculation Result**:\n\n$$\\mathbf{${mathMatch[1].trim()} = ${result.toLocaleString('en-IN')}}$$\n\n• Step: Evaluated arithmetic expression with standard operator precedence.`
       }
-    } catch {}
+    } catch { /* arithmetic eval failed, fall through to knowledge base */ }
   }
 
   // 2. Exact/Partial match against curated dataset

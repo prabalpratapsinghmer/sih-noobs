@@ -566,7 +566,7 @@ class ApiService {
           if (found) {
             matched = { user: found.user, password: found.password }
           }
-        } catch {}
+        } catch { /* localStorage lookup failed, fall through */ }
       }
 
       if (matched) {
@@ -626,7 +626,7 @@ class ApiService {
           if (res.ok && contentType.includes('application/json')) {
             return await res.json()
           }
-        } catch {}
+        } catch { /* backend signup unreachable, fall through to local */ }
       }
 
       // Sovereign local storage provision
@@ -650,7 +650,7 @@ class ApiService {
           user: newUser,
         })
         localStorage.setItem('cybercell_custom_users', JSON.stringify(stored))
-      } catch {}
+      } catch { /* localStorage persist failed, non-critical */ }
 
       return {
         access_token: `mock_jwt_signup_${Date.now()}`,
@@ -677,7 +677,7 @@ class ApiService {
           if (res.ok && contentType.includes('application/json')) {
             return await res.json()
           }
-        } catch {}
+        } catch { /* backend google auth unreachable, fall through */ }
       }
 
       // Sovereign Google SSO Session Fallback
@@ -709,14 +709,14 @@ class ApiService {
           if (res.ok && contentType.includes('application/json')) {
             return await res.json()
           }
-        } catch {}
+        } catch { /* backend /me unreachable, fall through to localStorage */ }
       }
 
       const stored = localStorage.getItem('cybercell_user')
       if (stored) {
         try {
           return JSON.parse(stored)
-        } catch {}
+        } catch { /* stored user parse failed */ }
       }
       throw new Error('Session invalid')
     },
@@ -730,7 +730,7 @@ class ApiService {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },
           })
-        } catch {}
+        } catch { /* logout request failed, non-critical */ }
       }
     },
   }
