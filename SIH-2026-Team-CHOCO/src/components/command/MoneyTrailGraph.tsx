@@ -200,7 +200,7 @@ const DEFAULT_VICTIMS_POOL = [
 ]
 
 export const MoneyTrailGraph: React.FC = () => {
-  const { allNodesFrozen, currentStage } = useDemoStore()
+  const { allNodesFrozen, currentStage, victimName: demoVictimName, amount: demoAmount, caseId: demoCaseId } = useDemoStore()
   const intelligence = useCaseStore((state) => state.intelligence)
   const liveMules = intelligence?.mule_nodes
   const liveAtm = intelligence?.atms[0]
@@ -223,12 +223,16 @@ export const MoneyTrailGraph: React.FC = () => {
   // Build active victims list
   const activeVictims = useMemo(() => {
     const list = [...DEFAULT_VICTIMS_POOL]
-    if (intelligence?.victim_name && intelligence?.amount) {
+    const effectiveName = intelligence?.victim_name || demoVictimName
+    const effectiveAmount = intelligence?.amount || demoAmount
+    const effectiveCaseId = intelligence?.complaint_id || demoCaseId
+
+    if (effectiveName) {
       list[0] = {
         ...list[0],
-        name: intelligence.victim_name,
-        amount: intelligence.amount,
-        caseId: intelligence.complaint_id || 'CC-2026-F819',
+        name: effectiveName,
+        amount: effectiveAmount || list[0].amount,
+        caseId: effectiveCaseId || list[0].caseId,
       }
     }
     // Blend with backend complaints if available
@@ -248,7 +252,7 @@ export const MoneyTrailGraph: React.FC = () => {
       })
     }
     return list.slice(0, victimCount)
-  }, [backendComplaints, intelligence, victimCount])
+  }, [backendComplaints, demoAmount, demoCaseId, demoVictimName, intelligence, victimCount])
 
   const totalDefrauded = useMemo(() => {
     return activeVictims.reduce((acc, v) => acc + v.amount, 0)

@@ -29,6 +29,7 @@ function GlobalShortcuts() {
 
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 import { UniversalChatbot } from '@/components/chat/UniversalChatbot'
+import GhostFibers from '@/components/ui/GhostFibers'
 
 export const App: React.FC = () => {
   const { theme } = useAppStore()
@@ -47,10 +48,43 @@ export const App: React.FC = () => {
   }, [theme])
 
   return (
-    <div className="min-h-[100dvh] bg-[#1e2124] bg-cover bg-center bg-no-repeat text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200 relative" style={{ backgroundImage: "url('https://reactbits.dev/backgrounds/color-bends.svg')" }}>
-      {/* Subtle overlay for better text readability */}
-      <div className="absolute inset-0 bg-[#000000]/60 z-0 pointer-events-none mix-blend-multiply" />
-      
+    <div className="min-h-[100dvh] bg-[#0d0f12] text-white flex flex-col antialiased selection:bg-[#2b5945] selection:text-white transition-colors duration-200 relative overflow-x-hidden">
+      {/* GhostFibers WebGL dynamic ambient background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-60">
+        <GhostFibers
+          lineColor="#140E35"
+          glowColor="#3437A0"
+          speed={0.2}
+          scale={2}
+          rotation={0}
+          rotationSpeed={0.25}
+          layers={4}
+          waveAmplitude={0.015}
+          waveFrequency={3}
+          waveSpeed={0.15}
+          layerSpeed={0.08}
+          twist={0.1}
+          twistFrequency={5}
+          twistSpeed={1.2}
+          lineFrequency={5}
+          lineSpacing={2}
+          lineSharpness={16}
+          glowFalloff={10}
+          glowIntensity={1.6}
+          brightness={2}
+          blueBoost={1.25}
+          vignette={0.8}
+          grain={0.05}
+          dpr={1}
+          lightMode={false}
+          fps={60}
+          paused={false}
+        />
+      </div>
+
+      {/* Gentle vignette backdrop for high contrast text readability */}
+      <div className="fixed inset-0 bg-[#000000]/35 pointer-events-none z-0" />
+
       <div className="relative z-10 flex flex-col min-h-screen">
         <GlobalShortcuts />
         <Topbar />
@@ -59,12 +93,12 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Gateway />} />
 
-          {/* Citizen Incident Intake - Accessible to Citizens, Constables, Inspectors, Admins */}
+          {/* Citizen Incident Intake - Accessible to Citizens, Constables, Police, Command HQ */}
           <Route
             path="/report"
             element={
               <ProtectedRoute
-                allowedRoles={['ADMIN', 'INSPECTOR', 'CONSTABLE', 'CITIZEN']}
+                allowedRoles={['COMMAND_HQ', 'POLICE', 'CONSTABLE', 'CITIZEN']}
                 moduleName="Incident Reporting Portal"
               >
                 <Report />
@@ -72,12 +106,12 @@ export const App: React.FC = () => {
             }
           />
 
-          {/* Tactical Command HQ & Mule Graph - Level 2 (Inspector) & Level 3 (Admin) Only */}
+          {/* Tactical Command HQ & Mule Graph - Command HQ Only (Police & Citizens cannot access) */}
           <Route
             path="/command"
             element={
               <ProtectedRoute
-                allowedRoles={['ADMIN', 'INSPECTOR']}
+                allowedRoles={['COMMAND_HQ']}
                 moduleName="Tactical Command HQ & Mule Ontology"
               >
                 <Command />
@@ -85,25 +119,25 @@ export const App: React.FC = () => {
             }
           />
 
-          {/* Field Patrol Radar & Cashout Maps - Level 1 (Constable), Level 2 (Inspector), Level 3 (Admin) */}
+          {/* Field Patrol Radar & Cashout Maps - Police Dashboard (Police, Constable & Command HQ) */}
           <Route
             path="/field"
             element={
               <ProtectedRoute
-                allowedRoles={['ADMIN', 'INSPECTOR', 'CONSTABLE']}
-                moduleName="Field Patrol & ATM Radar"
+                allowedRoles={['POLICE', 'CONSTABLE', 'COMMAND_HQ']}
+                moduleName="Police Field Patrol & ATM Radar"
               >
                 <Field />
               </ProtectedRoute>
             }
           />
 
-          {/* Supervisory Governance & STM Telemetry - Level 3 (Admin / Director Moksh) Only */}
+          {/* Supervisory Governance & STM Telemetry - Command HQ Only */}
           <Route
             path="/admin"
             element={
               <ProtectedRoute
-                allowedRoles={['ADMIN']}
+                allowedRoles={['COMMAND_HQ']}
                 moduleName="Central Governance & Supervisory Telemetry"
               >
                 <Admin />

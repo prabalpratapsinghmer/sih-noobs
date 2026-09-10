@@ -12,11 +12,12 @@ import { formatINR } from '@/lib/utils'
 
 export const Command: React.FC = () => {
   const { setCopilotOpen } = useAppStore()
-  const { caseId, amount, allNodesFrozen, currentStage } = useDemoStore()
+  const { caseId, amount, victimName, allNodesFrozen, currentStage } = useDemoStore()
   const intelligence = useCaseStore((state) => state.intelligence)
   const setIntelligence = useCaseStore((state) => state.setIntelligence)
   const activeCaseId = intelligence?.complaint_id || caseId
   const activeAmount = intelligence?.amount || amount
+  const activeVictimName = intelligence?.victim_name || victimName || 'Rohan Sharma'
 
   const [complaints, setComplaints] = useState<any[]>([])
 
@@ -76,6 +77,10 @@ export const Command: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-6 font-mono text-xs">
+            <div>
+              <span className="text-[#9b9b9b]">VICTIM: </span>
+              <span className="text-[#a0d1b8] font-bold">{activeVictimName}</span>
+            </div>
             <div>
               <span className="text-[#9b9b9b]">SIPHONED: </span>
               <span className="text-[#fae0a6] font-bold">{formatINR(activeAmount)}</span>

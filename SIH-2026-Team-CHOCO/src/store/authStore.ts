@@ -99,9 +99,25 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const user = get().user
     if (!user) return false
     const role = (user.role || '').toUpperCase()
-    // Super Admin / Director has full clearance everywhere
-    if (role === 'ADMIN' || user.username.toLowerCase() === 'moksh') return true
-    return allowedRoles.map((r) => r.toUpperCase()).includes(role)
+
+    // Normalize role aliases (ADMIN -> COMMAND_HQ, INSPECTOR -> POLICE)
+    const normalizeRole = (r: string) => {
+      const u = r.toUpperCase()
+      if (u === 'ADMIN') return 'COMMAND_HQ'
+      if (u === 'INSPECTOR') return 'POLICE'
+      return u
+    }
+
+    const currentRole = normalizeRole(role)
+    const normalizedAllowed = allowedRoles.map(normalizeRole)
+
+    // Command HQ / Director Moksh possesses supreme clearance across all modules
+    if (currentRole === 'COMMAND_HQ' || user.username.toLowerCase() === 'moksh') {
+      return true
+    }
+
+    // Normal users / police are strictly limited to allowed roles
+    return normalizedAllowed.includes(currentRole)
   },
 
 

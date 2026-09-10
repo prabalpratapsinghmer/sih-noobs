@@ -1,4 +1,4 @@
-# CyberCell Platform - Session Context
+# GAURDIAN Platform - Session Context
 
 ## Session Date: 2026-09-06
 

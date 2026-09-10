@@ -143,10 +143,10 @@ export function Gateway() {
   }
 
   const getCardRoles = (path: string) => {
-    if (path === '/command') return ['ADMIN', 'INSPECTOR']
-    if (path === '/field') return ['ADMIN', 'INSPECTOR', 'CONSTABLE']
-    if (path === '/admin') return ['ADMIN']
-    return ['ADMIN', 'INSPECTOR', 'CONSTABLE', 'CITIZEN']
+    if (path === '/command') return ['COMMAND_HQ']
+    if (path === '/field') return ['POLICE', 'CONSTABLE', 'COMMAND_HQ']
+    if (path === '/admin') return ['COMMAND_HQ']
+    return ['COMMAND_HQ', 'POLICE', 'CONSTABLE', 'CITIZEN']
   }
 
   const filteredCards =
@@ -218,7 +218,7 @@ export function Gateway() {
                   handleProtectedClick(
                     e,
                     '/report',
-                    ['ADMIN', 'INSPECTOR', 'CONSTABLE', 'CITIZEN'],
+                    ['COMMAND_HQ', 'POLICE', 'CONSTABLE', 'CITIZEN'],
                     'Incident Reporting Portal'
                   )
                 }
@@ -232,7 +232,7 @@ export function Gateway() {
                   handleProtectedClick(
                     e,
                     '/command',
-                    ['ADMIN', 'INSPECTOR'],
+                    ['COMMAND_HQ'],
                     'Tactical Command HQ & Mule Graph'
                   )
                 }
@@ -245,7 +245,7 @@ export function Gateway() {
                   handleProtectedClick(
                     e,
                     '/field',
-                    ['ADMIN', 'INSPECTOR', 'CONSTABLE'],
+                    ['POLICE', 'CONSTABLE', 'COMMAND_HQ'],
                     'Field Patrol Console & ATM Radar'
                   )
                 }
@@ -473,7 +473,7 @@ export function Gateway() {
                 handleProtectedClick(
                   e,
                   '/report',
-                  ['ADMIN', 'INSPECTOR', 'CONSTABLE', 'CITIZEN'],
+                  ['COMMAND_HQ', 'POLICE', 'CONSTABLE', 'CITIZEN'],
                   'Citizen Incident Intake'
                 )
               }
@@ -501,7 +501,7 @@ export function Gateway() {
                 handleProtectedClick(
                   e,
                   '/command',
-                  ['ADMIN', 'INSPECTOR'],
+                  ['COMMAND_HQ'],
                   'Tactical Command HQ'
                 )
               }

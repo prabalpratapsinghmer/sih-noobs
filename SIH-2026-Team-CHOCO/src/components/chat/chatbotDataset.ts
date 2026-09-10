@@ -139,6 +139,166 @@ export const KNOWLEDGE_BASE_DATASET: KnowledgeEntry[] = [
   },
 ]
 
+export interface ConversationalRule {
+  patterns: RegExp[]
+  responses: string[]
+}
+
+export const CONVERSATIONAL_DATASET: ConversationalRule[] = [
+  // 1. Greetings & Openers
+  {
+    patterns: [
+      /\b(hi|hello|hey|heyy|heya|yo|howdy|sup|greetings|hola)\b/i,
+      /\b(namaste|namaskar|pranam|vanakkam|salaam|sat sri akaal)\b/i,
+      /\b(good morning|morning)\b/i,
+      /\b(good afternoon|afternoon)\b/i,
+      /\b(good evening|evening)\b/i,
+      /\b(good day)\b/i,
+    ],
+    responses: [
+      `👋 Hello! Great to connect with you. I am **GAURDIAN Sovereign AI Assistant**.\n\nHow can I help you today? You can ask me anything from day-to-day questions, math problems, and tech advice to cyber fraud support, 1930 reporting, and Indian cyber laws!`,
+      `👋 Hey there! Welcome to the **GAURDIAN Tactical & Citizen Portal**.\n\nI'm here to assist with everyday tasks, answering questions, or helping safeguard against online financial fraud. What's on your mind?`,
+      `🙏 Namaste! I am your AI Assistant, equipped to assist with general everyday questions, legal procedures, software engineering, and national cyber fraud defenses. How are you doing today?`,
+    ],
+  },
+
+  // 2. How are you & Well-being
+  {
+    patterns: [
+      /\bhow are you\b/i,
+      /\bhow are you doing\b/i,
+      /\bhow do you do\b/i,
+      /\bhow's it going\b/i,
+      /\bhows it going\b/i,
+      /\bhow have you been\b/i,
+      /\bhow is your day\b/i,
+      /\bhow's your day\b/i,
+      /\bhows your day\b/i,
+      /\bhow is life\b/i,
+      /\bwhat's up\b/i,
+      /\bwhats up\b/i,
+      /\bwassup\b/i,
+    ],
+    responses: [
+      `😊 I'm doing great, thank you for asking! All systems are operating smoothly, and I'm ready to assist you. How are you doing today? Anything exciting or any questions I can help you with?`,
+      `✨ I am doing wonderfully! Ready and energized to help you with research, daily questions, cybersecurity, or whatever you need. How is your day going?`,
+      `🛡️ Operating at peak efficiency! Neural graphs are synchronized, and response latencies are under 20ms. More importantly, how are you doing today? How can I assist you?`,
+    ],
+  },
+
+  // 3. User State: Positive / Negative
+  {
+    patterns: [
+      /\b(i am good|i'm good|i am fine|i'm fine|doing well|all good|doing great|i am well)\b/i,
+      /\b(not bad|pretty good|cant complain|can't complain)\b/i,
+    ],
+    responses: [
+      `🎉 Wonderful to hear that! Glad you are having a good day. What would you like to explore, build, or learn today?`,
+      `🌟 That's fantastic! I love positive vibes. Feel free to ask me any question or let me know what we should work on next!`,
+    ],
+  },
+  {
+    patterns: [
+      /\b(i am sad|i'm sad|feeling down|not feeling good|not good|bad day|depressed|unhappy|stressed|anxious|scared|i am scared|i'm scared|frightened|terrified|panicking)\b/i,
+    ],
+    responses: [
+      `💙 I'm really sorry to hear that you're feeling down or scared. Take a deep breath — remember that tough moments pass and you are not alone.\n\nIf this is related to an online threat, financial loss, or extortion, please know that immediate legal protections and technical freezes are available. I'm right here to guide you step-by-step. What happened?`,
+      `🤗 I hear you, and it's completely okay to feel overwhelmed. Please take a moment to breathe. If there's an active emergency or anything concerning you, tell me and we will tackle it together.`,
+    ],
+  },
+
+  // 4. Identity & Purpose
+  {
+    patterns: [
+      /\b(who are you|what is your name|what's your name|whats your name)\b/i,
+      /\b(who created you|who made you|who built you|who developed you)\b/i,
+      /\b(what can you do|what are your features|what are your capabilities)\b/i,
+      /\b(what is your purpose|what are you made for|what is your mission|why do you exist)\b/i,
+      /\b(tell me about yourself|are you a robot|are you ai|are you real|are you human)\b/i,
+    ],
+    responses: [
+      `🤖 **Meet GAURDIAN Sovereign AI Assistant**:\n\nI am an advanced multi-domain intelligence assistant developed for the **GAURDIAN Sovereign Cyber Defense & Tactical Law Enforcement Grid**.\n\n**Here is what I can do for you**:\n1. **Everyday Conversation & Q&A**: Science, general knowledge, math calculations, cooking recipes, productivity tips.\n2. **Cyber Defense & Citizen Care**: Instant guidance for UPI scams, fake investment fraud, digital arrest threats, and 1930 portal reporting.\n3. **Statutory & Legal Analysis**: Section 91 CrPC, Section 94 BNSS, IT Act 2000, and RBI Zero-Liability directives.\n4. **Forensic Tech**: Graph Neural Networks (GNN), multi-hop mule tracing, and ATM spatial-temporal intercept logic.\n\nFeel free to ask me anything!`,
+      `🛡️ I am the **GAURDIAN Sovereign AI Assistant**, paired with this cutting-edge platform to make digital safety and law enforcement accessible, intelligent, and immediate. Ask me about everyday life, mathematics, coding, or cybersecurity procedures!`,
+    ],
+  },
+
+  // 5. Gratitude & Politeness
+  {
+    patterns: [
+      /\b(thank you|thanks|thx|tysm|thank u|appreciate it|much appreciated)\b/i,
+      /\b(you are awesome|you are great|good job|nice work|well done|cool|amazing)\b/i,
+    ],
+    responses: [
+      `🙏 You're very welcome! I'm always glad to help. If there's anything else you'd like to ask or explore, just let me know!`,
+      `✨ Anytime! It is truly my pleasure assisting you. Have fun exploring the platform, and feel free to ask more questions anytime.`,
+      `🙌 Thank you for the kind words! Stay safe online, and remember I am always here whenever you need assistance or quick answers.`,
+    ],
+  },
+
+  // 6. Goodbyes & Departures
+  {
+    patterns: [
+      /\b(bye|goodbye|see you|see ya|cya|take care|have a good day|good night|catch you later|see you later)\b/i,
+    ],
+    responses: [
+      `👋 Goodbye! Have a fantastic day ahead, and stay safe online. Feel free to come back whenever you have questions!`,
+      `🌙 Take care! Remember to protect your personal details and never share OTPs or passwords. See you next time!`,
+      `✨ Catch you later! It was great chatting with you. Stay safe and have a productive day!`,
+    ],
+  },
+
+  // 7. Jokes & Fun Facts
+  {
+    patterns: [
+      /\b(tell me a joke|make me laugh|tell a joke|another joke|funny joke|joke)\b/i,
+      /\b(say something funny|humor me)\b/i,
+    ],
+    responses: [
+      `😄 **Here's one for you**:\n\nWhy do cybercriminals prefer cold weather?\n*Because they love phishing in frozen accounts!* 🎣❄️`,
+      `😂 **A tech classic**:\n\nThere are only 10 types of people in the world:\n*Those who understand binary, and those who don't!* 💻`,
+      `🤣 **Cybersecurity humor**:\n\nWhy did the spider become a successful software engineer?\n*Because he was an expert at web development and catching bugs!* 🕷️🕸️`,
+      `😅 **One more**:\n\nWhy did the database administrator walk out of the restaurant?\n*Because there were too many tables with no primary key!* 🍽️`,
+    ],
+  },
+  {
+    patterns: [
+      /\b(tell me a fun fact|fun fact|tell a fact|another fun fact|give me a fact)\b/i,
+    ],
+    responses: [
+      `💡 **Fun Fact #1**: The first computer bug was an actual real bug! In 1947, Grace Hopper and her team found a moth trapped inside Relay 70 of the Harvard Mark II computer. They taped it in the logbook with the note: *"First actual case of bug being found."* 🦋`,
+      `💡 **Fun Fact #2**: The QWERTY keyboard layout was created in 1873 by Christopher Sholes not to make you type faster, but to slow typists down so the mechanical typebar hammers wouldn't collide and jam! ⌨️`,
+      `💡 **Fun Fact #3**: Over 95% of cyber attacks and financial breaches involve some element of human error or social engineering (like phishing or emotional manipulation), rather than software vulnerabilities! Always verify before clicking. 🛡️`,
+      `💡 **Fun Fact #4**: Honey never spoils! Archaeologists have excavated pots of edible honey from ancient Egyptian tombs that are over 3,000 years old! 🍯`,
+    ],
+  },
+
+  // 8. Fun & Personal curiosities
+  {
+    patterns: [
+      /\b(how old are you|what is your age|when were you born)\b/i,
+      /\b(do you sleep|do you eat|do you dream)\b/i,
+      /\b(what is the meaning of life)\b/i,
+    ],
+    responses: [
+      `⚡ I exist in the digital realm, so I don't celebrate birthdays with cake — I celebrate with clean code and zero security breaches! I'm always awake 24/7/365 to assist you.`,
+      `🔋 I run on electricity, neural embeddings, and high-speed data packets! No sleep needed, which means I'm always ready whenever you need guidance or answers.`,
+      `🌌 According to Douglas Adams in *The Hitchhiker's Guide to the Galaxy*, the answer to life, the universe, and everything is **42**! But in our world, it's about learning, staying curious, helping others, and safeguarding our digital communities!`,
+    ],
+  },
+
+  // 9. Cybercrime Emergency & Extortion / Distress
+  {
+    patterns: [
+      /\b(i lost money|i was scammed|i got scammed|someone stole money|money deducted|unauthorized transaction|i have been scammed)\b/i,
+      /\b(help me please|urgent help|emergency fraud|account hacked|my upi is compromised)\b/i,
+      /\b(someone is blackmailing me|i am being blackmailed|blackmail|sextortion|threatened online|threatening me)\b/i,
+    ],
+    responses: [
+      `🚨 **CRITICAL EMERGENCY PROTOCOL (FIRST 2 HOURS MATTER)**:\n\n1. **Dial 1930 Immediately**: Call National Cyber Crime Helpline **1930** (Govt. of India) to request an immediate freeze on the recipient bank account/VPA before cash is withdrawn.\n2. **File an Official Incident**: Use our **Incident Intake Portal** (click "File Emergency Report" in the top bar) to automatically generate case documentation.\n3. **Notify Your Bank**: Call your bank's 24/7 fraud hotline to block cards, disable net-banking, and request a chargeback under RBI Zero Liability rules.\n4. **If facing Extortion/Blackmail**: Do NOT transfer any money. Take screenshots with visible URLs/usernames, block the caller, and file under "Cyber Blackmail / Extortion" at [cybercrime.gov.in](https://cybercrime.gov.in).\n5. **Preserve Evidence**: Save screenshots of debit SMS, transaction UTR numbers, suspect UPI IDs, and chats.\n\n*Would you like me to walk you through filing a report right now?*`,
+    ],
+  },
+]
+
 /**
  * Universal Intelligent Question Answering & Reasoning Engine
  * Capable of answering ANY question using semantic dataset matching,
@@ -148,7 +308,17 @@ export function answerGeneralOrSpecificQuestion(query: string): string {
   const q = query.trim()
   const lowerQ = q.toLowerCase()
 
-  // 1. Math calculation detection (e.g., "what is 25 * 4", "calculate 1500 * 0.18")
+  // 1. Check dedicated conversational dataset first for natural dialogue
+  for (const item of CONVERSATIONAL_DATASET) {
+    for (const pattern of item.patterns) {
+      if (pattern.test(lowerQ)) {
+        const randomIndex = Math.floor(Math.random() * item.responses.length)
+        return item.responses[randomIndex]
+      }
+    }
+  }
+
+  // 2. Math calculation detection (e.g., "what is 25 * 4", "calculate 1500 * 0.18")
   const mathMatch = lowerQ.match(/^(?:what is|calculate|solve|evaluate)?\s*([\d\s+\-*/^().%]+)\s*$/i)
   if (mathMatch && mathMatch[1] && /[+\-*/]/.test(mathMatch[1])) {
     try {
@@ -161,7 +331,7 @@ export function answerGeneralOrSpecificQuestion(query: string): string {
     } catch { /* arithmetic eval failed, fall through to knowledge base */ }
   }
 
-  // 2. Exact/Partial match against curated dataset
+  // 3. Exact/Partial match against curated knowledge dataset
   let bestEntry: KnowledgeEntry | null = null
   let maxScore = 0
 
@@ -182,19 +352,7 @@ export function answerGeneralOrSpecificQuestion(query: string): string {
     return bestEntry.response
   }
 
-  // 3. Conversational / Greetings / Day-to-day general knowledge synthesis
-  if (lowerQ.includes('hello') || lowerQ.includes('hi') || lowerQ.includes('hey') || lowerQ === 'namaste') {
-    return `👋 Hello! I am your **GAURDIAN Sovereign AI Assistant**.\n\nI am ready to help you with:\n• **Day-to-day productivity, everyday advice, recipes, and learning**\n• **Cyber fraud emergency support, 1930 Helpline workflows & scam prevention**\n• **Indian Laws (CrPC 91, BNS 2023, IT Act, RBI rules)**\n• **Software engineering, math problem solving, and technical queries**\n\nWhat would you like to explore or solve today?`
-  }
-
-  if (lowerQ.includes('who are you') || lowerQ.includes('what can you do') || lowerQ.includes('your name')) {
-    return `🤖 **About GAURDIAN Sovereign AI Assistant**:\n\nI am an advanced multi-domain AI intelligence agent built for the National Cyber Crime Reporting & Tactical Defense platform. I am trained on diverse datasets spanning:\n1. **Daily Life & General Knowledge**: Productivity, science, recipes, health basics, personal finance.\n2. **Cyber Defense & Anti-Fraud**: 1930 helpline workflows, UPI scam mitigation, fake digital arrest defense, bank hotlines.\n3. **Statutory Jurisprudence**: Section 91 CrPC, Section 94 BNSS, IT Act 2000, BNS 2023, RBI Zero Liability.\n4. **Forensic Tech**: Graph Neural Networks (GNN), Spatio-temporal ATM prediction, AES-256 cryptographic ledgers.\n\nAsk me any question in English, Hindi, or technical syntax!`
-  }
-
-  if (lowerQ.includes('thank') || lowerQ.includes('great') || lowerQ.includes('awesome') || lowerQ.includes('good job')) {
-    return `🙏 You are very welcome! It is my pleasure to assist you. If you have any further questions about daily tasks, cybersecurity, law, coding, or banking protocols, feel free to ask!`
-  }
-
+  // 4. Time, date, weather inquiries
   if (lowerQ.includes('weather') || lowerQ.includes('climate') || lowerQ.includes('rain')) {
     return `🌦️ **Meteorology & Atmosphere Knowledge**:\n\n• Weather is driven by atmospheric air pressure, temperature differentials, and moisture gradients.\n• For local real-time radar and forecasts, you can check the India Meteorological Department (IMD) at [mausam.imd.gov.in](https://mausam.imd.gov.in).\n• *Tip*: During monsoon seasons, cyber frauds surge through fake electricity disconnection SMS alerts. Never click links in unverified utility SMS messages!`
   }
@@ -204,6 +362,7 @@ export function answerGeneralOrSpecificQuestion(query: string): string {
     return `🕒 **Current Operational System Time**:\n\n• **Local Time**: ${now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST\n• **UTC Timestamp**: ${now.toISOString()}\n• **Status**: All CyberCell Grid Nodes & National Nodal API channels operating with nominal sub-second latency.`
   }
 
-  // 4. Intelligent Dynamic Fallback
+  // 5. Intelligent Dynamic Fallback
   return `💡 **Sovereign AI Knowledge Synthesis on "${q}"**:\n\nBased on multi-domain telemetry and generalized reasoning:\n\n1. **Core Concept & Overview**:\n   • Your inquiry regarding *${q}* touches upon general domain principles and operational protocols.\n\n2. **Actionable Insights**:\n   • If this relates to **digital safety or cyber fraud**, ensure zero sharing of OTPs/PINs and report immediately via **1930** or [cybercrime.gov.in](https://cybercrime.gov.in).\n   • If this is a **technical or analytical topic**, break the problem down into fundamental components and verify system inputs.\n   • If this is a **day-to-day query**, structured habits, active prioritization, and clear execution yield the best results.\n\n3. **Suggested Next Steps**:\n   • Would you like a step-by-step tutorial, legal citation, code example, or specific calculation on this topic? Let me know!`
 }
+

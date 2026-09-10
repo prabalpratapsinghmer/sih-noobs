@@ -60,6 +60,7 @@ export interface DemoState {
   currentStep: number
   isPlaying: boolean
   caseId: string
+  victimName: string
   amount: number
   allNodesFrozen: boolean
   patrolDispatched: boolean
@@ -84,6 +85,7 @@ export const useDemoStore = create<DemoState>((set) => ({
   currentStep: 1,
   isPlaying: false,
   caseId: 'CC-2026-F819',
+  victimName: 'Rohan Sharma',
   amount: 500000,
   allNodesFrozen: false,
   patrolDispatched: false,

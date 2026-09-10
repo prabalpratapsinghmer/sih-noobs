@@ -8,21 +8,30 @@ import { cn } from '@/lib/utils'
 
 export const Report: React.FC = () => {
   const { currentStage, caseId } = useDemoStore()
+  const intelligence = useCaseStore((state) => state.intelligence)
   const setIntelligence = useCaseStore((state) => state.setIntelligence)
   const [activeTab, setActiveTab] = useState<'wizard' | 'tracker'>(
     currentStage >= 2 ? 'tracker' : 'wizard'
   )
   const [activeCaseId, setActiveCaseId] = useState(caseId || 'CC-2026-F819')
   const [caseData, setCaseData] = useState({
-    name: 'Rohan Sharma',
+    name: intelligence?.victim_name || 'Rohan Sharma',
     phone: '9876543210',
-    amount: 500000,
+    amount: intelligence?.amount || 500000,
     fraudType: 'INVESTMENT_SCAM',
-    suspectUpi: 'nexus.invest@ybl',
+    suspectUpi: intelligence?.target_vpa || 'nexus.invest@ybl',
   })
 
   const handleSuccess = (newId: string, formData: any, response: any) => {
-    if (response.intelligence) setIntelligence(response.intelligence)
+    if (response.intelligence) {
+      setIntelligence(response.intelligence)
+    }
+    useDemoStore.setState({
+      caseId: newId,
+      victimName: formData.name,
+      amount: formData.amount,
+      currentStage: 2,
+    })
     setActiveCaseId(newId)
     setCaseData({
       name: formData.name,
